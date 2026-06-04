@@ -399,6 +399,16 @@ h3 {
   gap: 16px;
 }
 
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.value-card {
+  min-height: 320px;
+}
+
 .profile-card,
 .education-card {
   min-height: 300px;
@@ -928,6 +938,7 @@ li + li {
   .brand-project-header,
   .section-heading,
   .about-grid,
+  .value-grid,
   .card-grid.two,
   .detail-grid,
   .brand-project-grid,
