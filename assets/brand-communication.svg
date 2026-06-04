@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Brand and content positioning</title>
+  <desc id="desc">A stylized brand communication board with audience, messaging, and content blocks.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08101e"/>
+      <stop offset="0.55" stop-color="#17142b"/>
+      <stop offset="1" stop-color="#251525"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6fae"/>
+      <stop offset="1" stop-color="#ffd166"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <circle cx="498" cy="94" r="78" fill="#ff6fae" opacity="0.12"/>
+  <circle cx="156" cy="264" r="92" fill="#4de3ff" opacity="0.1"/>
+  <rect x="70" y="62" width="500" height="236" rx="18" fill="#ffffff" opacity="0.07" stroke="#ffffff" stroke-opacity="0.16"/>
+  <rect x="102" y="94" width="168" height="172" rx="14" fill="#06111f" opacity="0.68"/>
+  <rect x="300" y="94" width="238" height="48" rx="12" fill="#ffffff" opacity="0.1"/>
+  <rect x="300" y="162" width="108" height="104" rx="12" fill="#ffffff" opacity="0.1"/>
+  <rect x="430" y="162" width="108" height="104" rx="12" fill="#ffffff" opacity="0.1"/>
+  <circle cx="186" cy="154" r="38" fill="url(#brand)" opacity="0.88"/>
+  <path d="M164 208H236M150 230H222" stroke="#ffffff" stroke-opacity="0.44" stroke-width="10" stroke-linecap="round"/>
+  <path d="M322 118H442M322 186H386M322 210H370M452 186H516M452 210H500" stroke="#ffffff" stroke-opacity="0.44" stroke-width="9" stroke-linecap="round"/>
+  <path d="M148 154C166 130 205 130 224 154C207 178 168 178 148 154Z" fill="#06111f" opacity="0.82"/>
+  <circle cx="186" cy="154" r="8" fill="#75f7b5"/>
+</svg>

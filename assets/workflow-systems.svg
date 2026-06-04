@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Sales and marketing workflow systems</title>
+  <desc id="desc">A stylized automation workflow connecting CRM, campaign, follow-up, and reporting steps.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06111f"/>
+      <stop offset="0.5" stop-color="#0a1826"/>
+      <stop offset="1" stop-color="#10281f"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#75f7b5"/>
+      <stop offset="1" stop-color="#4de3ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <g fill="none" stroke="#4de3ff" stroke-opacity="0.22">
+    <path d="M112 112C214 70 268 152 342 118C431 78 486 130 540 96" stroke-width="2"/>
+    <path d="M98 244C188 196 262 258 340 218C425 174 492 230 548 190" stroke-width="2"/>
+  </g>
+  <g stroke="url(#flow)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M146 180H264"/>
+    <path d="M376 180H494"/>
+    <path d="M264 180C292 180 292 118 320 118S348 180 376 180"/>
+    <path d="M264 180C292 180 292 242 320 242S348 180 376 180"/>
+  </g>
+  <g fill="#ffffff" opacity="0.09" stroke="#ffffff" stroke-opacity="0.18">
+    <rect x="68" y="132" width="116" height="96" rx="16"/>
+    <rect x="262" y="70" width="116" height="96" rx="16"/>
+    <rect x="262" y="194" width="116" height="96" rx="16"/>
+    <rect x="456" y="132" width="116" height="96" rx="16"/>
+  </g>
+  <g fill="url(#flow)">
+    <circle cx="126" cy="180" r="14"/>
+    <circle cx="320" cy="118" r="14"/>
+    <circle cx="320" cy="242" r="14"/>
+    <circle cx="514" cy="180" r="14"/>
+  </g>
+  <g fill="#ffffff" opacity="0.5">
+    <rect x="92" y="156" width="68" height="9" rx="4"/>
+    <rect x="92" y="178" width="52" height="8" rx="4"/>
+    <rect x="286" y="94" width="68" height="9" rx="4"/>
+    <rect x="286" y="116" width="52" height="8" rx="4"/>
+    <rect x="286" y="218" width="68" height="9" rx="4"/>
+    <rect x="286" y="240" width="52" height="8" rx="4"/>
+    <rect x="480" y="156" width="68" height="9" rx="4"/>
+    <rect x="480" y="178" width="52" height="8" rx="4"/>
+  </g>
+</svg>
