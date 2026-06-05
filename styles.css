@@ -121,6 +121,13 @@ figcaption {
   box-shadow: 0 0 24px rgba(77, 227, 255, 0.54);
 }
 
+.brand-mark svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
 .nav-links {
   justify-content: flex-end;
   flex-wrap: wrap;
