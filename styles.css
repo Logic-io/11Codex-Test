@@ -84,6 +84,7 @@ figcaption {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 14px;
   width: min(1120px, calc(100% - 32px));
   margin: 16px auto 0;
   padding: 14px;
@@ -97,7 +98,8 @@ figcaption {
 }
 
 .brand,
-.nav-links {
+.nav-links,
+.language-switcher {
   display: flex;
   align-items: center;
 }
@@ -129,9 +131,11 @@ figcaption {
 }
 
 .nav-links {
+  flex: 1;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 8px;
+  min-width: 0;
 }
 
 .nav-links a {
@@ -158,6 +162,42 @@ figcaption {
   background: linear-gradient(135deg, rgba(77, 227, 255, 0.96), rgba(117, 247, 181, 0.96));
   color: #041016;
   box-shadow: 0 14px 32px rgba(77, 227, 255, 0.22);
+}
+
+.language-switcher {
+  flex: 0 0 auto;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.language-switcher button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  min-width: 44px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+  transform: translateY(-1px);
+  border-color: rgba(117, 247, 181, 0.48);
+  background: linear-gradient(135deg, rgba(77, 227, 255, 0.92), rgba(117, 247, 181, 0.92));
+  color: #041016;
 }
 
 main {
@@ -1089,6 +1129,10 @@ li + li {
     width: 100%;
   }
 
+  .language-switcher {
+    justify-self: center;
+  }
+
   .hero,
   .detail-hero,
   .brand-project-header,
@@ -1160,6 +1204,14 @@ li + li {
     padding: 0 10px;
     text-align: center;
     white-space: normal;
+  }
+
+  .language-switcher {
+    width: min(100%, 220px);
+  }
+
+  .language-switcher button {
+    flex: 1;
   }
 
   h1 {
