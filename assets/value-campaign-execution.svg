@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-labelledby="title desc">
+  <title id="title">Campaign execution</title>
+  <desc id="desc">A visual of campaign assets moving across planning, content, and retail activation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101c"/>
+      <stop offset="1" stop-color="#24152b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6fae"/>
+      <stop offset="1" stop-color="#ffd166"/>
+    </linearGradient>
+  <rect width="480" height="240" fill="url(#bg)"/>
+  <path d="M54 178C122 98 176 190 240 120C304 50 360 138 426 66" fill="none" stroke="#ff6fae" stroke-opacity="0.34" stroke-width="4"/>
+  <rect x="64" y="64" width="92" height="112" rx="14" fill="#ffffff" opacity="0.08" stroke="#ffffff" stroke-opacity="0.18"/>
+  <rect x="194" y="52" width="92" height="136" rx="14" fill="#ffffff" opacity="0.1" stroke="#ffffff" stroke-opacity="0.18"/>
+  <rect x="324" y="64" width="92" height="112" rx="14" fill="#ffffff" opacity="0.08" stroke="#ffffff" stroke-opacity="0.18"/>
+  <circle cx="110" cy="96" r="20" fill="url(#accent)" opacity="0.86"/>
+  <rect x="88" y="134" width="44" height="8" rx="4" fill="#ffffff" opacity="0.42"/>
+  <rect x="218" y="84" width="44" height="8" rx="4" fill="#ffd166" opacity="0.78"/>
+  <rect x="218" y="112" width="42" height="42" rx="8" fill="#ffffff" opacity="0.14"/>
+  <path d="M346 126H394M370 102V150" stroke="#4de3ff" stroke-width="7" stroke-linecap="round"/>
+</svg>

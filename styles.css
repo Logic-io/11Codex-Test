@@ -86,12 +86,14 @@ figcaption {
   justify-content: space-between;
   width: min(1120px, calc(100% - 32px));
   margin: 16px auto 0;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
+  padding: 14px;
+  border: 1px solid rgba(77, 227, 255, 0.24);
   border-radius: 8px;
-  background: rgba(6, 10, 20, 0.72);
+  background:
+    linear-gradient(135deg, rgba(77, 227, 255, 0.12), rgba(255, 111, 174, 0.1)),
+    rgba(6, 10, 20, 0.78);
   backdrop-filter: blur(18px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3), 0 0 28px rgba(77, 227, 255, 0.08);
 }
 
 .brand,
@@ -103,6 +105,7 @@ figcaption {
 .brand {
   gap: 10px;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .brand-mark {
@@ -119,21 +122,35 @@ figcaption {
 }
 
 .nav-links {
-  gap: 6px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .nav-links a {
-  padding: 9px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  color: var(--muted);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(117, 247, 181, 0.58);
+  background: linear-gradient(135deg, rgba(77, 227, 255, 0.96), rgba(117, 247, 181, 0.96));
+  color: #041016;
+  box-shadow: 0 14px 32px rgba(77, 227, 255, 0.22);
 }
 
 main {
@@ -407,6 +424,24 @@ h3 {
 
 .value-card {
   min-height: 320px;
+}
+
+.value-visual {
+  display: grid;
+  place-items: center;
+  height: 128px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.value-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile-card,
@@ -692,11 +727,119 @@ li + li {
   margin-top: 22px;
 }
 
+.brand-project-list-header {
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+
+.brand-project-list-header p:not(.project-type) {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.brand-project-dropdowns {
+  display: grid;
+  gap: 14px;
+}
+
+.brand-project-dropdown {
+  overflow: hidden;
+  border: 1px solid rgba(77, 227, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.brand-project-dropdown summary {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px 18px;
+  align-items: center;
+  padding: 18px 58px 18px 18px;
+  cursor: pointer;
+  list-style: none;
+  background:
+    linear-gradient(135deg, rgba(77, 227, 255, 0.16), rgba(117, 247, 181, 0.1)),
+    rgba(255, 255, 255, 0.04);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.brand-project-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.brand-project-dropdown summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgba(117, 247, 181, 0.42);
+  border-radius: 8px;
+  color: var(--green);
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.brand-project-dropdown[open] summary::after {
+  content: "-";
+}
+
+.brand-project-dropdown summary:hover {
+  background:
+    linear-gradient(135deg, rgba(77, 227, 255, 0.24), rgba(117, 247, 181, 0.14)),
+    rgba(255, 255, 255, 0.06);
+}
+
+.brand-project-dropdown summary strong {
+  color: var(--text);
+  font-size: clamp(1.18rem, 2.2vw, 1.75rem);
+  line-height: 1.16;
+}
+
+.brand-project-dropdown summary > span:last-child {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.dropdown-meta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(77, 227, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(77, 227, 255, 0.09);
+  color: var(--green);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand-project-content {
+  padding: 24px 18px 18px;
+}
+
 .brand-project-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
   gap: 24px;
   align-items: start;
+}
+
+.brand-project-header h3 {
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+  line-height: 1.08;
 }
 
 .brand-project-header p,
@@ -924,13 +1067,19 @@ li + li {
 
 @media (max-width: 920px) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
+    display: grid;
     gap: 12px;
+    align-items: center;
+    justify-items: stretch;
+  }
+
+  .brand {
+    justify-content: center;
   }
 
   .nav-links {
-    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
   }
 
   .hero,
@@ -973,12 +1122,37 @@ li + li {
   .project-badges {
     justify-content: flex-start;
   }
+
+  .brand-project-dropdown summary {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-project-dropdown summary > span:last-child {
+    text-align: left;
+  }
 }
 
 @media (max-width: 560px) {
   main,
   .site-header {
     width: min(100% - 22px, 1120px);
+  }
+
+  .site-header {
+    padding: 12px;
+  }
+
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .nav-links a {
+    min-height: 42px;
+    padding: 0 10px;
+    text-align: center;
+    white-space: normal;
   }
 
   h1 {
@@ -1000,11 +1174,19 @@ li + li {
     padding: 18px;
   }
 
+  .brand-project-content {
+    padding: 18px 12px 14px;
+  }
+
+  .brand-project-dropdown summary {
+    padding: 16px 52px 16px 14px;
+  }
+
   .metric-grid {
     grid-template-columns: 1fr;
   }
 
-  .nav-links a {
-    padding: 8px 9px;
+  .nav-links a:last-child {
+    grid-column: 1 / -1;
   }
 }
