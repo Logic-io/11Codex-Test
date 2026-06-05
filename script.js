@@ -12,6 +12,7 @@ const lightboxImage = lightbox ? lightbox.querySelector("img") : null;
 const lightboxCaption = lightbox ? lightbox.querySelector("figcaption") : null;
 const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
+const backToTop = document.querySelector(".back-to-top");
 const LANGUAGE_KEY = "portfolio-language";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
@@ -197,7 +198,8 @@ const zhTranslations = {
   "Store winner recognition and Dell product engagement.": "门店优胜表彰与 Dell 产品互动。",
   "Light-side and dark-side team activation setup.": "光明面与黑暗面团队激活布置。",
   "Training discussion around campaign material and customer engagement.": "围绕活动素材和客户互动进行培训讨论。",
-  "Close": "关闭"
+  "Close": "关闭",
+  "Top": "顶部"
 };
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
@@ -367,6 +369,17 @@ function updateActiveNav() {
   });
 }
 
+function updateBackToTop() {
+  if (!backToTop) return;
+  backToTop.classList.toggle("is-visible", window.scrollY > 420);
+}
+
+if (backToTop) {
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
 function openLightbox(item) {
   if (!lightbox || !lightboxImage || !lightboxCaption) return;
 
@@ -417,7 +430,10 @@ window.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", resizeCanvas);
-window.addEventListener("scroll", updateActiveNav, { passive: true });
+window.addEventListener("scroll", () => {
+  updateActiveNav();
+  updateBackToTop();
+}, { passive: true });
 window.addEventListener("pointermove", (event) => {
   pointer = { x: event.clientX, y: event.clientY, active: true };
 });
@@ -428,4 +444,5 @@ window.addEventListener("pointerleave", () => {
 initLanguageSwitcher();
 resizeCanvas();
 updateActiveNav();
+updateBackToTop();
 drawBackground();
