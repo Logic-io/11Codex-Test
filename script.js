@@ -26,7 +26,7 @@ const zhTranslations = {
   "Marketing / Sales / Automation": "市场营销 / 销售 / 自动化",
   "Also known as Yu Li": "中文名：李宇",
   "Marketing & Sales Specialist.": "市场营销与销售专员。",
-  "I help brands communicate clearly, support better buying decisions, and organize sales and marketing work with practical digital tools.": "我帮助品牌更清晰地沟通，支持客户做出更好的购买决策，并用实用的数字工具整理销售与营销工作。",
+  "Helping brands communicate clearly, support better buying decisions, and organize sales and marketing work with practical digital tools.": "帮助品牌更清晰地沟通，支持客户做出更好的购买决策，并用实用的数字工具整理销售与营销工作。",
   "View Experience": "查看经历",
   "Contact Me": "联系我",
   "At a Glance": "概览",
