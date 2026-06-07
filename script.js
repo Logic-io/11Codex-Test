@@ -13,6 +13,16 @@ const lightboxCaption = lightbox ? lightbox.querySelector("figcaption") : null;
 const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
+const signalGame = document.querySelector("#signalGame");
+const gameStart = signalGame ? signalGame.querySelector("[data-game-start]") : null;
+const gameReset = signalGame ? signalGame.querySelector("[data-game-reset]") : null;
+const gameCanvas = signalGame ? signalGame.querySelector("[data-game-canvas]") : null;
+const gameCtx = gameCanvas ? gameCanvas.getContext("2d") : null;
+const gameLeads = signalGame ? signalGame.querySelector("[data-game-leads]") : null;
+const gameScore = signalGame ? signalGame.querySelector("[data-game-score]") : null;
+const gameTime = signalGame ? signalGame.querySelector("[data-game-time]") : null;
+const gameCombo = signalGame ? signalGame.querySelector("[data-game-combo]") : null;
+const gameStatus = signalGame ? signalGame.querySelector("[data-game-status]") : null;
 const LANGUAGE_KEY = "portfolio-language";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
@@ -29,6 +39,17 @@ const zhTranslations = {
   "Helping brands communicate clearly, support better buying decisions, and organize sales and marketing work with practical digital tools.": "帮助品牌更清晰地沟通，支持客户做出更好的购买决策，并用实用的数字工具整理销售与营销工作。",
   "View Experience": "查看经历",
   "Contact Me": "联系我",
+  "Interactive": "互动",
+  "Pipeline Dash": "线索冲刺",
+  "Portfolio Game": "作品集小游戏",
+  "Build the cleanest lead pipeline.": "打造更清晰的潜在线索管道。",
+  "Qualified leads, clean follow-ups, less noise.": "优质线索、清晰跟进、更少噪音。",
+  "Start Round": "开始回合",
+  "Reset Round": "重置回合",
+  "Leads": "线索",
+  "Score": "得分",
+  "Time": "时间",
+  "Combo": "连击",
   "At a Glance": "概览",
   "Portfolio Active": "作品集已上线",
   "Combined Experience": "综合经验",
@@ -149,7 +170,9 @@ const zhTranslations = {
   "Brand and content communication shaped by customer psychology, product positioning, market research, and bilingual audience understanding.": "基于客户心理、产品定位、市场研究和双语受众理解形成的品牌与内容沟通。",
   "Let's connect around marketing, sales, retail technology, brand ambassador, and workflow-focused roles.": "欢迎围绕市场营销、销售、零售科技、品牌大使和工作流相关岗位交流。",
   "I am interested in conversations where customer insight, product communication, and practical digital tools can create measurable business value.": "我期待探讨如何通过客户洞察、产品沟通和实用数字工具创造可衡量的商业价值。",
-  "Contact available upon request": "联系方式可按需提供",
+  "Website: www.yuryli.com": "个人网站：www.yuryli.com",
+  "Email: yury.li@outlook.com": "邮箱：yury.li@outlook.com",
+  "Phone: 548-388-5486": "电话：548-388-5486",
   "Design-focused customer consultation built around Canva design, visual presentation, aesthetic judgment, space planning, lifestyle needs, customer trust, practical buying advice, and clear follow-up communication.": "以设计为核心的客户咨询，结合 Canva 设计、视觉呈现、审美判断、空间规划、生活方式需求、客户信任、实用购买建议和清晰跟进沟通。",
   "Design Strengths": "设计优势",
   "Create clean and practical visual materials with Canva for product, campaign, and customer-facing communication.": "使用 Canva 制作干净实用的视觉素材，用于产品、活动和客户沟通。",
@@ -213,9 +236,59 @@ let width = 0;
 let height = 0;
 let particles = [];
 let pointer = { x: 0, y: 0, active: false };
+const pipelineLabels = {
+  en: {
+    lead: "Lead",
+    followUp: "Follow-up",
+    noise: "Noise"
+  },
+  zh: {
+    lead: "线索",
+    followUp: "跟进",
+    noise: "噪音"
+  }
+};
+const pipelineMessages = {
+  en: {
+    ready: "Ready when you are.",
+    started: "Pipeline sprint started.",
+    lead: "Qualified lead captured.",
+    followUp: "Follow-up secured.",
+    noise: "Noise slowed the pipeline.",
+    complete: "Round complete. Clean pipeline built.",
+    completeLow: "Round complete. One more sprint can beat it."
+  },
+  zh: {
+    ready: "准备好了就开始。",
+    started: "线索冲刺开始。",
+    lead: "捕捉到优质线索。",
+    followUp: "完成一次清晰跟进。",
+    noise: "噪音拖慢了管道。",
+    complete: "回合完成，线索管道很干净。",
+    completeLow: "回合完成，再冲一次可以更高分。"
+  }
+};
+const gameState = {
+  running: false,
+  animationId: null,
+  lastFrame: 0,
+  spawnDelay: 0,
+  score: 0,
+  time: 30,
+  leads: 0,
+  combo: 0,
+  playerX: 0.5,
+  items: [],
+  status: "ready",
+  timerId: null
+};
 
 function normalizeText(text) {
   return text.trim().replace(/\s+/g, " ");
+}
+
+function getCurrentLanguage() {
+  return document.documentElement.lang === "zh-Hans" ? "zh" : "en";
 }
 
 function getSavedLanguage() {
@@ -244,6 +317,7 @@ function collectTranslatableElements() {
     )
   ].filter((element) => {
     if (element.closest(".language-switcher")) return false;
+    if (element.closest("[data-no-i18n]")) return false;
     return element.children.length === 0 && normalizeText(element.textContent);
   });
 }
@@ -275,6 +349,8 @@ function applyLanguage(language) {
     button.classList.toggle("active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
+
+  refreshSignalGameLanguage();
 }
 
 function initLanguageSwitcher() {
@@ -380,6 +456,288 @@ if (backToTop) {
   });
 }
 
+function setGameStatus(status) {
+  gameState.status = status;
+  if (gameStatus) {
+    gameStatus.textContent = pipelineMessages[getCurrentLanguage()][status] || pipelineMessages.en.ready;
+  }
+}
+
+function getPipelineSize() {
+  return {
+    width: gameCanvas ? gameCanvas.width : 720,
+    height: gameCanvas ? gameCanvas.height : 420
+  };
+}
+
+function drawRoundedRect(context, x, y, rectWidth, rectHeight, radius) {
+  context.beginPath();
+  context.moveTo(x + radius, y);
+  context.lineTo(x + rectWidth - radius, y);
+  context.quadraticCurveTo(x + rectWidth, y, x + rectWidth, y + radius);
+  context.lineTo(x + rectWidth, y + rectHeight - radius);
+  context.quadraticCurveTo(x + rectWidth, y + rectHeight, x + rectWidth - radius, y + rectHeight);
+  context.lineTo(x + radius, y + rectHeight);
+  context.quadraticCurveTo(x, y + rectHeight, x, y + rectHeight - radius);
+  context.lineTo(x, y + radius);
+  context.quadraticCurveTo(x, y, x + radius, y);
+  context.closePath();
+}
+
+function updateSignalGameDisplay() {
+  if (!signalGame) return;
+  if (gameLeads) gameLeads.textContent = String(gameState.leads);
+  if (gameScore) gameScore.textContent = String(gameState.score);
+  if (gameTime) gameTime.textContent = `${gameState.time}s`;
+  if (gameCombo) gameCombo.textContent = String(gameState.combo);
+  setGameStatus(gameState.status);
+}
+
+function refreshSignalGameLanguage() {
+  if (!signalGame) return;
+  updateSignalGameDisplay();
+  drawPipelineGame();
+}
+
+function resizePipelineGame() {
+  if (!gameCanvas || !gameCtx) return;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const bounds = gameCanvas.getBoundingClientRect();
+  const cssWidth = Math.max(320, Math.round(bounds.width || 720));
+  const cssHeight = Math.round(cssWidth * 7 / 12);
+  gameCanvas.width = cssWidth * ratio;
+  gameCanvas.height = cssHeight * ratio;
+  gameCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  gameCanvas.dataset.cssWidth = String(cssWidth);
+  gameCanvas.dataset.cssHeight = String(cssHeight);
+  drawPipelineGame();
+}
+
+function getPipelineBounds() {
+  return {
+    width: Number(gameCanvas?.dataset.cssWidth) || 720,
+    height: Number(gameCanvas?.dataset.cssHeight) || 420
+  };
+}
+
+function stopSignalTimers() {
+  window.clearInterval(gameState.timerId);
+  window.cancelAnimationFrame(gameState.animationId);
+  gameState.timerId = null;
+  gameState.animationId = null;
+}
+
+function createPipelineItem() {
+  const { width } = getPipelineBounds();
+  const type = Math.random() > 0.24 ? (Math.random() > 0.35 ? "lead" : "followUp") : "noise";
+  const size = type === "noise" ? 24 : 28;
+  const speed = type === "noise" ? 150 + Math.random() * 70 : 120 + Math.random() * 90;
+
+  return {
+    type,
+    x: 28 + Math.random() * Math.max(1, width - 56),
+    y: -36,
+    size,
+    speed,
+    spin: Math.random() * Math.PI
+  };
+}
+
+function drawPipelineItem(item) {
+  const labels = pipelineLabels[getCurrentLanguage()];
+  gameCtx.save();
+  gameCtx.translate(item.x, item.y);
+  gameCtx.rotate(item.spin);
+
+  if (item.type === "noise") {
+    gameCtx.fillStyle = "rgba(255, 111, 174, 0.18)";
+    gameCtx.strokeStyle = "rgba(255, 111, 174, 0.86)";
+  } else if (item.type === "followUp") {
+    gameCtx.fillStyle = "rgba(255, 209, 102, 0.17)";
+    gameCtx.strokeStyle = "rgba(255, 209, 102, 0.9)";
+  } else {
+    gameCtx.fillStyle = "rgba(117, 247, 181, 0.17)";
+    gameCtx.strokeStyle = "rgba(117, 247, 181, 0.9)";
+  }
+
+  drawRoundedRect(gameCtx, -item.size, -item.size * 0.58, item.size * 2, item.size * 1.16, 8);
+  gameCtx.fill();
+  gameCtx.lineWidth = 2;
+  gameCtx.stroke();
+  gameCtx.fillStyle = "#f7fbff";
+  gameCtx.font = "800 11px Segoe UI, Arial, sans-serif";
+  gameCtx.textAlign = "center";
+  gameCtx.textBaseline = "middle";
+  gameCtx.fillText(labels[item.type], 0, 0);
+  gameCtx.restore();
+}
+
+function drawPipelineGame() {
+  if (!gameCanvas || !gameCtx) return;
+  const { width, height } = getPipelineBounds();
+  gameCtx.clearRect(0, 0, width, height);
+
+  const gradient = gameCtx.createLinearGradient(0, 0, 0, height);
+  gradient.addColorStop(0, "rgba(77, 227, 255, 0.08)");
+  gradient.addColorStop(1, "rgba(3, 7, 16, 0.72)");
+  gameCtx.fillStyle = gradient;
+  gameCtx.fillRect(0, 0, width, height);
+
+  gameCtx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+  gameCtx.lineWidth = 1;
+  for (let line = 1; line < 5; line += 1) {
+    const x = width * line / 5;
+    gameCtx.beginPath();
+    gameCtx.moveTo(x, 0);
+    gameCtx.lineTo(x, height);
+    gameCtx.stroke();
+  }
+
+  gameState.items.forEach(drawPipelineItem);
+
+  const playerWidth = Math.max(72, width * 0.18);
+  const playerHeight = 16;
+  const playerX = gameState.playerX * width;
+  const playerY = height - 38;
+  const left = Math.max(12, Math.min(width - playerWidth - 12, playerX - playerWidth / 2));
+
+  gameCtx.fillStyle = "rgba(77, 227, 255, 0.16)";
+  drawRoundedRect(gameCtx, left - 10, playerY - 9, playerWidth + 20, playerHeight + 18, 12);
+  gameCtx.fill();
+  gameCtx.fillStyle = "rgba(77, 227, 255, 0.94)";
+  drawRoundedRect(gameCtx, left, playerY, playerWidth, playerHeight, 8);
+  gameCtx.fill();
+  gameCtx.fillStyle = "#041016";
+  gameCtx.font = "900 12px Segoe UI, Arial, sans-serif";
+  gameCtx.textAlign = "center";
+  gameCtx.textBaseline = "middle";
+  gameCtx.fillText("PIPELINE", left + playerWidth / 2, playerY + playerHeight / 2);
+}
+
+function capturePipelineItem(item) {
+  if (item.type === "noise") {
+    gameState.score = Math.max(0, gameState.score - 8);
+    gameState.combo = 0;
+    gameState.status = "noise";
+    return;
+  }
+
+  const value = item.type === "followUp" ? 16 : 10;
+  gameState.leads += item.type === "lead" ? 1 : 0;
+  gameState.combo += 1;
+  gameState.score += value + Math.min(gameState.combo, 8);
+  gameState.status = item.type;
+}
+
+function updatePipelineGame(timestamp) {
+  if (!gameState.running) return;
+  const { width, height } = getPipelineBounds();
+  const delta = Math.min(0.04, (timestamp - gameState.lastFrame) / 1000 || 0.016);
+  gameState.lastFrame = timestamp;
+  gameState.spawnDelay -= delta;
+
+  if (gameState.spawnDelay <= 0) {
+    gameState.items.push(createPipelineItem());
+    gameState.spawnDelay = Math.max(0.34, 0.78 - gameState.score / 650);
+  }
+
+  const playerWidth = Math.max(72, width * 0.18);
+  const playerY = height - 38;
+  const playerLeft = Math.max(12, Math.min(width - playerWidth - 12, gameState.playerX * width - playerWidth / 2));
+  const playerRight = playerLeft + playerWidth;
+
+  gameState.items = gameState.items.filter((item) => {
+    item.y += item.speed * delta;
+    item.spin += delta * 1.4;
+
+    const isInCatchZone = item.y + item.size * 0.58 >= playerY
+      && item.y - item.size * 0.58 <= playerY + 18
+      && item.x >= playerLeft
+      && item.x <= playerRight;
+
+    if (isInCatchZone) {
+      capturePipelineItem(item);
+      updateSignalGameDisplay();
+      return false;
+    }
+
+    if (item.y > height + 46) {
+      if (item.type !== "noise") {
+        gameState.combo = 0;
+      }
+      return false;
+    }
+
+    return true;
+  });
+
+  drawPipelineGame();
+  gameState.animationId = window.requestAnimationFrame(updatePipelineGame);
+}
+
+function endSignalGame() {
+  stopSignalTimers();
+  gameState.running = false;
+  gameState.status = gameState.score >= 90 ? "complete" : "completeLow";
+  updateSignalGameDisplay();
+  drawPipelineGame();
+}
+
+function resetSignalGame() {
+  stopSignalTimers();
+  gameState.running = false;
+  gameState.lastFrame = 0;
+  gameState.spawnDelay = 0;
+  gameState.score = 0;
+  gameState.time = 30;
+  gameState.leads = 0;
+  gameState.combo = 0;
+  gameState.playerX = 0.5;
+  gameState.items = [];
+  gameState.status = "ready";
+  updateSignalGameDisplay();
+  drawPipelineGame();
+}
+
+function startSignalGame() {
+  resetSignalGame();
+  gameState.running = true;
+  gameState.status = "started";
+  updateSignalGameDisplay();
+  gameState.lastFrame = performance.now();
+  gameState.animationId = window.requestAnimationFrame(updatePipelineGame);
+
+  gameState.timerId = window.setInterval(() => {
+    gameState.time -= 1;
+    if (gameState.time <= 0) {
+      gameState.time = 0;
+      endSignalGame();
+      return;
+    }
+    updateSignalGameDisplay();
+  }, 1000);
+}
+
+function movePipelinePlayer(clientX) {
+  if (!gameCanvas) return;
+  const bounds = gameCanvas.getBoundingClientRect();
+  gameState.playerX = Math.max(0.06, Math.min(0.94, (clientX - bounds.left) / bounds.width));
+  drawPipelineGame();
+}
+
+function initSignalGame() {
+  if (!signalGame || !gameCanvas) return;
+  resizePipelineGame();
+  if (gameStart) gameStart.addEventListener("click", startSignalGame);
+  if (gameReset) gameReset.addEventListener("click", resetSignalGame);
+  gameCanvas.addEventListener("pointermove", (event) => movePipelinePlayer(event.clientX));
+  gameCanvas.addEventListener("pointerdown", (event) => {
+    movePipelinePlayer(event.clientX);
+    if (!gameState.running) startSignalGame();
+  });
+  resetSignalGame();
+}
+
 function openLightbox(item) {
   if (!lightbox || !lightboxImage || !lightboxCaption) return;
 
@@ -427,9 +785,23 @@ if (lightboxClose) {
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
+  if (!signalGame) return;
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    event.preventDefault();
+    const direction = event.key === "ArrowLeft" ? -1 : 1;
+    gameState.playerX = Math.max(0.06, Math.min(0.94, gameState.playerX + direction * 0.07));
+    drawPipelineGame();
+  }
+  if (event.key === " " && document.activeElement === gameCanvas) {
+    event.preventDefault();
+    if (!gameState.running) startSignalGame();
+  }
 });
 
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  resizePipelineGame();
+});
 window.addEventListener("scroll", () => {
   updateActiveNav();
   updateBackToTop();
@@ -442,6 +814,7 @@ window.addEventListener("pointerleave", () => {
 });
 
 initLanguageSwitcher();
+initSignalGame();
 resizeCanvas();
 updateActiveNav();
 updateBackToTop();

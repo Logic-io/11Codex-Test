@@ -76,6 +76,48 @@
       </aside>
     </section>
 
+    <section class="section play-section" aria-labelledby="signal-game-title">
+      <div class="section-heading">
+        <p class="eyebrow">Interactive</p>
+        <h2 id="signal-game-title">Pipeline Dash</h2>
+      </div>
+      <div class="signal-game glass-panel" id="signalGame">
+        <div class="signal-game-copy">
+          <p class="project-type">Portfolio Game</p>
+          <h3>Build the cleanest lead pipeline.</h3>
+          <p>
+            Qualified leads, clean follow-ups, less noise.
+          </p>
+          <div class="game-actions">
+            <button class="button primary" type="button" data-game-start>Start Round</button>
+            <button class="button secondary" type="button" data-game-reset>Reset Round</button>
+          </div>
+        </div>
+        <div class="signal-game-console">
+          <div class="game-metrics">
+            <div>
+              <span>Leads</span>
+              <strong data-game-leads data-no-i18n>0</strong>
+            </div>
+            <div>
+              <span>Score</span>
+              <strong data-game-score data-no-i18n>0</strong>
+            </div>
+            <div>
+              <span>Time</span>
+              <strong data-game-time data-no-i18n>30s</strong>
+            </div>
+            <div>
+              <span>Combo</span>
+              <strong data-game-combo data-no-i18n>0</strong>
+            </div>
+          </div>
+          <canvas class="pipeline-canvas" width="720" height="420" tabindex="0" data-game-canvas aria-label="Pipeline Dash game canvas"></canvas>
+          <p class="game-status" data-game-status data-no-i18n>Ready when you are.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section about-section" id="about">
       <div class="section-heading">
         <p class="eyebrow">About</p>
@@ -385,7 +427,11 @@
           I am interested in conversations where customer insight, product communication, and practical digital tools can create measurable business value.
         </p>
       </div>
-      <span class="contact-note">Contact available upon request</span>
+      <div class="contact-links" aria-label="Contact details">
+        <a class="contact-note" href="https://www.yuryli.com" target="_blank" rel="noopener">Website: www.yuryli.com</a>
+        <a class="contact-note" href="mailto:yury.li@outlook.com">Email: yury.li@outlook.com</a>
+        <a class="contact-note" href="tel:+15483885486">Phone: 548-388-5486</a>
+      </div>
     </section>
   </main>
 
