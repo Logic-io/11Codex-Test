@@ -13,6 +13,7 @@ const lightboxCaption = lightbox ? lightbox.querySelector("figcaption") : null;
 const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
+const siteHeader = document.querySelector(".site-header");
 const LANGUAGE_KEY = "portfolio-language";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
@@ -214,6 +215,11 @@ let width = 0;
 let height = 0;
 let particles = [];
 let pointer = { x: 0, y: 0, active: false };
+let lastScrollY = window.scrollY;
+
+function isMobileHeader() {
+  return window.matchMedia("(max-width: 760px)").matches;
+}
 
 function normalizeText(text) {
   return text.trim().replace(/\s+/g, " ");
@@ -381,6 +387,29 @@ function updateBackToTop() {
   backToTop.classList.toggle("is-visible", window.scrollY > 420);
 }
 
+function updateMobileHeaderVisibility() {
+  if (!siteHeader) return;
+
+  const currentScrollY = Math.max(window.scrollY, 0);
+
+  if (!isMobileHeader()) {
+    siteHeader.classList.remove("is-hidden");
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  const scrollDelta = currentScrollY - lastScrollY;
+  if (Math.abs(scrollDelta) < 8) return;
+
+  if (currentScrollY < 90 || scrollDelta < 0) {
+    siteHeader.classList.remove("is-hidden");
+  } else {
+    siteHeader.classList.add("is-hidden");
+  }
+
+  lastScrollY = currentScrollY;
+}
+
 if (backToTop) {
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -438,10 +467,12 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("resize", () => {
   resizeCanvas();
+  updateMobileHeaderVisibility();
 });
 window.addEventListener("scroll", () => {
   updateActiveNav();
   updateBackToTop();
+  updateMobileHeaderVisibility();
 }, { passive: true });
 window.addEventListener("pointermove", (event) => {
   pointer = { x: event.clientX, y: event.clientY, active: true };
@@ -454,4 +485,5 @@ initLanguageSwitcher();
 resizeCanvas();
 updateActiveNav();
 updateBackToTop();
+updateMobileHeaderVisibility();
 drawBackground();
