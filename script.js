@@ -84,7 +84,7 @@ const zhTranslations = {
   "Cultivated B2B relationships with in-store management teams to support promotional visibility and cross-selling opportunities.": "维护与店内管理团队的 B2B 关系，支持促销曝光和交叉销售机会。",
   "Business Developer": "业务拓展",
   "Created and executed digital marketing campaigns across social media and listing platforms, increasing inbound inquiries by an average of 30%.": "在社交媒体和列表平台创建并执行数字营销活动，使入站咨询平均增长 30%。",
-  "Researched North American rental markets and developed 200+ tailored property listings for 500+ international students.": "研究北美租赁市场，为 500 多名国际学生制作 200 多个定制房源列表。",
+  "Researched North American rental markets and developed 200+ tailored property listings for 500+ total international student clients.": "研究北美租赁市场，为 500 多名国际学生客户制作 200 多个定制房源列表。",
   "Established partnerships with property managers and real estate agents to expand service reach and market presence.": "与物业经理和房地产经纪人建立合作，扩大服务覆盖和市场存在感。",
   "Worked across marketing, sales, and client-facing tasks in a cross-cultural business environment.": "在跨文化商业环境中承担营销、销售和客户沟通任务。",
   "Oct 2019 - Apr 2021": "2019 年 10 月至 2021 年 4 月",
