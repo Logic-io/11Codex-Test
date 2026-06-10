@@ -276,6 +276,15 @@ h3 {
   line-height: 1.65;
 }
 
+.hero-credibility {
+  max-width: 720px;
+  margin: 18px 0 0;
+  color: var(--green);
+  font-size: 0.86rem;
+  font-weight: 750;
+  line-height: 1.6;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -444,6 +453,37 @@ h3 {
 
 .section {
   padding: 72px 0;
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin: -24px 0 54px;
+  overflow: hidden;
+}
+
+.proof-strip article {
+  min-height: 150px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.proof-strip span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.proof-strip p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .section-heading {
@@ -762,9 +802,28 @@ li + li {
   min-height: auto;
 }
 
+.detail-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.12rem;
+  line-height: 1.25;
+}
+
+.detail-card p {
+  color: var(--muted);
+  line-height: 1.68;
+}
+
 .detail-card ul {
   color: var(--muted);
   line-height: 1.65;
+}
+
+.case-study-grid {
+  align-items: stretch;
+}
+
+.proof-card {
+  grid-column: 1 / -1;
 }
 
 .brand-project {
@@ -1268,6 +1327,7 @@ li + li {
   .section-heading,
   .about-grid,
   .value-grid,
+  .proof-strip,
   .card-grid.two,
   .detail-grid,
   .brand-project-grid,
@@ -1302,6 +1362,14 @@ li + li {
 
   .hero-actions {
     margin-top: 26px;
+  }
+
+  .proof-strip {
+    margin: 0 0 44px;
+  }
+
+  .proof-strip article {
+    min-height: auto;
   }
 
   .section {
@@ -1424,6 +1492,10 @@ li + li {
   .hero-text {
     font-size: 0.96rem;
     line-height: 1.6;
+  }
+
+  .hero-credibility {
+    font-size: 0.8rem;
   }
 
   .hero {
