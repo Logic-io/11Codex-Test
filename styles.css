@@ -657,6 +657,30 @@ h3 {
   filter: blur(0);
 }
 
+.scroll-reveal.is-below {
+  --reveal-y: 46px;
+  opacity: 0;
+  scale: 0.982;
+  filter: blur(18px);
+}
+
+.scroll-reveal.is-above {
+  --reveal-y: -36px;
+  opacity: 0;
+  scale: 1.012;
+  filter: blur(12px);
+}
+
+body.scrolling-up .scroll-reveal {
+  transition-duration: 760ms;
+  transition-timing-function: cubic-bezier(0.2, 0.82, 0.2, 1);
+}
+
+body.scrolling-down .scroll-reveal {
+  transition-duration: 940ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .section-heading.scroll-reveal,
 .detail-copy.scroll-reveal,
 .hero-copy.scroll-reveal {
@@ -684,6 +708,42 @@ h3 {
 .scroll-reveal.reveal-right {
   --reveal-x: 34px;
   --reveal-y: 18px;
+}
+
+.scroll-reveal.reveal-left.is-above,
+.scroll-reveal.reveal-right.is-above {
+  --reveal-x: 0px;
+  --reveal-y: -34px;
+}
+
+.scroll-reveal.reveal-left.is-below {
+  --reveal-x: -30px;
+  --reveal-y: 34px;
+}
+
+.scroll-reveal.reveal-right.is-below {
+  --reveal-x: 30px;
+  --reveal-y: 34px;
+}
+
+.section-heading.scroll-reveal.is-below,
+.detail-copy.scroll-reveal.is-below,
+.hero-copy.scroll-reveal.is-below,
+.scroll-reveal.reveal-soft.is-below {
+  --reveal-y: 36px;
+  opacity: 0;
+  scale: 0.988;
+  filter: blur(14px);
+}
+
+.section-heading.scroll-reveal.is-above,
+.detail-copy.scroll-reveal.is-above,
+.hero-copy.scroll-reveal.is-above,
+.scroll-reveal.reveal-soft.is-above {
+  --reveal-y: -28px;
+  opacity: 0;
+  scale: 1.006;
+  filter: blur(10px);
 }
 
 .scroll-reveal.reveal-soft.is-visible,

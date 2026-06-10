@@ -212,6 +212,8 @@ let particles = [];
 let pointer = { x: 0, y: 0, active: false };
 let lastScrollY = window.scrollY;
 let parallaxFrame = null;
+let directionScrollY = window.scrollY;
+let currentScrollDirection = "down";
 
 function isMobileHeader() {
   return window.matchMedia("(max-width: 760px)").matches;
@@ -349,19 +351,56 @@ function setupScrollAnimations() {
     return;
   }
 
+  revealItems.forEach((element) => updateRevealPositionState(element));
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        entry.target.classList.remove("is-above", "is-below");
+      } else {
+        entry.target.classList.remove("is-visible");
+        updateRevealPositionState(entry.target);
       }
     });
   }, {
-    rootMargin: "0px 0px -12% 0px",
-    threshold: 0.16
+    rootMargin: "-8% 0px -10% 0px",
+    threshold: [0, 0.12, 0.28]
   });
 
   revealItems.forEach((element) => observer.observe(element));
+}
+
+function updateRevealPositionState(element) {
+  const rect = element.getBoundingClientRect();
+  const isAbove = rect.bottom < window.innerHeight * 0.22;
+  const isBelow = rect.top > window.innerHeight * 0.78;
+
+  element.classList.toggle("is-above", isAbove);
+  element.classList.toggle("is-below", !isAbove && isBelow);
+
+  if (!isAbove && !isBelow && rect.top < window.innerHeight && rect.bottom > 0) {
+    element.classList.add("is-visible");
+    element.classList.remove("is-above", "is-below");
+  }
+}
+
+function updateScrollDirection() {
+  const nextScrollY = Math.max(window.scrollY, 0);
+  const delta = nextScrollY - directionScrollY;
+
+  if (Math.abs(delta) < 4) return;
+
+  currentScrollDirection = delta > 0 ? "down" : "up";
+  document.body.classList.toggle("scrolling-down", currentScrollDirection === "down");
+  document.body.classList.toggle("scrolling-up", currentScrollDirection === "up");
+  directionScrollY = nextScrollY;
+
+  if (motionQuery.matches) return;
+
+  document.querySelectorAll(".scroll-reveal:not(.is-visible)").forEach((element) => {
+    updateRevealPositionState(element);
+  });
 }
 
 function updateScrollParallax() {
@@ -654,6 +693,7 @@ window.addEventListener("resize", () => {
   requestScrollParallaxUpdate();
 });
 window.addEventListener("scroll", () => {
+  updateScrollDirection();
   updateActiveNav();
   updateBackToTop();
   updateMobileHeaderVisibility();
@@ -667,6 +707,7 @@ window.addEventListener("pointerleave", () => {
 });
 
 initLanguageSwitcher();
+document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
 updateActiveNav();
