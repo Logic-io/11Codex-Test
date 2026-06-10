@@ -198,6 +198,169 @@ const zhTranslations = {
   "Close": "关闭",
   "Top": "顶部"
 };
+
+Object.assign(zhTranslations, {
+  "Yury Li": "Yury Li",
+  "Yury Li | Marketing, Sales & AI Workflow Specialist": "Yury Li | 市场、销售与 AI 工作流专员",
+  "Marketing / Sales / AI Workflow": "市场营销 / 销售 / AI 工作流",
+  "Marketing, Sales & AI Workflow Specialist": "市场、销售与 AI 工作流专员",
+  "I help retail and product-focused brands turn customer conversations into clearer sales communication, stronger product presentation, and practical marketing workflows.": "我帮助零售和产品型品牌，把真实客户沟通转化为更清晰的销售话术、更有说服力的产品呈现，以及更实用的营销工作流。",
+  "Based in Alberta, Canada | English / Mandarin | Retail Technology | Product Communication | Workflow Tools": "加拿大阿尔伯塔 | 英语 / 普通话 | 零售科技 | 产品沟通 | 工作流工具",
+  "View My Work": "查看作品",
+  "AI Workflows": "AI 工作流",
+  "5+ years": "5 年以上",
+  "Combined marketing, sales, and customer-facing experience.": "市场营销、销售与客户沟通相关综合经验。",
+  "Bilingual communication for cross-cultural customer and team settings.": "适用于跨文化客户沟通与团队协作的英中双语能力。",
+  "Retail + Product": "零售 + 产品",
+  "Experience across retail technology, furniture, kitchen design, and financial products.": "覆盖零售科技、家具、厨房设计与金融产品的经验。",
+  "200+ / 500+": "200+ / 500+",
+  "200+ tailored property listings developed for 500+ total international student clients.": "为 500+ 名国际学生客户整理并制作 200+ 个定制房源方案。",
+  "30%": "30%",
+  "Average increase in inbound inquiries from digital marketing campaigns.": "数字营销活动带来的平均入站咨询增长。",
+  "I am not only a salesperson and not only a marketing assistant. My strength is connecting the two: listening to real customer questions, understanding objections and comparison points, then turning that insight into clearer product communication and follow-up.": "我不只是销售，也不只是市场助理。我的优势在于把两者连接起来：倾听真实客户问题，理解顾虑和比较点，再把这些洞察转化为更清晰的产品沟通和后续跟进。",
+  "Across retail technology, furniture, kitchen design, financial products, and housing support, I have worked close to the customer while also supporting content, campaigns, CRM updates, website improvements, and AI-assisted workflow ideas.": "在零售科技、家具、厨房设计、金融产品和住房支持等场景中，我既贴近客户一线，也参与内容、活动、CRM 更新、网站优化和 AI 辅助工作流构思。",
+  "Turn product details, objections, and comparison points into customer-friendly language that supports confident buying decisions.": "将产品细节、客户顾虑和对比点转化为客户容易理解的语言，帮助客户更有信心地做购买决策。",
+  "Coordinate social media, event, in-store, and brand materials so product stories stay consistent across customer touchpoints.": "协调社交媒体、活动、店内和品牌素材，让产品叙事在不同客户触点保持一致。",
+  "Research customer needs, platform behavior, and competitive options to improve listings, content, positioning, and sales conversations.": "研究客户需求、平台行为和竞品选择，用于优化列表、内容、定位和销售沟通。",
+  "Digital Workflow Tools": "数字工作流工具",
+  "Use Canva, Shopify, Hootsuite, 20-20 Design, ERP systems, CRM workflows, and AI tools as practical business support systems.": "将 Canva、Shopify、Hootsuite、20-20 Design、ERP、CRM 工作流和 AI 工具作为实际业务支持系统使用。",
+  "Core skills across marketing, customer consultation, retail technology, and workflow tools.": "覆盖市场营销、客户咨询、零售科技和工作流工具的核心能力。",
+  "Marketing & Brand Communication": "市场与品牌沟通",
+  "Retail Technology & Product Knowledge": "零售科技与产品知识",
+  "Digital Tools & Workflow Systems": "数字工具与工作流系统",
+  "Bilingual Communication": "双语沟通",
+  "Objection Handling": "异议处理",
+  "Dell Product Consultation": "Dell 产品咨询",
+  "Laptops & Monitors": "笔记本与显示器",
+  "Gaming PCs": "游戏电脑",
+  "Furniture Solutions": "家具方案",
+  "Kitchen Design": "厨房设计",
+  "AI-Assisted Workflows": "AI 辅助工作流",
+  "English": "英语",
+  "Mandarin": "普通话",
+  "Customer Education": "客户教育",
+  "Team Communication": "团队沟通",
+  "Selected work themes that show how I connect customer insight, product communication, and workflow thinking.": "精选项目主题，展示我如何连接客户洞察、产品沟通与工作流思维。",
+  "Retail Technology & Product Consultation": "零售科技与产品咨询",
+  "Sales & Marketing Workflow Systems": "销售与营销工作流系统",
+  "Sales Follow-up Workflow Prototype": "销售跟进工作流原型",
+  "Brand Communication & Event Execution": "品牌沟通与活动执行",
+  "Let's connect if you are hiring for marketing, sales, retail technology, brand ambassador, or workflow-focused roles.": "如果你正在招聘市场、销售、零售科技、品牌大使或工作流相关岗位，欢迎联系我。",
+  "I can support teams that need stronger product communication, content execution, customer consultation, or practical AI workflow ideas.": "我可以支持需要加强产品沟通、内容执行、客户咨询或实际 AI 工作流想法的团队。",
+  "Project Overview": "项目概览",
+  "Context": "背景",
+  "Challenge": "挑战",
+  "My Role": "我的角色",
+  "Actions": "具体行动",
+  "Tools / Skills": "工具 / 技能",
+  "Outcome / Business Value": "结果 / 商业价值",
+  "Visual Proof / Supporting Materials": "视觉证明 / 支持材料",
+  "Selected supporting materials can be shared upon request.": "可根据需要提供精选支持材料。",
+  "01": "01",
+  "02": "02",
+  "03": "03",
+  "04": "04",
+  "05": "05"
+});
+
+Object.assign(zhTranslations, {
+  "A case study in translating technical product details into clear customer value during retail technology conversations.": "一个展示如何在零售科技沟通中将技术产品细节转化为清晰客户价值的案例。",
+  "A case study in using visual judgment, product presentation, and customer needs analysis to make buying decisions easier.": "一个展示如何通过视觉判断、产品呈现和客户需求分析，让购买决策更容易的案例。",
+  "A case study in campaign support, store event execution, product positioning, and customer engagement through Dell retail brand work.": "一个通过 Dell 零售品牌工作展示活动支持、门店活动执行、产品定位和客户互动的案例。",
+  "A case study on customer-facing product explanation, needs analysis, product comparison, budget/value communication, and Dell retail consultation.": "一个关于客户产品解释、需求分析、产品比较、预算/价值沟通和 Dell 零售咨询的案例。",
+  "A case study on Canva design, product presentation, furniture visuals, space planning, aesthetic judgment, and customer-facing visual advice.": "一个关于 Canva 设计、产品呈现、家具视觉、空间规划、审美判断和客户视觉建议的案例。",
+  "A self-initiated workflow prototype showing how AI-assisted follow-up, customer stage tracking, FAQ support, and reporting can reduce repetitive sales admin.": "一个自主设计的工作流原型，展示 AI 辅助跟进、客户阶段追踪、FAQ 支持和报告如何减少重复销售行政工作。",
+  "A case study on campaign support, store events, bilingual communication, customer psychology, and product positioning through Dell brand activation work.": "一个基于 Dell 品牌激活工作的案例，展示活动支持、门店活动、双语沟通、客户心理和产品定位。",
+  "This project demonstrates how I approach customer-facing product explanation, needs analysis, product comparison, budget/value communication, and Dell retail technology consultation.": "该项目展示我如何处理面向客户的产品解释、需求分析、产品比较、预算/价值沟通和 Dell 零售科技咨询。",
+  "Retail technology customers often compare laptops, monitors, gaming PCs, storage, display quality, performance, and price while trying to understand which option fits their real use case.": "零售科技客户通常会比较笔记本、显示器、游戏电脑、存储、显示质量、性能和价格，同时判断哪种选择最符合真实使用场景。",
+  "The challenge is to simplify technical specifications without losing accuracy, while helping customers feel confident instead of overwhelmed by competing product options.": "挑战在于在不牺牲准确性的前提下简化技术规格，帮助客户建立信心，而不是被大量产品选项压倒。",
+  "As a Dell Brand Ambassador in a Best Buy retail environment, I support product education, in-store consultation, team communication, customer feedback, and product comparison conversations.": "作为 Best Buy 零售环境中的 Dell 品牌大使，我支持产品教育、店内咨询、团队沟通、客户反馈和产品比较沟通。",
+  "Asked customer questions about use case, performance needs, budget, timeline, and buying concerns.": "围绕使用场景、性能需求、预算、时间线和购买顾虑向客户提问。",
+  "Explained laptops, monitors, gaming PCs, and technology solutions in plain customer-friendly language.": "用客户容易理解的语言解释笔记本、显示器、游戏电脑和科技解决方案。",
+  "Compared specs, storage, display quality, performance, value, and practical fit.": "比较规格、存储、显示质量、性能、价值和实际匹配度。",
+  "Collaborated with retail teams to support product knowledge, sales strategies, and Dell solution presentation.": "与零售团队协作，支持产品知识、销售策略和 Dell 方案呈现。",
+  "Communicated customer feedback, traffic insights, product interest, and sales opportunities.": "沟通客户反馈、客流洞察、产品兴趣和销售机会。",
+  "The business value is stronger product understanding, clearer customer conversations, better comparison support, and more confident retail purchase decisions.": "其商业价值在于提升产品理解、让客户沟通更清晰、加强比较支持，并帮助客户做出更有信心的零售购买决策。",
+  "This project demonstrates my approach to Canva design, visual presentation, furniture product communication, space planning, and customer-facing recommendations.": "该项目展示我在 Canva 设计、视觉呈现、家具产品沟通、空间规划和客户建议方面的方法。",
+  "Furniture and kitchen design customers often need help imagining how a product will fit their space, lifestyle, budget, and visual preference before they feel ready to buy.": "家具和厨房设计客户在购买前，通常需要帮助他们想象产品如何适配空间、生活方式、预算和视觉偏好。",
+  "The challenge is to connect product aesthetics with practical use, helping customers compare options without turning the conversation into only price or style.": "挑战在于将产品美感与实际使用连接起来，帮助客户比较选择，而不是让沟通只停留在价格或风格上。",
+  "I support product presentation, customer consultation, visual communication, and sales follow-up through store content, Canva materials, furniture recommendations, and design-focused explanations.": "我通过门店内容、Canva 素材、家具推荐和设计导向解释，支持产品呈现、客户咨询、视觉沟通和销售跟进。",
+  "Created clean product photos, tags, and social media materials with Canva.": "使用 Canva 制作清晰的产品照片、标签和社交媒体素材。",
+  "Applied aesthetic judgment to layout, color, spacing, product presentation, and brand consistency.": "将审美判断应用到版式、色彩、间距、产品呈现和品牌一致性中。",
+  "Asked customers about room size, lifestyle needs, design preferences, budget, and buying motivation.": "了解客户房间尺寸、生活方式需求、设计偏好、预算和购买动机。",
+  "Connected visual options with practical product advice and clear customer follow-up.": "将视觉选择与实际产品建议和清晰客户跟进连接起来。",
+  "Used 20-20 Design experience from kitchen sales to support design-led product communication.": "运用厨房销售中的 20-20 Design 经验，支持设计导向的产品沟通。",
+  "Visual Presentation": "视觉呈现",
+  "Space Planning": "空间规划",
+  "Furniture Consultation": "家具咨询",
+  "Customer Follow-up": "客户跟进",
+  "The value is stronger product presentation, clearer customer understanding, and a more consultative buying experience that connects design preference with practical purchase decisions.": "其价值在于更强的产品呈现、更清晰的客户理解，以及将设计偏好与实际购买决策连接起来的咨询式购买体验。",
+  "Self-initiated workflow prototype based on real retail sales and customer consultation scenarios.": "基于真实零售销售和客户咨询场景的自主工作流原型。",
+  "This prototype shows how customer inquiry capture, AI-assisted follow-up, customer stage classification, and weekly question summaries can improve sales organization without overcomplicating the workflow.": "该原型展示客户咨询记录、AI 辅助跟进、客户阶段分类和每周问题总结如何在不复杂化流程的情况下改善销售组织。",
+  "Retail sales teams often handle repeated questions, incomplete customer notes, delayed follow-up, changing budgets, objections, and customers who prefer different communication styles or languages.": "零售销售团队常常需要处理重复问题、不完整客户记录、延迟跟进、预算变化、客户异议，以及偏好不同沟通方式或语言的客户。",
+  "The challenge is to keep customer follow-up organized while reducing repetitive admin work, especially when conversations include product type, budget, timeline, objections, and language preference.": "挑战在于保持客户跟进有序，同时减少重复行政工作，尤其当沟通涉及产品类型、预算、时间线、异议和语言偏好时。",
+  "I designed the workflow concept as a self-initiated prototype, using my retail sales and customer consultation experience to define the information flow, follow-up logic, and practical business use cases.": "我基于零售销售和客户咨询经验，自主设计该工作流概念，定义信息流、跟进逻辑和实际业务场景。",
+  "Mapped customer inquiry fields: product type, budget, timeline, objections, preferred language, and next step.": "梳理客户咨询字段：产品类型、预算、时间线、异议、首选语言和下一步。",
+  "Outlined AI-assisted follow-up message generation for clearer, more consistent customer communication.": "设计 AI 辅助跟进消息生成思路，让客户沟通更清晰、更一致。",
+  "Defined simple customer stage classification such as new inquiry, comparing options, ready to buy, waiting, or follow-up needed.": "定义简单客户阶段分类，例如新咨询、比较选项、准备购买、等待中或需要跟进。",
+  "Planned a weekly common-question summary to identify recurring customer concerns and content opportunities.": "规划每周常见问题总结，用于识别重复客户顾虑和内容机会。",
+  "Outlined product FAQ and sales script support for repeated questions, objections, and product comparisons.": "为重复问题、客户异议和产品比较设计产品 FAQ 与销售话术支持。",
+  "Structured the workflow as a simple spreadsheet or CRM-style system rather than a complex custom platform.": "将工作流设计为简单表格或 CRM 风格系统，而不是复杂的定制平台。",
+  "AI-Assisted Writing": "AI 辅助写作",
+  "CRM Thinking": "CRM 思维",
+  "Spreadsheet Workflow": "表格工作流",
+  "Customer Segmentation": "客户分层",
+  "Sales Follow-up": "销售跟进",
+  "Reporting": "报告",
+  "FAQ Support": "FAQ 支持",
+  "The expected value is clearer follow-up, better customer organization, faster access to common questions, stronger sales scripts, and less repetitive administrative work for customer-facing teams.": "预期价值包括更清晰的跟进、更好的客户整理、更快获取常见问题、更强的销售话术，以及减少客户一线团队的重复行政工作。"
+});
+
+Object.assign(zhTranslations, {
+  "iFurniture": "iFurniture",
+  "Funliving": "Funliving",
+  "PC Financial": "PC Financial",
+  "Retail Technology & Product Consultation | Yury Li": "零售科技与产品咨询 | Yury Li",
+  "Sales Follow-up Workflow Prototype | Yury Li": "销售跟进工作流原型 | Yury Li",
+  "Brand Communication & Event Execution | Yury Li": "品牌沟通与活动执行 | Yury Li",
+  "Created Canva-based product photos, tags, and social media content to strengthen store visibility and product presentation.": "使用 Canva 制作产品图片、标签和社交媒体内容，提升门店可见度与产品呈现。",
+  "Translated customer space, budget, lifestyle, and design preferences into practical furniture recommendations.": "将客户空间、预算、生活方式和设计偏好转化为实际家具推荐。",
+  "Provided consultative sales, product guidance, and after-sale support to improve customer confidence and satisfaction.": "提供咨询式销售、产品建议和售后支持，提升客户信心与满意度。",
+  "Managed returns, exchanges, customer inquiries, payments, and cash transactions through ERP systems.": "通过 ERP 系统处理退换货、客户咨询、付款和现金交易。",
+  "Supported stock checks, price tags, store displays, unloading, restocking, and inventory accuracy for smoother store operations.": "支持库存检查、价签、店内陈列、卸货、补货和库存准确性，让门店运营更顺畅。",
+  "Served as an in-store Dell product expert, translating technical specifications into clear customer value.": "作为店内 Dell 产品专家，将技术规格转化为清晰的客户价值。",
+  "Guided customers through laptops, monitors, gaming PCs, and technology solutions based on needs, use cases, and budget.": "根据客户需求、使用场景和预算，介绍笔记本、显示器、游戏电脑和科技解决方案。",
+  "Collaborated with Blue Shirt teams to strengthen product knowledge, sales strategies, and Dell solution planogram execution.": "与 Blue Shirt 团队协作，加强产品知识、销售策略和 Dell 方案陈列执行。",
+  "Maintained current knowledge of product roadmaps, competitive trends, and market solutions for stronger consultation.": "持续了解产品路线图、竞争趋势和市场方案，以支持更有效的客户咨询。",
+  "Communicated customer feedback, traffic insights, product interest, and sales opportunities to support retail execution.": "传递客户反馈、客流洞察、产品兴趣和销售机会，支持零售执行。",
+  "Helped customers compare specs, storage, display quality, performance, value, and practical use cases.": "帮助客户比较规格、存储、显示质量、性能、价值和实际使用场景。",
+  "Presented financial products through consultative, customer-focused conversations in a retail environment.": "在零售环境中通过以客户为中心的咨询式沟通介绍金融产品。",
+  "Translated financial product details into accessible benefits and next steps for customers.": "将金融产品细节转化为客户容易理解的收益和下一步行动。",
+  "Built B2B relationships with in-store management teams to support promotional visibility and cross-selling opportunities.": "与店内管理团队建立 B2B 关系，支持促销曝光和交叉销售机会。",
+  "Coordinated marketing, sales, and client communication in a cross-cultural business environment.": "在跨文化商业环境中协调市场、销售和客户沟通。",
+  "Created custom visual presentations and 3D kitchen renderings with 20-20 Design to support design-led sales conversations.": "使用 20-20 Design 创建定制视觉方案和 3D 厨房效果图，支持设计导向的销售沟通。",
+  "Led a website redesign and integrated a Shopify chat system to improve customer experience and interaction efficiency.": "主导网站改版并整合 Shopify 聊天系统，提升客户体验和互动效率。",
+  "Trained new associates on sales processes and design software best practices.": "培训新员工掌握销售流程和设计软件最佳实践。",
+  "Managed social media strategy and online community engagement across brand platforms.": "管理品牌平台的社交媒体策略和线上社群互动。",
+  "Developed customer and partner relationships to improve brand visibility and partnership opportunities.": "发展客户与合作伙伴关系，提升品牌可见度和合作机会。",
+  "Supported sales execution through inventory management, order fulfillment, and logistics coordination.": "通过库存管理、订单履行和物流协调支持销售执行。",
+  "Customer Needs Analysis": "客户需求分析",
+  "Event Planning": "活动规划",
+  "Product Positioning": "产品定位",
+  "Team Activation": "团队激活",
+  "This project demonstrates how I support brand communication through campaign concepting, visual materials, store team engagement, bilingual communication, and product-focused event execution.": "该项目展示我如何通过活动概念、视觉素材、门店团队互动、双语沟通和产品导向活动执行支持品牌沟通。",
+  "In retail brand ambassador work, product knowledge is only one part of the job. Store teams and customers also need clear messaging, memorable touchpoints, and practical reasons to engage with the product story.": "在零售品牌大使工作中，产品知识只是其中一部分。门店团队和客户同样需要清晰信息、可记忆的触点，以及参与产品故事的实际理由。",
+  "The challenge was to create a store activation that recognized retail performance, energized the team, and connected Dell product positioning with a memorable in-store experience.": "挑战是设计一个门店激活活动，既认可零售表现、激励团队，也将 Dell 产品定位与有记忆点的店内体验连接起来。",
+  "I designed the campaign flyer and concept, planned the store winner boost setup, organized the activation materials, and supported team communication and training discussion around Dell customer engagement.": "我设计活动传单和概念，规划门店优胜激励布置，组织活动材料，并围绕 Dell 客户互动支持团队沟通和培训讨论。",
+  "Designed the campaign flyer and visual concept for the Dell Store Winner Boost event 2026.": "为 Dell Store Winner Boost 2026 活动设计传单和视觉概念。",
+  "Created an original sci-fi light-versus-dark theme with distinct wording, layout, and visual direction.": "创建原创的科幻光明/黑暗主题，并使用独立文案、版式和视觉方向。",
+  "Organized light-side and dark-side refreshment categories for a memorable team activation moment.": "组织光明面和黑暗面补给分类，打造更有记忆点的团队激活时刻。",
+  "Supported store winner recognition and team discussion around customer engagement.": "支持门店优胜表彰，以及围绕客户互动的团队讨论。",
+  "Connected campaign materials with Dell product positioning and in-store communication.": "将活动素材与 Dell 产品定位和店内沟通连接起来。",
+  "The value was a clearer and more memorable retail brand touchpoint that supported team recognition, training conversation, and Dell product engagement in the store environment.": "其价值在于打造更清晰、更有记忆点的零售品牌触点，支持团队认可、培训沟通和店内 Dell 产品互动。",
+  "Existing materials from the Dell Store Winner Boost event are shown below.": "以下展示 Dell Store Winner Boost 活动的现有材料。"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
@@ -205,6 +368,12 @@ const titleTranslations = {
   "Sales & Marketing Automation | Yury Li": "销售与营销自动化 | Yury Li",
   "Brand & Content Positioning | Yury Li": "品牌与内容定位 | Yury Li"
 };
+Object.assign(titleTranslations, {
+  "Yury Li | Marketing, Sales & AI Workflow Specialist": "Yury Li | 市场、销售与 AI 工作流专员",
+  "Retail Technology & Product Consultation | Yury Li": "零售科技与产品咨询 | Yury Li",
+  "Sales Follow-up Workflow Prototype | Yury Li": "销售跟进工作流原型 | Yury Li",
+  "Brand Communication & Event Execution | Yury Li": "品牌沟通与活动执行 | Yury Li"
+});
 
 let width = 0;
 let height = 0;
@@ -490,10 +659,10 @@ function drawCursorField() {
   if (!pointer.active) return;
 
   const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 230);
-  glow.addColorStop(0, "rgba(231, 247, 255, 0.22)");
-  glow.addColorStop(0.22, "rgba(114, 221, 255, 0.16)");
-  glow.addColorStop(0.58, "rgba(31, 117, 255, 0.07)");
-  glow.addColorStop(1, "rgba(31, 117, 255, 0)");
+  glow.addColorStop(0, "rgba(241, 248, 255, 0.16)");
+  glow.addColorStop(0.24, "rgba(169, 221, 255, 0.1)");
+  glow.addColorStop(0.6, "rgba(66, 111, 255, 0.045)");
+  glow.addColorStop(1, "rgba(66, 111, 255, 0)");
 
   ctx.save();
   ctx.globalCompositeOperation = "screen";
@@ -502,7 +671,7 @@ function drawCursorField() {
   ctx.arc(pointer.x, pointer.y, 230, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.strokeStyle = "rgba(231, 247, 255, 0.2)";
+  ctx.strokeStyle = "rgba(241, 248, 255, 0.14)";
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.arc(pointer.x, pointer.y, 72 + Math.sin(Date.now() * 0.004) * 4, 0, Math.PI * 2);
@@ -520,8 +689,8 @@ function drawBackground(timestamp = 0) {
   ctx.fillStyle = backdrop;
   ctx.fillRect(0, 0, width, height);
 
-  drawRibbon(timestamp, 0.22, "rgba(114, 221, 255, 0.12)", "rgba(31, 117, 255, 0.18)", 0.58);
-  drawRibbon(timestamp + 1600, 0.72, "rgba(86, 107, 255, 0.12)", "rgba(130, 200, 255, 0.16)", 0.42);
+  drawRibbon(timestamp, 0.22, "rgba(169, 221, 255, 0.075)", "rgba(66, 111, 255, 0.11)", 0.42);
+  drawRibbon(timestamp + 1600, 0.72, "rgba(106, 118, 255, 0.07)", "rgba(188, 221, 255, 0.09)", 0.32);
   drawCursorField();
 
   particles.forEach((particle, index) => {
@@ -548,9 +717,9 @@ function drawBackground(timestamp = 0) {
 
     const pulse = 0.55 + Math.sin(timestamp * 0.0014 + particle.phase) * 0.24;
     const glint = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.size * 9);
-    glint.addColorStop(0, `rgba(231, 247, 255, ${0.34 * pulse})`);
-    glint.addColorStop(0.38, `rgba(114, 221, 255, ${0.18 * pulse})`);
-    glint.addColorStop(1, "rgba(31, 117, 255, 0)");
+    glint.addColorStop(0, `rgba(241, 248, 255, ${0.24 * pulse})`);
+    glint.addColorStop(0.38, `rgba(169, 221, 255, ${0.12 * pulse})`);
+    glint.addColorStop(1, "rgba(66, 111, 255, 0)");
 
     ctx.save();
     ctx.globalCompositeOperation = "screen";
@@ -559,7 +728,7 @@ function drawBackground(timestamp = 0) {
     ctx.arc(particle.x, particle.y, particle.size * 9, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = `rgba(231, 247, 255, ${0.52 * pulse})`;
+    ctx.fillStyle = `rgba(241, 248, 255, ${0.4 * pulse})`;
     ctx.beginPath();
     ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
     ctx.fill();
@@ -571,7 +740,7 @@ function drawBackground(timestamp = 0) {
       const distance = Math.hypot(dx, dy);
       if (distance < 170) {
         const alpha = (1 - distance / 170) * 0.18;
-        ctx.strokeStyle = `rgba(130, 200, 255, ${alpha})`;
+        ctx.strokeStyle = `rgba(188, 221, 255, ${alpha})`;
         ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(particle.x, particle.y);
