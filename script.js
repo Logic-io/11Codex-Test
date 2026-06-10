@@ -14,6 +14,7 @@ const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : nul
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
 const siteHeader = document.querySelector(".site-header");
+const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
@@ -210,6 +211,7 @@ let height = 0;
 let particles = [];
 let pointer = { x: 0, y: 0, active: false };
 let lastScrollY = window.scrollY;
+let parallaxFrame = null;
 
 function isMobileHeader() {
   return window.matchMedia("(max-width: 760px)").matches;
@@ -290,6 +292,96 @@ function initLanguageSwitcher() {
     button.addEventListener("click", () => applyLanguage(button.dataset.langButton));
   });
   applyLanguage(getSavedLanguage());
+}
+
+function setupScrollAnimations() {
+  const revealSelectors = [
+    ".hero-copy",
+    ".hero-panel",
+    ".proof-strip article",
+    ".section-heading",
+    ".profile-card",
+    ".education-card",
+    ".value-card",
+    ".experience-card",
+    ".skill-card",
+    ".project-card",
+    ".contact-section",
+    ".detail-back",
+    ".detail-copy",
+    ".detail-visual",
+    ".detail-card",
+    ".campaign-feature",
+    ".real-photos figure"
+  ];
+  const revealItems = [...document.querySelectorAll(revealSelectors.join(","))]
+    .filter((element, index, list) => list.indexOf(element) === index);
+
+  revealItems.forEach((element, index) => {
+    const localIndex = [...(element.parentElement ? element.parentElement.children : [])].indexOf(element);
+    const stagger = Math.max(0, localIndex) % 6;
+    element.classList.add("scroll-reveal");
+    element.style.setProperty("--reveal-delay", `${Math.min(stagger * 78, 390)}ms`);
+
+    if (element.matches(".hero-copy, .detail-copy, .section-heading")) {
+      element.classList.add("reveal-soft");
+    }
+
+    if (element.matches(".hero-copy, .profile-card, .detail-copy")) {
+      element.classList.add("reveal-left");
+    }
+
+    if (element.matches(".hero-panel, .education-card, .detail-visual")) {
+      element.classList.add("reveal-right");
+    }
+
+    if (index < 2) {
+      element.style.setProperty("--reveal-delay", "80ms");
+    }
+  });
+
+  document.querySelectorAll(".hero-panel, .detail-visual, .project-visual, .campaign-flyer").forEach((element, index) => {
+    element.dataset.scrollParallax = index % 2 === 0 ? "0.045" : "0.03";
+  });
+
+  if (motionQuery.matches || !("IntersectionObserver" in window)) {
+    revealItems.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    rootMargin: "0px 0px -12% 0px",
+    threshold: 0.16
+  });
+
+  revealItems.forEach((element) => observer.observe(element));
+}
+
+function updateScrollParallax() {
+  parallaxFrame = null;
+
+  if (motionQuery.matches) return;
+
+  const viewportCenter = window.innerHeight * 0.5;
+  document.querySelectorAll("[data-scroll-parallax]").forEach((element) => {
+    const speed = Number(element.dataset.scrollParallax) || 0.035;
+    const rect = element.getBoundingClientRect();
+    const elementCenter = rect.top + rect.height * 0.5;
+    const shift = Math.max(-34, Math.min(34, (viewportCenter - elementCenter) * speed));
+    element.style.setProperty("--scroll-shift", `${shift.toFixed(2)}px`);
+  });
+}
+
+function requestScrollParallaxUpdate() {
+  if (parallaxFrame !== null) return;
+  parallaxFrame = requestAnimationFrame(updateScrollParallax);
 }
 
 function resizeCanvas() {
@@ -559,11 +651,13 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("resize", () => {
   resizeCanvas();
   updateMobileHeaderVisibility();
+  requestScrollParallaxUpdate();
 });
 window.addEventListener("scroll", () => {
   updateActiveNav();
   updateBackToTop();
   updateMobileHeaderVisibility();
+  requestScrollParallaxUpdate();
 }, { passive: true });
 window.addEventListener("pointermove", (event) => {
   pointer = { x: event.clientX, y: event.clientY, active: true };
@@ -573,8 +667,10 @@ window.addEventListener("pointerleave", () => {
 });
 
 initLanguageSwitcher();
+setupScrollAnimations();
 resizeCanvas();
 updateActiveNav();
 updateBackToTop();
 updateMobileHeaderVisibility();
+requestScrollParallaxUpdate();
 drawBackground();
