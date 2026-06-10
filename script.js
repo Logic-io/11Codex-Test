@@ -302,57 +302,154 @@ function resizeCanvas() {
   canvas.style.height = `${height}px`;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-  const count = Math.max(42, Math.min(96, Math.floor(width * height / 18000)));
+  const count = Math.max(34, Math.min(78, Math.floor(width * height / 24000)));
   particles = Array.from({ length: count }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
-    vx: (Math.random() - 0.5) * 0.45,
-    vy: (Math.random() - 0.5) * 0.45,
-    size: Math.random() * 1.8 + 0.7
+    originX: Math.random() * width,
+    originY: Math.random() * height,
+    vx: (Math.random() - 0.5) * 0.18,
+    vy: (Math.random() - 0.5) * 0.18,
+    size: Math.random() * 1.9 + 0.8,
+    depth: Math.random() * 0.7 + 0.3,
+    phase: Math.random() * Math.PI * 2
   }));
 }
 
-function drawBackground() {
+function drawRibbon(time, offset, colorA, colorB, alpha) {
+  const yBase = height * offset;
+  const amplitude = Math.max(72, height * 0.13);
+  const drift = Math.sin(time * 0.00028 + offset * 8) * 70;
+  const gradient = ctx.createLinearGradient(0, yBase - amplitude, width, yBase + amplitude);
+  gradient.addColorStop(0, "rgba(255, 255, 255, 0)");
+  gradient.addColorStop(0.36, colorA);
+  gradient.addColorStop(0.55, colorB);
+  gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.lineWidth = Math.max(34, width * 0.038);
+  ctx.lineCap = "round";
+  ctx.strokeStyle = gradient;
+  ctx.shadowBlur = 42;
+  ctx.shadowColor = colorB;
+  ctx.beginPath();
+  ctx.moveTo(-width * 0.08, yBase + drift);
+  ctx.bezierCurveTo(
+    width * 0.18,
+    yBase - amplitude + drift * 0.35,
+    width * 0.42,
+    yBase + amplitude + Math.cos(time * 0.00034 + offset) * 54,
+    width * 0.66,
+    yBase + Math.sin(time * 0.00022 + offset * 4) * amplitude
+  );
+  ctx.bezierCurveTo(
+    width * 0.86,
+    yBase - amplitude * 0.75,
+    width * 1.02,
+    yBase + amplitude * 0.5,
+    width * 1.12,
+    yBase + drift * 0.4
+  );
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawCursorField() {
+  if (!pointer.active) return;
+
+  const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 230);
+  glow.addColorStop(0, "rgba(231, 247, 255, 0.22)");
+  glow.addColorStop(0.22, "rgba(114, 221, 255, 0.16)");
+  glow.addColorStop(0.58, "rgba(31, 117, 255, 0.07)");
+  glow.addColorStop(1, "rgba(31, 117, 255, 0)");
+
+  ctx.save();
+  ctx.globalCompositeOperation = "screen";
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(pointer.x, pointer.y, 230, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = "rgba(231, 247, 255, 0.2)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(pointer.x, pointer.y, 72 + Math.sin(Date.now() * 0.004) * 4, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawBackground(timestamp = 0) {
   ctx.clearRect(0, 0, width, height);
 
+  const backdrop = ctx.createLinearGradient(0, 0, width, height);
+  backdrop.addColorStop(0, "rgba(2, 7, 18, 0.2)");
+  backdrop.addColorStop(0.55, "rgba(4, 20, 42, 0.08)");
+  backdrop.addColorStop(1, "rgba(2, 8, 17, 0.18)");
+  ctx.fillStyle = backdrop;
+  ctx.fillRect(0, 0, width, height);
+
+  drawRibbon(timestamp, 0.22, "rgba(114, 221, 255, 0.12)", "rgba(31, 117, 255, 0.18)", 0.58);
+  drawRibbon(timestamp + 1600, 0.72, "rgba(86, 107, 255, 0.12)", "rgba(130, 200, 255, 0.16)", 0.42);
+  drawCursorField();
+
   particles.forEach((particle, index) => {
-    particle.x += particle.vx;
-    particle.y += particle.vy;
+    const waveX = Math.sin(timestamp * 0.00032 + particle.phase) * 0.34 * particle.depth;
+    const waveY = Math.cos(timestamp * 0.00026 + particle.phase) * 0.28 * particle.depth;
+    particle.x += particle.vx + waveX;
+    particle.y += particle.vy + waveY;
 
-    if (particle.x < 0 || particle.x > width) particle.vx *= -1;
-    if (particle.y < 0 || particle.y > height) particle.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(125, 247, 221, 0.62)";
-    ctx.fill();
-
-    for (let next = index + 1; next < particles.length; next += 1) {
-      const target = particles[next];
-      const dx = particle.x - target.x;
-      const dy = particle.y - target.y;
+    if (pointer.active) {
+      const dx = pointer.x - particle.x;
+      const dy = pointer.y - particle.y;
       const distance = Math.hypot(dx, dy);
-
-      if (distance < 128) {
-        ctx.strokeStyle = `rgba(77, 227, 255, ${0.18 - distance / 900})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(particle.x, particle.y);
-        ctx.lineTo(target.x, target.y);
-        ctx.stroke();
+      if (distance < 210) {
+        const pull = (1 - distance / 210) * 0.028;
+        particle.x += dx * pull;
+        particle.y += dy * pull;
       }
     }
 
-    if (pointer.active) {
+    if (particle.x < -24) particle.x = width + 24;
+    if (particle.x > width + 24) particle.x = -24;
+    if (particle.y < -24) particle.y = height + 24;
+    if (particle.y > height + 24) particle.y = -24;
+
+    const pulse = 0.55 + Math.sin(timestamp * 0.0014 + particle.phase) * 0.24;
+    const glint = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.size * 9);
+    glint.addColorStop(0, `rgba(231, 247, 255, ${0.34 * pulse})`);
+    glint.addColorStop(0.38, `rgba(114, 221, 255, ${0.18 * pulse})`);
+    glint.addColorStop(1, "rgba(31, 117, 255, 0)");
+
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    ctx.fillStyle = glint;
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.size * 9, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = `rgba(231, 247, 255, ${0.52 * pulse})`;
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    if (pointer.active && index % 3 === 0) {
       const dx = particle.x - pointer.x;
       const dy = particle.y - pointer.y;
       const distance = Math.hypot(dx, dy);
-
-      if (distance < 180) {
-        ctx.strokeStyle = `rgba(255, 111, 174, ${0.22 - distance / 900})`;
+      if (distance < 170) {
+        const alpha = (1 - distance / 170) * 0.18;
+        ctx.strokeStyle = `rgba(130, 200, 255, ${alpha})`;
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(particle.x, particle.y);
-        ctx.lineTo(pointer.x, pointer.y);
+        ctx.quadraticCurveTo(
+          (particle.x + pointer.x) / 2,
+          (particle.y + pointer.y) / 2 - 18,
+          pointer.x,
+          pointer.y
+        );
         ctx.stroke();
       }
     }
