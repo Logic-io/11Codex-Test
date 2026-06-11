@@ -432,6 +432,27 @@ Object.assign(zhTranslations, {
   "A stronger retail brand touchpoint that supported team recognition, training, and Dell product engagement.": "打造更强的零售品牌触点，支持团队表彰、培训与 Dell 产品互动。"
 });
 
+Object.assign(zhTranslations, {
+  "Applied AI": "AI 实际应用",
+  "AI Tools & Workflow Architecture": "AI 工具与工作流架构",
+  "Applying Gemini, ChatGPT, and Codex across research, content, coding, and structured workflows.": "将 Gemini、ChatGPT 与 Codex 应用于研究、内容、编程和结构化工作流。",
+  "A practical approach to selecting and connecting AI tools for research, communication, coding, and repeatable work.": "以实用方式选择并连接 AI 工具，用于研究、沟通、编程和可重复工作。",
+  "I use Gemini, ChatGPT, and Codex as complementary tools rather than interchangeable chatbots. Each tool supports a defined stage, with clear inputs, reusable instructions, human review, and a practical final output.": "我将 Gemini、ChatGPT 和 Codex 作为互补工具，而不是功能相同的聊天机器人。每个工具负责明确阶段，并配合清晰输入、可复用指令、人工审核和实际输出。",
+  "Use Architecture": "使用架构",
+  "Gemini: explore information, compare sources, and work with multimodal context.": "Gemini：探索信息、比较来源，并处理多模态上下文。",
+  "ChatGPT: structure ideas, refine communication, and develop reusable prompts or content.": "ChatGPT：整理思路、优化沟通，并开发可复用提示词或内容。",
+  "Codex: inspect files, edit code, test changes, and turn plans into working digital outputs.": "Codex：检查文件、编辑代码、测试修改，并将计划转化为可运行的数字成果。",
+  "Workflow: define the goal, gather context, select the tool, review the result, and store reusable knowledge.": "工作流：明确目标、收集上下文、选择工具、审核结果，并沉淀可复用知识。",
+  "Gemini": "Gemini",
+  "ChatGPT": "ChatGPT",
+  "Codex": "Codex",
+  "Prompt Design": "提示词设计",
+  "Context Design": "上下文设计",
+  "Workflow Architecture": "工作流架构",
+  "Human Review": "人工审核",
+  "Faster research and execution, more consistent communication, less repetitive work, and a clearer path from idea to usable output.": "提升研究与执行速度，保持沟通一致性，减少重复工作，并建立从想法到可用成果的清晰路径。"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
@@ -443,7 +464,8 @@ Object.assign(titleTranslations, {
   "Yury Li | Marketing, Sales & AI Workflow Specialist": "Yury Li | 市场、销售与 AI 工作流专员",
   "Retail Technology & Product Consultation | Yury Li": "零售科技与产品咨询 | Yury Li",
   "Sales Follow-up Workflow Prototype | Yury Li": "销售跟进工作流原型 | Yury Li",
-  "Brand Communication & Event Execution | Yury Li": "品牌沟通与活动执行 | Yury Li"
+  "Brand Communication & Event Execution | Yury Li": "品牌沟通与活动执行 | Yury Li",
+  "AI Tools & Workflow Architecture | Yury Li": "AI 工具与工作流架构 | Yury Li"
 });
 
 let width = 0;
