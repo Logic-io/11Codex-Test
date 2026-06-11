@@ -458,6 +458,7 @@ Object.assign(zhTranslations, {
 });
 
 Object.assign(zhTranslations, {
+  "Home": "首页",
   "Seasonal events, partner training, and client-sponsored activations designed to strengthen engagement.": "通过季节性活动、合作伙伴培训与客户赞助活动提升参与度。",
   "A case study in seasonal event planning, partner training, client-sponsored activations, product positioning, and customer engagement.": "关于季节性活动策划、合作伙伴培训、客户赞助活动、产品定位与客户互动的案例。",
   "I plan retail activations that combine campaign design, seasonal themes, partner engagement, product positioning, and practical training.": "我策划融合活动设计、季节主题、合作伙伴互动、产品定位与实用培训的零售活动。",

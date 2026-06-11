@@ -1952,44 +1952,43 @@ main,
 }
 
 .brand {
-  gap: 11px;
-}
-
-.brand-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
   background: var(--cyan);
   color: #11150f;
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   font-weight: 900;
-  letter-spacing: -0.04em;
-  box-shadow: none;
-}
-
-.brand-mark svg {
-  width: 17px;
-  height: 17px;
-}
-
-.brand-copy {
-  display: grid;
-  gap: 0;
-  line-height: 1.05;
-}
-
-.brand-copy strong {
-  font-size: 0.8rem;
-  font-weight: 760;
-}
-
-.brand-copy small {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 0.62rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  box-shadow: 0 10px 28px rgba(200, 255, 98, 0.18);
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.brand::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #11150f;
+}
+
+.brand:hover,
+.brand:focus-visible {
+  transform: translateY(-2px);
+  background: #d8ff86;
+  color: #11150f;
+  box-shadow: 0 14px 36px rgba(200, 255, 98, 0.28);
+}
+
+.brand:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
 }
 
 .nav-links {
@@ -2362,6 +2361,13 @@ h3 {
   color: #151a12;
 }
 
+.education-card:hover {
+  border-color: rgba(21, 26, 18, 0.2);
+  background: var(--cyan);
+  color: #151a12;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
 .education-card h3,
 .education-card strong {
   color: #151a12;
@@ -2373,6 +2379,36 @@ h3 {
 
 .education-card .education-item span {
   color: rgba(21, 26, 18, 0.68);
+}
+
+.education-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  color: #151a12;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: gap 180ms ease, text-decoration-color 180ms ease;
+}
+
+.education-link::after {
+  content: "\2197";
+  font-size: 0.78em;
+}
+
+.education-link:hover,
+.education-link:focus-visible {
+  gap: 10px;
+  color: #151a12;
+  text-decoration-color: currentColor;
+}
+
+.education-link:focus-visible {
+  outline: 2px solid #151a12;
+  outline-offset: 5px;
+  border-radius: 3px;
 }
 
 .value-grid {
@@ -2628,17 +2664,41 @@ h3 {
 .back-to-top {
   right: 24px;
   bottom: 24px;
-  width: 48px;
-  min-height: 48px;
-  padding: 0;
-  border-color: rgba(244, 246, 239, 0.14);
-  border-radius: 50%;
-  background: rgba(15, 18, 17, 0.84);
-  font-size: 0;
+  gap: 1px;
+  width: 64px;
+  min-height: 64px;
+  padding: 8px 6px 7px;
+  border: 1px solid var(--cyan);
+  border-radius: 20px;
+  background: var(--cyan);
+  color: #11150f;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  box-shadow:
+    0 16px 40px rgba(200, 255, 98, 0.3),
+    0 0 0 5px rgba(200, 255, 98, 0.08);
 }
 
 .back-to-top-icon {
+  width: 18px;
+  height: 20px;
   margin: 0;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: #d8ff86;
+  color: #11150f;
+  box-shadow:
+    0 20px 48px rgba(200, 255, 98, 0.42),
+    0 0 0 7px rgba(200, 255, 98, 0.12);
+  transform: translateY(-4px);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
 }
 
 /* Project detail pages */
@@ -2766,10 +2826,6 @@ h3 {
     justify-content: flex-start;
   }
 
-  .brand-copy {
-    display: none;
-  }
-
   .nav-links {
     overflow-x: auto;
     justify-content: flex-end;
@@ -2876,9 +2932,16 @@ h3 {
     padding: 7px;
   }
 
-  .brand-mark {
-    width: 32px;
-    height: 32px;
+  .brand {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 0.67rem;
+  }
+
+  .brand::before {
+    width: 6px;
+    height: 6px;
+    margin-right: 7px;
   }
 
   .nav-links a {
@@ -2991,6 +3054,16 @@ h3 {
     right: 0;
     bottom: -1rem;
     font-size: 4.5rem;
+  }
+
+  .back-to-top {
+    right: 14px;
+    bottom: 14px;
+    width: 56px;
+    min-height: 56px;
+    padding: 6px 5px;
+    border-radius: 17px;
+    font-size: 0.58rem;
   }
 
   .site-footer {
