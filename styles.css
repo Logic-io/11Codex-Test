@@ -945,13 +945,6 @@ li + li {
     rgba(255, 255, 255, 0.04);
 }
 
-.project-visual.brand {
-  background:
-    radial-gradient(ellipse at 50% 12%, rgba(241, 248, 255, 0.1), transparent 52%),
-    linear-gradient(135deg, rgba(169, 221, 255, 0.105), rgba(106, 118, 255, 0.09)),
-    rgba(255, 255, 255, 0.04);
-}
-
 .project-open,
 .detail-back {
   justify-self: start;
