@@ -364,8 +364,10 @@ Object.assign(zhTranslations, {
 Object.assign(zhTranslations, {
   "Marketing, sales, and customer-facing experience.": "市场营销、销售与客户沟通经验。",
   "Bilingual customer and team communication.": "双语客户与团队沟通。",
-  "Property listings created / international student clients served.": "房源信息制作量 / 国际学生客户服务量。",
-  "Average growth in campaign-driven inquiries.": "营销活动带来的平均咨询增长。",
+  "Cross-Industry": "跨行业经验",
+  "Experience across technology, furniture, design, financial products, and housing services.": "拥有科技、家具、设计、金融产品与住房服务等跨行业经验。",
+  "Customer Insight": "客户洞察",
+  "Translate real customer needs into clearer communication, content, and recommendations.": "将真实客户需求转化为更清晰的沟通、内容与建议。",
   "Customer insight turned into clear communication and action.": "将客户洞察转化为清晰沟通与行动。",
   "I connect sales and marketing by turning customer questions, objections, and comparison points into clearer product communication, useful content, and better follow-up. My experience spans retail technology, furniture, kitchen design, financial products, housing support, and practical AI-assisted workflows.": "我连接销售与营销，将客户问题、顾虑和比较重点转化为更清晰的产品沟通、实用内容和有效跟进。我的经验涵盖零售科技、家具、厨房设计、金融产品、住房服务和实用的 AI 辅助工作流。",
   "Four practical strengths for customer-facing teams.": "面向客户团队的四项实用能力。",
