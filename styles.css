@@ -1764,6 +1764,37 @@ li + li {
     padding: 18px;
   }
 
+  .education-card,
+  .education-card:hover,
+  .education-card:active,
+  .education-card:focus-within {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: var(--green);
+    color: #041016;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .education-card h3,
+  .education-card strong,
+  .education-card .education-link {
+    color: #041016;
+  }
+
+  .education-card .education-item {
+    border-color: rgba(4, 16, 22, 0.18);
+  }
+
+  .education-card .education-item span {
+    color: rgba(4, 16, 22, 0.68);
+  }
+
+  .education-card .education-link {
+    position: relative;
+    z-index: 1;
+  }
+
   .profile-photo-wrap {
     width: min(180px, 66%);
     margin-bottom: 18px;
