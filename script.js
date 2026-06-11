@@ -62,7 +62,7 @@ const zhTranslations = {
   "Digital Tool Fluency": "数字工具熟练度",
   "Work comfortably with Canva, Shopify, Hootsuite, 20-20 Design, ERP systems, CRM workflows, and AI tools for practical marketing support.": "熟练使用 Canva、Shopify、Hootsuite、20-20 Design、ERP 系统、CRM 工作流和 AI 工具，支持实际营销工作。",
   "Professional experience across retail sales, technology products, business development, and marketing.": "涵盖零售销售、科技产品、业务拓展和市场营销的职业经验。",
-  "Apr 2025 - Present": "2025 年 4 月至今",
+  "Apr 2025 - Jun 2026": "2025 年 4 月至 2026 年 6 月",
   "Sales Representative": "销售代表",
   "Created marketing content including product photos, tags, and social media posts using Canva to support store visibility and brand presence.": "使用 Canva 制作产品照片、标签和社交媒体内容，提升门店可见度和品牌存在感。",
   "Help customers select furniture solutions based on space, budget, lifestyle, and design preferences.": "根据空间、预算、生活方式和设计偏好帮助客户选择家具方案。",
@@ -435,22 +435,47 @@ Object.assign(zhTranslations, {
 Object.assign(zhTranslations, {
   "Applied AI": "AI 实际应用",
   "AI Tools & Workflow Architecture": "AI 工具与工作流架构",
-  "Applying Gemini, ChatGPT, and Codex across research, content, coding, and structured workflows.": "将 Gemini、ChatGPT 与 Codex 应用于研究、内容、编程和结构化工作流。",
+  "Applying Gemini, ChatGPT, NotebookLM, and Codex across research, content, coding, and structured workflows.": "将 Gemini、ChatGPT、NotebookLM 与 Codex 应用于研究、内容、编程和结构化工作流。",
   "A practical approach to selecting and connecting AI tools for research, communication, coding, and repeatable work.": "以实用方式选择并连接 AI 工具，用于研究、沟通、编程和可重复工作。",
-  "I use Gemini, ChatGPT, and Codex as complementary tools rather than interchangeable chatbots. Each tool supports a defined stage, with clear inputs, reusable instructions, human review, and a practical final output.": "我将 Gemini、ChatGPT 和 Codex 作为互补工具，而不是功能相同的聊天机器人。每个工具负责明确阶段，并配合清晰输入、可复用指令、人工审核和实际输出。",
+  "I use Gemini, ChatGPT, NotebookLM, and Codex as complementary tools rather than interchangeable chatbots. Each tool supports a defined stage, with clear inputs, reusable instructions, human review, and a practical final output.": "我将 Gemini、ChatGPT、NotebookLM 和 Codex 作为互补工具，而不是功能相同的聊天机器人。每个工具负责明确阶段，并配合清晰输入、可复用指令、人工审核和实际输出。",
   "Use Architecture": "使用架构",
   "Gemini: explore information, compare sources, and work with multimodal context.": "Gemini：探索信息、比较来源，并处理多模态上下文。",
   "ChatGPT: structure ideas, refine communication, and develop reusable prompts or content.": "ChatGPT：整理思路、优化沟通，并开发可复用提示词或内容。",
+  "NotebookLM: organize source materials, generate grounded summaries, and trace insights back to references.": "NotebookLM：整理来源材料、生成基于资料的摘要，并将洞察追溯至参考来源。",
   "Codex: inspect files, edit code, test changes, and turn plans into working digital outputs.": "Codex：检查文件、编辑代码、测试修改，并将计划转化为可运行的数字成果。",
   "Workflow: define the goal, gather context, select the tool, review the result, and store reusable knowledge.": "工作流：明确目标、收集上下文、选择工具、审核结果，并沉淀可复用知识。",
   "Gemini": "Gemini",
   "ChatGPT": "ChatGPT",
+  "NotebookLM": "NotebookLM",
   "Codex": "Codex",
   "Prompt Design": "提示词设计",
   "Context Design": "上下文设计",
   "Workflow Architecture": "工作流架构",
   "Human Review": "人工审核",
   "Faster research and execution, more consistent communication, less repetitive work, and a clearer path from idea to usable output.": "提升研究与执行速度，保持沟通一致性，减少重复工作，并建立从想法到可用成果的清晰路径。"
+});
+
+Object.assign(zhTranslations, {
+  "Seasonal events, partner training, and client-sponsored activations designed to strengthen engagement.": "通过季节性活动、合作伙伴培训与客户赞助活动提升参与度。",
+  "A case study in seasonal event planning, partner training, client-sponsored activations, product positioning, and customer engagement.": "关于季节性活动策划、合作伙伴培训、客户赞助活动、产品定位与客户互动的案例。",
+  "I plan retail activations that combine campaign design, seasonal themes, partner engagement, product positioning, and practical training.": "我策划融合活动设计、季节主题、合作伙伴互动、产品定位与实用培训的零售活动。",
+  "Supported a Mother's Day event that combined seasonal engagement with partner training.": "支持母亲节主题活动，将节日互动与合作伙伴培训相结合。",
+  "Coordinated client-sponsored special-day events, aligning sponsor visibility with the audience experience.": "协调由客户赞助的特殊节日活动，在赞助方曝光与受众体验之间保持平衡。",
+  "Partner Training": "合作伙伴培训",
+  "Sponsor Coordination": "赞助协调",
+  "Seasonal Activations": "季节性活动",
+  "Stronger brand touchpoints, clearer partner understanding, and memorable events that balance audience value with sponsor goals.": "打造更强的品牌触点、提升合作伙伴理解，并创造兼顾受众价值与赞助目标的活动体验。",
+  "Customer-Focused Strategy": "以客户为中心的策略",
+  "Marketing, sales, retail technology, and AI workflow expertise.": "市场营销、销售、零售科技与 AI 工作流专业能力。",
+  "For business inquiries and professional collaboration.": "欢迎业务咨询与专业合作。",
+  "Using Canva, AI-assisted ideation, and audience personas for product, training, and event communication.": "运用 Canva、AI 辅助创意与受众画像进行产品、培训和活动沟通设计。",
+  "A case study in using visual judgment, AI-assisted ideation, and audience needs to make products, training, and events easier to understand.": "运用视觉判断、AI 辅助创意与受众需求，让产品、培训和活动信息更易理解。",
+  "I use Canva, AI-assisted ideation, audience personas, space planning, and product knowledge to create clearer visual communication for customers and partner teams.": "我运用 Canva、AI 辅助创意、受众画像、空间规划和产品知识，为客户与合作伙伴团队制作更清晰的视觉沟通内容。",
+  "Use AI-assisted ideation and audience personas to design training materials and event flyers that help partner teams understand key messages.": "运用 AI 辅助创意与受众画像设计培训材料和活动传单，帮助合作伙伴团队理解关键信息。",
+  "AI-Assisted Ideation": "AI 辅助创意",
+  "Persona-Based Design": "受众画像设计",
+  "Training & Event Flyers": "培训与活动传单",
+  "Clearer product presentation, stronger partner understanding, and more accessible training and event communication.": "实现更清晰的产品呈现、更充分的合作伙伴理解，以及更易懂的培训与活动沟通。"
 });
 
 const titleTranslations = {
