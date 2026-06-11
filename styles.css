@@ -1660,7 +1660,7 @@ li + li {
 @media (max-width: 560px) {
   main,
   .site-header {
-    width: min(100% - 14px, 1120px);
+    width: min(1120px, calc(100% - 14px));
   }
 
   .site-header {
@@ -2763,7 +2763,7 @@ h3 {
 @media (max-width: 1040px) {
   main,
   .site-header {
-    width: min(100% - 40px, 1240px);
+    width: min(1240px, calc(100% - 40px));
   }
 
   .hero {
@@ -2802,12 +2802,12 @@ h3 {
 @media (max-width: 780px) {
   main,
   .site-header {
-    width: min(100% - 24px, 1240px);
+    width: min(1240px, calc(100% - 24px));
   }
 
   .site-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 8px;
     top: 10px;
     align-items: center;
@@ -2820,25 +2820,24 @@ h3 {
   }
 
   .nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
     overflow-x: auto;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-wrap: nowrap;
-    width: auto;
+    width: 100%;
     padding: 0;
   }
 
-  .nav-links a[href$="#about"],
-  .nav-links a[href$="#experience"],
-  .nav-links a[href$="#skills"] {
-    display: none;
-  }
-
   .nav-links a {
+    flex: 0 0 auto;
     padding: 0 11px;
     font-size: 0.7rem;
   }
 
   .language-switcher {
+    grid-column: 2;
+    grid-row: 1;
     justify-self: end;
   }
 
@@ -2918,7 +2917,7 @@ h3 {
 @media (max-width: 560px) {
   main,
   .site-header {
-    width: min(100% - 16px, 1240px);
+    width: min(1240px, calc(100% - 16px));
   }
 
   .site-header {
@@ -2981,6 +2980,36 @@ h3 {
   .glass-card,
   .contact-section {
     padding: 16px;
+  }
+
+  .hero-copy,
+  .hero-copy > *,
+  .section-heading,
+  .section-heading > *,
+  .profile-card,
+  .education-card,
+  .experience-card > *,
+  .project-content,
+  .contact-section > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-copy p,
+  .section-heading h2,
+  .glass-card p,
+  .experience-card li,
+  .contact-note {
+    overflow-wrap: break-word;
+  }
+
+  .education-card,
+  .education-card:hover,
+  .education-card:active,
+  .education-card:focus-within {
+    background: var(--cyan);
+    color: #151a12;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .hero-panel {

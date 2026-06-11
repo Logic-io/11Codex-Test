@@ -648,9 +648,7 @@ function setupScrollAnimations() {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
         entry.target.classList.remove("is-above", "is-below");
-      } else {
-        entry.target.classList.remove("is-visible");
-        updateRevealPositionState(entry.target);
+        observer.unobserve(entry.target);
       }
     });
   }, {
