@@ -2286,16 +2286,16 @@ h3 {
 }
 
 .proof-strip {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
-  margin: -30px 0 80px;
+  margin: -30px 0 64px;
   border-radius: 24px;
   background: rgba(244, 246, 239, 0.035);
 }
 
 .proof-strip article {
-  min-height: 160px;
-  padding: 24px 22px;
+  min-height: 138px;
+  padding: 22px 20px;
   border-right: 1px solid var(--line);
   background: transparent;
 }
@@ -2315,14 +2315,14 @@ h3 {
 }
 
 .section {
-  padding: 110px 0;
+  padding: 86px 0;
 }
 
 .section-heading {
   grid-template-columns: minmax(130px, 0.28fr) minmax(0, 1fr);
   gap: 40px;
   align-items: start;
-  margin-bottom: 52px;
+  margin-bottom: 40px;
   padding-top: 22px;
   border-top: 1px solid var(--line);
 }
@@ -2341,7 +2341,7 @@ h3 {
 }
 
 .glass-card {
-  min-height: 250px;
+  min-height: 220px;
   padding: 32px;
 }
 
@@ -2381,25 +2381,25 @@ h3 {
 }
 
 .value-card {
-  min-height: 390px;
+  min-height: 340px;
   border-radius: 24px;
 }
 
 .value-card:nth-child(2),
 .value-card:nth-child(4) {
-  transform: translateY(28px);
+  transform: translateY(18px);
 }
 
 .value-visual {
-  height: 150px;
-  margin: -20px -20px 24px;
+  height: 130px;
+  margin: -20px -20px 20px;
   border: 0;
   border-radius: 18px;
   background: #181d1b;
 }
 
 .card-index {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   color: var(--cyan);
 }
 
@@ -2411,7 +2411,7 @@ h3 {
 .experience-card {
   grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
   gap: 48px;
-  padding: 34px 4px;
+  padding: 27px 4px;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
@@ -2454,14 +2454,14 @@ h3 {
 }
 
 .skill-card {
-  grid-column: span 2;
-  min-height: 340px;
+  grid-column: span 3;
+  min-height: 290px;
 }
 
 .skill-card:nth-child(1),
 .skill-card:nth-child(2) {
   grid-column: span 3;
-  min-height: 300px;
+  min-height: 290px;
 }
 
 .skill-card:nth-child(2) {
@@ -2490,9 +2490,9 @@ h3 {
 }
 
 .project-card {
-  grid-template-rows: 270px auto;
+  grid-template-rows: 230px auto;
   gap: 24px;
-  min-height: 570px;
+  min-height: 500px;
   padding: 12px 12px 32px;
   border-radius: 30px;
 }
@@ -2552,7 +2552,7 @@ h3 {
   position: relative;
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
   gap: 70px;
-  margin: 100px 0 0;
+  margin: 76px 0 0;
   padding: clamp(42px, 7vw, 84px);
   overflow: hidden;
   border: 0;
@@ -2643,18 +2643,18 @@ h3 {
 
 /* Project detail pages */
 .detail-main {
-  padding: 90px 0 60px;
+  padding: 76px 0 48px;
 }
 
 .detail-hero {
   grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
   gap: clamp(42px, 7vw, 90px);
-  padding: 70px 0 120px;
+  padding: 54px 0 82px;
 }
 
 .detail-copy h1 {
   max-width: 720px;
-  margin: 22px 0 32px;
+  margin: 18px 0 24px;
   color: var(--text);
   font-size: var(--h1-detail);
   line-height: 0.94;
@@ -2667,7 +2667,7 @@ h3 {
 }
 
 .detail-visual {
-  min-height: 460px;
+  min-height: 390px;
   padding: 12px;
   border-radius: 32px;
   background: #141817;
@@ -2675,7 +2675,7 @@ h3 {
 }
 
 .detail-visual img {
-  min-height: 436px;
+  min-height: 366px;
   border-radius: 22px;
 }
 
@@ -2684,11 +2684,11 @@ h3 {
 }
 
 .detail-card {
-  padding: 36px;
+  padding: 28px;
 }
 
 .detail-card h2 {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   font-size: 1.35rem;
 }
 
@@ -2703,6 +2703,10 @@ h3 {
     #121615;
 }
 
+.case-study-grid > .detail-card:last-child {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 1040px) {
   main,
   .site-header {
@@ -2715,14 +2719,14 @@ h3 {
   }
 
   .proof-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .proof-strip article:nth-child(3) {
+  .proof-strip article:nth-child(even) {
     border-right: 0;
   }
 
-  .proof-strip article:nth-child(n + 4) {
+  .proof-strip article:nth-child(n + 3) {
     border-top: 1px solid var(--line);
   }
 
@@ -2815,7 +2819,7 @@ h3 {
     border-top: 1px solid var(--line);
   }
 
-  .proof-strip article:nth-child(odd) {
+  .proof-strip article:nth-child(even) {
     border-right: 0;
   }
 
@@ -2849,7 +2853,7 @@ h3 {
   }
 
   .detail-hero {
-    padding: 50px 0 80px;
+    padding: 46px 0 64px;
   }
 
   .detail-visual {
@@ -2981,6 +2985,12 @@ h3 {
     margin-top: 60px;
     padding: 34px 22px;
     border-radius: 26px;
+  }
+
+  .contact-section::before {
+    right: 0;
+    bottom: -1rem;
+    font-size: 4.5rem;
   }
 
   .site-footer {
