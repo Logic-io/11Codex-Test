@@ -1660,7 +1660,7 @@ li + li {
 @media (max-width: 560px) {
   main,
   .site-header {
-    width: min(100% - 14px, 1120px);
+    width: min(1120px, calc(100% - 14px));
   }
 
   .site-header {
@@ -2038,6 +2038,61 @@ main,
   background: rgba(244, 246, 239, 0.08);
   color: var(--text);
   box-shadow: none;
+}
+
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 11px 16px;
+  border: 1px solid rgba(244, 246, 239, 0.16);
+  border-radius: 999px;
+  background: rgba(244, 246, 239, 0.06);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.like-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(200, 255, 98, 0.42);
+  background: rgba(200, 255, 98, 0.1);
+}
+
+.like-button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.like-button svg {
+  width: 18px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.like-button.is-liked {
+  border-color: rgba(200, 255, 98, 0.42);
+  color: var(--cyan);
+}
+
+.like-button.is-liked svg {
+  fill: currentColor;
+}
+
+.like-count {
+  min-width: 22px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(244, 246, 239, 0.16);
+  text-align: center;
+}
+
+.menu-toggle {
+  display: none;
 }
 
 .language-switcher {
@@ -2794,7 +2849,7 @@ h3 {
 @media (max-width: 1040px) {
   main,
   .site-header {
-    width: min(100% - 40px, 1240px);
+    width: min(1240px, calc(100% - 40px));
   }
 
   .hero {
@@ -2833,12 +2888,12 @@ h3 {
 @media (max-width: 780px) {
   main,
   .site-header {
-    width: min(100% - 24px, 1240px);
+    width: min(1240px, calc(100% - 24px));
   }
 
   .site-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 8px;
     top: 10px;
     align-items: center;
@@ -2850,26 +2905,94 @@ h3 {
     justify-content: flex-start;
   }
 
-  .nav-links {
-    overflow-x: auto;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    width: auto;
-    padding: 0;
+  .menu-toggle {
+    display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid rgba(244, 246, 239, 0.1);
+    border-radius: 999px;
+    background: rgba(244, 246, 239, 0.045);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 750;
+    cursor: pointer;
   }
 
-  .nav-links a[href$="#about"],
-  .nav-links a[href$="#experience"],
-  .nav-links a[href$="#skills"] {
+  .menu-toggle-icon,
+  .menu-toggle-icon::before,
+  .menu-toggle-icon::after {
+    display: block;
+    width: 14px;
+    height: 1.5px;
+    border-radius: 999px;
+    background: currentColor;
+    transition: transform 180ms ease;
+  }
+
+  .menu-toggle-icon {
+    position: relative;
+  }
+
+  .menu-toggle-icon::before,
+  .menu-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-toggle-icon::before {
+    top: -5px;
+  }
+
+  .menu-toggle-icon::after {
+    top: 5px;
+  }
+
+  .menu-open .menu-toggle-icon {
+    background: transparent;
+  }
+
+  .menu-open .menu-toggle-icon::before {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  .menu-open .menu-toggle-icon::after {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  .nav-links {
     display: none;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    overflow: visible;
+    width: 100%;
+    padding: 4px 0 2px;
+  }
+
+  .site-header.menu-open .nav-links {
+    display: grid;
   }
 
   .nav-links a {
+    width: 100%;
+    min-height: 40px;
     padding: 0 11px;
-    font-size: 0.7rem;
+    border-color: rgba(244, 246, 239, 0.08);
+    background: rgba(244, 246, 239, 0.035);
+    font-size: 0.72rem;
   }
 
   .language-switcher {
+    grid-column: 3;
+    grid-row: 1;
     justify-self: end;
   }
 
@@ -2949,7 +3072,7 @@ h3 {
 @media (max-width: 560px) {
   main,
   .site-header {
-    width: min(100% - 16px, 1240px);
+    width: min(1240px, calc(100% - 16px));
   }
 
   .site-header {
@@ -2969,9 +3092,16 @@ h3 {
   }
 
   .nav-links a {
-    min-height: 32px;
-    padding: 0 8px;
-    font-size: 0.64rem;
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 0.68rem;
+  }
+
+  .menu-toggle {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 0;
   }
 
   .language-switcher {
@@ -3012,6 +3142,36 @@ h3 {
   .glass-card,
   .contact-section {
     padding: 16px;
+  }
+
+  .hero-copy,
+  .hero-copy > *,
+  .section-heading,
+  .section-heading > *,
+  .profile-card,
+  .education-card,
+  .experience-card > *,
+  .project-content,
+  .contact-section > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-copy p,
+  .section-heading h2,
+  .glass-card p,
+  .experience-card li,
+  .contact-note {
+    overflow-wrap: break-word;
+  }
+
+  .education-card,
+  .education-card:hover,
+  .education-card:active,
+  .education-card:focus-within {
+    background: var(--cyan);
+    color: #151a12;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .hero-panel {

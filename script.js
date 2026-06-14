@@ -14,8 +14,12 @@ const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : nul
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
 const siteHeader = document.querySelector(".site-header");
+const primaryNav = document.querySelector(".nav-links");
+const likeButton = document.querySelector(".like-button");
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
+const LIKE_COUNT_KEY = "portfolio-like-count";
+const LIKED_KEY = "portfolio-liked";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
   "HOME": "首页",
@@ -24,6 +28,7 @@ const zhTranslations = {
   "Skills": "技能",
   "Projects": "项目",
   "Contact": "联系",
+  "Like this portfolio": "为这个作品集点赞",
   "Back to Projects": "返回项目",
   "Marketing / Sales / Automation": "市场营销 / 销售 / 自动化",
   "Marketing & Sales Specialist.": "市场营销与销售专员。",
@@ -506,7 +511,42 @@ let directionScrollY = window.scrollY;
 let currentScrollDirection = "down";
 
 function isMobileHeader() {
-  return window.matchMedia("(max-width: 760px)").matches;
+  return window.matchMedia("(max-width: 780px)").matches;
+}
+
+function closeMobileMenu() {
+  const menuButton = document.querySelector(".menu-toggle");
+  if (!siteHeader || !menuButton) return;
+
+  siteHeader.classList.remove("menu-open");
+  menuButton.setAttribute("aria-expanded", "false");
+}
+
+function createMobileMenu() {
+  if (!siteHeader || !primaryNav || siteHeader.querySelector(".menu-toggle")) return;
+
+  if (!primaryNav.id) primaryNav.id = "primary-navigation";
+
+  const menuButton = document.createElement("button");
+  menuButton.className = "menu-toggle";
+  menuButton.type = "button";
+  menuButton.setAttribute("aria-controls", primaryNav.id);
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "Toggle navigation menu");
+  menuButton.innerHTML = `
+    <span class="menu-toggle-icon" aria-hidden="true"></span>
+    <span>Menu</span>
+  `;
+
+  siteHeader.insertBefore(menuButton, primaryNav);
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = siteHeader.classList.toggle("menu-open");
+    siteHeader.classList.remove("is-hidden");
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
 }
 
 function normalizeText(text) {
@@ -648,9 +688,7 @@ function setupScrollAnimations() {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
         entry.target.classList.remove("is-above", "is-below");
-      } else {
-        entry.target.classList.remove("is-visible");
-        updateRevealPositionState(entry.target);
+        observer.unobserve(entry.target);
       }
     });
   }, {
@@ -899,12 +937,43 @@ function updateBackToTop() {
   backToTop.classList.toggle("is-visible", window.scrollY > 420);
 }
 
+function initLikeButton() {
+  if (!likeButton) return;
+
+  const countElement = likeButton.querySelector(".like-count");
+  let count = Number.parseInt(localStorage.getItem(LIKE_COUNT_KEY) || "0", 10);
+  let isLiked = localStorage.getItem(LIKED_KEY) === "true";
+
+  function renderLike() {
+    likeButton.classList.toggle("is-liked", isLiked);
+    likeButton.setAttribute("aria-pressed", String(isLiked));
+    if (countElement) countElement.textContent = String(count);
+  }
+
+  likeButton.addEventListener("click", () => {
+    count = Math.max(0, count + (isLiked ? -1 : 1));
+    isLiked = !isLiked;
+    localStorage.setItem(LIKE_COUNT_KEY, String(count));
+    localStorage.setItem(LIKED_KEY, String(isLiked));
+    renderLike();
+  });
+
+  renderLike();
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
   const currentScrollY = Math.max(window.scrollY, 0);
 
   if (!isMobileHeader()) {
+    closeMobileMenu();
+    siteHeader.classList.remove("is-hidden");
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  if (siteHeader.classList.contains("menu-open")) {
     siteHeader.classList.remove("is-hidden");
     lastScrollY = currentScrollY;
     return;
@@ -974,7 +1043,10 @@ if (lightboxClose) {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeLightbox();
+  if (event.key === "Escape") {
+    closeLightbox();
+    closeMobileMenu();
+  }
 });
 
 window.addEventListener("resize", () => {
@@ -996,7 +1068,9 @@ window.addEventListener("pointerleave", () => {
   pointer.active = false;
 });
 
+createMobileMenu();
 initLanguageSwitcher();
+initLikeButton();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
