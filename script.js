@@ -941,8 +941,16 @@ function initLikeButton() {
   if (!likeButton) return;
 
   const countElement = likeButton.querySelector(".like-count");
-  let count = Number.parseInt(localStorage.getItem(LIKE_COUNT_KEY) || "0", 10);
-  let isLiked = localStorage.getItem(LIKED_KEY) === "true";
+  let count = 0;
+  let isLiked = false;
+
+  try {
+    count = Number.parseInt(localStorage.getItem(LIKE_COUNT_KEY) || "0", 10);
+    isLiked = localStorage.getItem(LIKED_KEY) === "true";
+  } catch (error) {
+    count = 0;
+    isLiked = false;
+  }
 
   function renderLike() {
     likeButton.classList.toggle("is-liked", isLiked);
@@ -953,8 +961,14 @@ function initLikeButton() {
   likeButton.addEventListener("click", () => {
     count = Math.max(0, count + (isLiked ? -1 : 1));
     isLiked = !isLiked;
-    localStorage.setItem(LIKE_COUNT_KEY, String(count));
-    localStorage.setItem(LIKED_KEY, String(isLiked));
+
+    try {
+      localStorage.setItem(LIKE_COUNT_KEY, String(count));
+      localStorage.setItem(LIKED_KEY, String(isLiked));
+    } catch (error) {
+      // Keep the button usable when mobile privacy settings block local storage.
+    }
+
     renderLike();
   });
 
