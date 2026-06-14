@@ -2009,6 +2009,57 @@ main,
   box-shadow: none;
 }
 
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 11px 16px;
+  border: 1px solid rgba(244, 246, 239, 0.16);
+  border-radius: 999px;
+  background: rgba(244, 246, 239, 0.06);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.like-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(200, 255, 98, 0.42);
+  background: rgba(200, 255, 98, 0.1);
+}
+
+.like-button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.like-button svg {
+  width: 18px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.like-button.is-liked {
+  border-color: rgba(200, 255, 98, 0.42);
+  color: var(--cyan);
+}
+
+.like-button.is-liked svg {
+  fill: currentColor;
+}
+
+.like-count {
+  min-width: 22px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(244, 246, 239, 0.16);
+  text-align: center;
+}
+
 .menu-toggle {
   display: none;
 }

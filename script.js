@@ -15,8 +15,11 @@ const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
 const siteHeader = document.querySelector(".site-header");
 const primaryNav = document.querySelector(".nav-links");
+const likeButton = document.querySelector(".like-button");
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
+const LIKE_COUNT_KEY = "portfolio-like-count";
+const LIKED_KEY = "portfolio-liked";
 const supportedLanguages = ["en", "zh"];
 const zhTranslations = {
   "HOME": "首页",
@@ -25,6 +28,7 @@ const zhTranslations = {
   "Skills": "技能",
   "Projects": "项目",
   "Contact": "联系",
+  "Like this portfolio": "为这个作品集点赞",
   "Back to Projects": "返回项目",
   "Marketing / Sales / Automation": "市场营销 / 销售 / 自动化",
   "Marketing & Sales Specialist.": "市场营销与销售专员。",
@@ -933,6 +937,30 @@ function updateBackToTop() {
   backToTop.classList.toggle("is-visible", window.scrollY > 420);
 }
 
+function initLikeButton() {
+  if (!likeButton) return;
+
+  const countElement = likeButton.querySelector(".like-count");
+  let count = Number.parseInt(localStorage.getItem(LIKE_COUNT_KEY) || "0", 10);
+  let isLiked = localStorage.getItem(LIKED_KEY) === "true";
+
+  function renderLike() {
+    likeButton.classList.toggle("is-liked", isLiked);
+    likeButton.setAttribute("aria-pressed", String(isLiked));
+    if (countElement) countElement.textContent = String(count);
+  }
+
+  likeButton.addEventListener("click", () => {
+    count = Math.max(0, count + (isLiked ? -1 : 1));
+    isLiked = !isLiked;
+    localStorage.setItem(LIKE_COUNT_KEY, String(count));
+    localStorage.setItem(LIKED_KEY, String(isLiked));
+    renderLike();
+  });
+
+  renderLike();
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1042,6 +1070,7 @@ window.addEventListener("pointerleave", () => {
 
 createMobileMenu();
 initLanguageSwitcher();
+initLikeButton();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
