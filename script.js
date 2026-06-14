@@ -14,6 +14,7 @@ const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : nul
 const lightboxItems = [...document.querySelectorAll(".lightbox-item")];
 const backToTop = document.querySelector(".back-to-top");
 const siteHeader = document.querySelector(".site-header");
+const primaryNav = document.querySelector(".nav-links");
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
 const supportedLanguages = ["en", "zh"];
@@ -506,7 +507,42 @@ let directionScrollY = window.scrollY;
 let currentScrollDirection = "down";
 
 function isMobileHeader() {
-  return window.matchMedia("(max-width: 760px)").matches;
+  return window.matchMedia("(max-width: 780px)").matches;
+}
+
+function closeMobileMenu() {
+  const menuButton = document.querySelector(".menu-toggle");
+  if (!siteHeader || !menuButton) return;
+
+  siteHeader.classList.remove("menu-open");
+  menuButton.setAttribute("aria-expanded", "false");
+}
+
+function createMobileMenu() {
+  if (!siteHeader || !primaryNav || siteHeader.querySelector(".menu-toggle")) return;
+
+  if (!primaryNav.id) primaryNav.id = "primary-navigation";
+
+  const menuButton = document.createElement("button");
+  menuButton.className = "menu-toggle";
+  menuButton.type = "button";
+  menuButton.setAttribute("aria-controls", primaryNav.id);
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", "Toggle navigation menu");
+  menuButton.innerHTML = `
+    <span class="menu-toggle-icon" aria-hidden="true"></span>
+    <span>Menu</span>
+  `;
+
+  siteHeader.insertBefore(menuButton, primaryNav);
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = siteHeader.classList.toggle("menu-open");
+    siteHeader.classList.remove("is-hidden");
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
 }
 
 function normalizeText(text) {
@@ -903,6 +939,13 @@ function updateMobileHeaderVisibility() {
   const currentScrollY = Math.max(window.scrollY, 0);
 
   if (!isMobileHeader()) {
+    closeMobileMenu();
+    siteHeader.classList.remove("is-hidden");
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  if (siteHeader.classList.contains("menu-open")) {
     siteHeader.classList.remove("is-hidden");
     lastScrollY = currentScrollY;
     return;
@@ -972,7 +1015,10 @@ if (lightboxClose) {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeLightbox();
+  if (event.key === "Escape") {
+    closeLightbox();
+    closeMobileMenu();
+  }
 });
 
 window.addEventListener("resize", () => {
@@ -994,6 +1040,7 @@ window.addEventListener("pointerleave", () => {
   pointer.active = false;
 });
 
+createMobileMenu();
 initLanguageSwitcher();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
