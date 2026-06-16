@@ -1923,9 +1923,9 @@ li + li {
   --blue-violet: #0f82cb;
   --shadow: 0 32px 90px rgba(0, 0, 0, 0.3);
   --font-sans: "Aptos", "Segoe UI Variable", "Segoe UI", Helvetica, Arial, sans-serif;
-  --h1-home: clamp(5rem, 11vw, 9.5rem);
+  --h1-home: clamp(4.3rem, 8.8vw, 7.8rem);
   --h1-detail: clamp(3rem, 7vw, 6.4rem);
-  --h2-size: clamp(2.25rem, 4.6vw, 4.6rem);
+  --h2-size: clamp(2rem, 3.7vw, 3.7rem);
   --h3-size: 1.22rem;
   --body-size: 1rem;
 }
@@ -3302,9 +3302,20 @@ h3 {
   }
 
   h1 {
-    font-size: clamp(4.2rem, 23vw, 6.4rem);
+    font-size: clamp(3.05rem, 17vw, 4.45rem);
     margin-bottom: 26px;
-    line-height: 0.92;
+    line-height: 0.96;
+  }
+
+  h2 {
+    font-size: clamp(1.58rem, 8.6vw, 2.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: clamp(1rem, 5.2vw, 1.2rem);
+    line-height: 1.18;
   }
 
   .hero-title {
