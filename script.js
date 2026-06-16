@@ -1106,9 +1106,6 @@ function updateMobileHeaderVisibility() {
 
   if (!isMobileHeader()) {
     closeMobileMenu();
-    siteHeader.classList.remove("is-hidden");
-    lastScrollY = currentScrollY;
-    return;
   }
 
   if (siteHeader.classList.contains("menu-open")) {
@@ -1118,9 +1115,9 @@ function updateMobileHeaderVisibility() {
   }
 
   const scrollDelta = currentScrollY - lastScrollY;
-  if (Math.abs(scrollDelta) < 8) return;
+  if (Math.abs(scrollDelta) < 12) return;
 
-  if (currentScrollY < 90 || scrollDelta < 0) {
+  if (currentScrollY < 120 || scrollDelta < 0) {
     siteHeader.classList.remove("is-hidden");
   } else {
     siteHeader.classList.add("is-hidden");
