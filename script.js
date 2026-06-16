@@ -504,6 +504,7 @@ const titleTranslations = {
   "Brand & Content Positioning | Yury Li": "品牌与内容定位 | Yury Li"
 };
 Object.assign(titleTranslations, {
+  "Yury Li | AI/Sales/Tester": "Yury Li | AI/销售/测试",
   "Yury Li | Marketing, Sales & AI Workflow Specialist": "Yury Li | 市场、销售与 AI 工作流专员",
   "Retail Technology & Product Consultation | Yury Li": "零售科技与产品咨询 | Yury Li",
   "Sales Follow-up Workflow Prototype | Yury Li": "销售跟进工作流原型 | Yury Li",
@@ -523,6 +524,7 @@ let directionScrollY = window.scrollY;
 let currentScrollDirection = "down";
 let rotatingTextTimer = null;
 let variableProximityPointerHandler = null;
+let trueFocusTimer = null;
 
 function isMobileHeader() {
   return window.matchMedia("(max-width: 780px)").matches;
@@ -629,11 +631,29 @@ function updateLanguageSpecificControls(language) {
   }
 }
 
+function renderHeroTitleFocus(language) {
+  const title = document.querySelector(".hero-title.true-focus");
+  if (!title) return;
+
+  const words = language === "zh"
+    ? ["AI", "销售", "测试"]
+    : ["AI", "Sales", "Tester"];
+
+  title.setAttribute(
+    "aria-label",
+    language === "zh" ? "AI 销售 测试" : "AI Sales Tester"
+  );
+  title.innerHTML = `${words.map((word, index) => (
+    `<span class="focus-word${index === 0 ? " active" : ""}">${word}</span>`
+  )).join("")}<span class="focus-frame" aria-hidden="true"><span class="corner top-left"></span><span class="corner top-right"></span><span class="corner bottom-left"></span><span class="corner bottom-right"></span></span>`;
+}
+
 function applyLanguage(language) {
   const nextLanguage = supportedLanguages.includes(language) ? language : "en";
   localStorage.setItem(LANGUAGE_KEY, nextLanguage);
   document.documentElement.lang = nextLanguage === "zh" ? "zh-Hans" : "en";
   resetVariableProximityTitles(nextLanguage);
+  renderHeroTitleFocus(nextLanguage);
 
   collectTranslatableElements().forEach((element) => {
     if (!element.dataset.i18nEn) {
@@ -665,6 +685,7 @@ function applyLanguage(language) {
   updateLanguageSpecificControls(nextLanguage);
   initRotatingText();
   initVariableProximityTitles();
+  initTrueFocus();
 }
 
 function initLanguageSwitcher() {
@@ -1031,6 +1052,9 @@ function initTrueFocus() {
 
   const words = [...focusContainer.querySelectorAll(".focus-word")];
   if (!words.length) return;
+  if (trueFocusTimer !== null) {
+    window.clearInterval(trueFocusTimer);
+  }
 
   let activeIndex = 0;
 
@@ -1051,7 +1075,7 @@ function initTrueFocus() {
 
   updateFocusFrame();
 
-  window.setInterval(() => {
+  trueFocusTimer = window.setInterval(() => {
     activeIndex = (activeIndex + 1) % words.length;
     updateFocusFrame();
   }, 1500);
