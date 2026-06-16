@@ -468,6 +468,11 @@ Object.assign(zhTranslations, {
 });
 
 Object.assign(zhTranslations, {
+  "Menu": "菜单",
+  "Specialist in": "专长：",
+  "marketing": "市场营销",
+  "sales": "销售",
+  "ai": "AI",
   "Home": "首页",
   "Seasonal events, partner training, and client-sponsored activations designed to strengthen engagement.": "通过季节性活动、合作伙伴培训与客户赞助活动提升参与度。",
   "A case study in seasonal event planning, partner training, client-sponsored activations, product positioning, and customer engagement.": "关于季节性活动策划、合作伙伴培训、客户赞助活动、产品定位与客户互动的案例。",
@@ -516,6 +521,8 @@ let lastScrollY = window.scrollY;
 let parallaxFrame = null;
 let directionScrollY = window.scrollY;
 let currentScrollDirection = "down";
+let rotatingTextTimer = null;
+let variableProximityPointerHandler = null;
 
 function isMobileHeader() {
   return window.matchMedia("(max-width: 780px)").matches;
@@ -580,6 +587,11 @@ function createLanguageSwitcher() {
     <button type="button" data-lang-button="en" aria-label="Switch to English">EN</button>
     <button type="button" data-lang-button="zh" aria-label="切换到中文">中文</button>
   `;
+  const zhButton = switcher.querySelector('[data-lang-button="zh"]');
+  if (zhButton) {
+    zhButton.textContent = "中文";
+    zhButton.setAttribute("aria-label", "切换到中文");
+  }
   header.appendChild(switcher);
 }
 
@@ -591,14 +603,37 @@ function collectTranslatableElements() {
   ].filter((element) => {
     if (element.closest(".language-switcher")) return false;
     if (element.closest("[data-no-i18n]")) return false;
+    if (element.closest(".variable-proximity")) return false;
+    if (element.closest(".rotating-text")) return false;
     return element.children.length === 0 && normalizeText(element.textContent);
   });
+}
+
+function resetVariableProximityTitles(language) {
+  document.querySelectorAll("[data-variable-proximity='true']").forEach((heading) => {
+    const english = heading.dataset.i18nEn || heading.getAttribute("aria-label") || normalizeText(heading.textContent);
+    const nextText = language === "zh" && zhTranslations[english] ? zhTranslations[english] : english;
+    heading.classList.remove("variable-proximity");
+    heading.removeAttribute("data-variable-proximity");
+    heading.setAttribute("aria-label", nextText);
+    heading.textContent = nextText;
+  });
+}
+
+function updateLanguageSpecificControls(language) {
+  const menuButton = document.querySelector(".menu-toggle");
+  if (menuButton) {
+    menuButton.setAttribute("aria-label", language === "zh" ? "切换导航菜单" : "Toggle navigation menu");
+    const label = menuButton.querySelector("span:last-child");
+    if (label) label.textContent = language === "zh" ? "菜单" : "Menu";
+  }
 }
 
 function applyLanguage(language) {
   const nextLanguage = supportedLanguages.includes(language) ? language : "en";
   localStorage.setItem(LANGUAGE_KEY, nextLanguage);
   document.documentElement.lang = nextLanguage === "zh" ? "zh-Hans" : "en";
+  resetVariableProximityTitles(nextLanguage);
 
   collectTranslatableElements().forEach((element) => {
     if (!element.dataset.i18nEn) {
@@ -623,6 +658,13 @@ function applyLanguage(language) {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
+  document.querySelectorAll(".shiny-text").forEach((element) => {
+    element.dataset.shiny = normalizeText(element.textContent);
+  });
+
+  updateLanguageSpecificControls(nextLanguage);
+  initRotatingText();
+  initVariableProximityTitles();
 }
 
 function initLanguageSwitcher() {
@@ -1025,10 +1067,17 @@ function initRotatingText() {
   const rotatingText = document.querySelector(".rotating-text");
   if (!rotatingText) return;
 
-  const words = ["marketing", "sales", "ai"];
-  let activeIndex = 0;
+  if (rotatingTextTimer !== null) {
+    window.clearInterval(rotatingTextTimer);
+  }
 
-  window.setInterval(() => {
+  const words = getCurrentLanguage() === "zh"
+    ? ["市场营销", "销售", "AI"]
+    : ["marketing", "sales", "ai"];
+  let activeIndex = 0;
+  rotatingText.textContent = words[activeIndex];
+
+  rotatingTextTimer = window.setInterval(() => {
     activeIndex = (activeIndex + 1) % words.length;
     rotatingText.classList.remove("is-entering");
     rotatingText.textContent = words[activeIndex];
@@ -1043,11 +1092,18 @@ function initVariableProximityTitles() {
 
   if (!headings.length) return;
 
+  if (variableProximityPointerHandler) {
+    window.removeEventListener("pointermove", variableProximityPointerHandler);
+  }
+
   headings.forEach((heading) => {
     if (heading.dataset.variableProximity === "true") return;
     const label = heading.textContent;
     if (!label.trim()) return;
 
+    if (!heading.dataset.i18nEn) {
+      heading.dataset.i18nEn = normalizeText(label);
+    }
     heading.dataset.variableProximity = "true";
     heading.setAttribute("aria-label", label);
     heading.textContent = "";
@@ -1096,7 +1152,8 @@ function initVariableProximityTitles() {
     });
   }
 
-  window.addEventListener("pointermove", updateLetters);
+  variableProximityPointerHandler = updateLetters;
+  window.addEventListener("pointermove", variableProximityPointerHandler);
 }
 
 function updateMobileHeaderVisibility() {
@@ -1204,6 +1261,7 @@ initLanguageSwitcher();
 initLikeButton();
 initTrueFocus();
 initRotatingText();
+initMagnetLines();
 initVariableProximityTitles();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
