@@ -1971,7 +1971,9 @@ main,
 }
 
 .site-header {
+  position: sticky;
   top: 18px;
+  z-index: 20;
   margin-top: 18px;
   padding: 10px 12px 10px 14px;
   border-color: rgba(235, 242, 232, 0.12);
