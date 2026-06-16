@@ -2268,6 +2268,37 @@ h3 {
   letter-spacing: -0.015em;
 }
 
+.variable-proximity {
+  font-variation-settings: "wght" 620, "opsz" 14;
+}
+
+.variable-word,
+.variable-letter,
+.variable-space {
+  display: inline-block;
+}
+
+.variable-word {
+  display: inline-flex;
+  column-gap: 0.015em;
+  white-space: nowrap;
+}
+
+.variable-letter {
+  --proximity-scale: 1;
+  --proximity-glow: 0;
+  font-variation-settings: "wght" 620, "opsz" 14;
+  transform: scale(var(--proximity-scale));
+  text-shadow: 0 0 calc(var(--proximity-glow) * 18px) rgba(15, 130, 203, 0.72);
+  transition: font-variation-settings 120ms linear, font-weight 120ms linear, transform 120ms linear, text-shadow 120ms linear;
+  transform-origin: center;
+  will-change: font-variation-settings, font-weight, transform, text-shadow;
+}
+
+.variable-space {
+  width: 0.28em;
+}
+
 .hero-title {
   max-width: 680px;
   margin-bottom: 24px;

@@ -1037,6 +1037,68 @@ function initRotatingText() {
   }, 2000);
 }
 
+function initVariableProximityTitles() {
+  const headings = [...document.querySelectorAll("main h1, main h2, main h3")]
+    .filter((heading) => !heading.closest(".true-focus"));
+
+  if (!headings.length) return;
+
+  headings.forEach((heading) => {
+    if (heading.dataset.variableProximity === "true") return;
+    const label = heading.textContent;
+    if (!label.trim()) return;
+
+    heading.dataset.variableProximity = "true";
+    heading.setAttribute("aria-label", label);
+    heading.textContent = "";
+    heading.classList.add("variable-proximity");
+
+    label.split(" ").forEach((word, wordIndex, words) => {
+      const wordWrap = document.createElement("span");
+      wordWrap.className = "variable-word";
+
+      [...word].forEach((letter) => {
+        const letterWrap = document.createElement("span");
+        letterWrap.className = "variable-letter";
+        letterWrap.setAttribute("aria-hidden", "true");
+        letterWrap.textContent = letter;
+        wordWrap.appendChild(letterWrap);
+      });
+
+      heading.appendChild(wordWrap);
+
+      if (wordIndex < words.length - 1) {
+        const space = document.createElement("span");
+        space.className = "variable-space";
+        space.setAttribute("aria-hidden", "true");
+        space.textContent = " ";
+        heading.appendChild(space);
+      }
+    });
+  });
+
+  const letters = [...document.querySelectorAll(".variable-letter")];
+  const radius = 120;
+
+  function updateLetters(pointer) {
+    letters.forEach((letter) => {
+      const rect = letter.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const distance = Math.hypot(pointer.x - centerX, pointer.y - centerY);
+      const strength = Math.max(0, 1 - distance / radius);
+      const weight = Math.round(520 + (980 - 520) * strength);
+      const opticalSize = Math.round(12 + (40 - 12) * strength);
+      letter.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${opticalSize}`;
+      letter.style.fontWeight = String(weight);
+      letter.style.setProperty("--proximity-scale", (1 + strength * 0.12).toFixed(3));
+      letter.style.setProperty("--proximity-glow", strength.toFixed(3));
+    });
+  }
+
+  window.addEventListener("pointermove", updateLetters);
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1142,6 +1204,7 @@ initLanguageSwitcher();
 initLikeButton();
 initTrueFocus();
 initRotatingText();
+initVariableProximityTitles();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
