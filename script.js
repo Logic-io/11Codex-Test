@@ -499,7 +499,7 @@ const titleTranslations = {
   "Brand & Content Positioning | Yury Li": "品牌与内容定位 | Yury Li"
 };
 Object.assign(titleTranslations, {
-  "Yury Li | AI/Sales/Tester": "Yury Li | AI/销售/测试",
+  "Yury Li | AI/Sales/Marketing": "Yury Li | AI/销售/市场营销",
   "Yury Li | Marketing, Sales & AI Workflow Specialist": "Yury Li | 市场、销售与 AI 工作流专员",
   "Retail Technology & Product Consultation | Yury Li": "零售科技与产品咨询 | Yury Li",
   "Sales Follow-up Workflow Prototype | Yury Li": "销售跟进工作流原型 | Yury Li",
@@ -602,12 +602,12 @@ function renderHeroTitleFocus(language) {
   if (!title) return;
 
   const words = language === "zh"
-    ? ["AI", "销售", "测试"]
-    : ["AI", "Sales", "Tester"];
+    ? ["AI", "销售", "市场营销"]
+    : ["AI", "Sales", "Marketing"];
 
   title.setAttribute(
     "aria-label",
-    language === "zh" ? "AI 销售 测试" : "AI Sales Tester"
+    language === "zh" ? "AI 销售 市场营销" : "AI Sales Marketing"
   );
   title.innerHTML = `${words.map((word, index) => (
     `<span class="focus-word${index === 0 ? " active" : ""}">${word}</span>`
@@ -1052,9 +1052,6 @@ function updateMobileHeaderVisibility() {
 
   if (!isMobileHeader()) {
     closeMobileMenu();
-    siteHeader.classList.remove("is-hidden");
-    lastScrollY = currentScrollY;
-    return;
   }
 
   if (siteHeader.classList.contains("menu-open")) {
