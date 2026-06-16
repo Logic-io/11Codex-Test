@@ -1910,17 +1910,17 @@ li + li {
   --bg-soft: #0d1022;
   --text: #f8fbff;
   --muted: #aeb7cf;
-  --line: rgba(168, 85, 247, 0.16);
+  --line: rgba(15, 130, 203, 0.18);
   --glass: rgba(11, 13, 31, 0.78);
   --glass-strong: rgba(9, 11, 28, 0.94);
-  --cyan: #06b6d4;
-  --green: #06b6d4;
+  --cyan: #0f82cb;
+  --green: #0f82cb;
   --rose: #d8b4fe;
   --amber: #f8fbff;
-  --blue-core: #a855f7;
-  --blue-soft: #67e8f9;
+  --blue-core: #0f82cb;
+  --blue-soft: #71c7f3;
   --blue-ice: #eefbff;
-  --blue-violet: #8b5cf6;
+  --blue-violet: #0f82cb;
   --shadow: 0 32px 90px rgba(0, 0, 0, 0.3);
   --font-sans: "Aptos", "Segoe UI Variable", "Segoe UI", Helvetica, Arial, sans-serif;
   --h1-home: clamp(5rem, 11vw, 9.5rem);
@@ -1932,17 +1932,18 @@ li + li {
 
 body {
   background:
-    radial-gradient(circle at 84% 7%, rgba(168, 85, 247, 0.22), transparent 28rem),
-    radial-gradient(circle at 16% 20%, rgba(168, 85, 247, 0.14), transparent 28rem),
-    linear-gradient(180deg, #07040d 0%, #090611 42%, #05040b 100%);
+    radial-gradient(circle at 84% 7%, rgba(15, 130, 203, 0.24), transparent 28rem),
+    radial-gradient(circle at 16% 20%, rgba(15, 130, 203, 0.16), transparent 28rem),
+    radial-gradient(circle at 50% 100%, rgba(15, 130, 203, 0.18), transparent 34rem),
+    linear-gradient(180deg, #03101a 0%, #061522 42%, #020a11 100%);
   color: var(--text);
   line-height: 1.65;
 }
 
 body::before {
   background:
-    linear-gradient(rgba(168, 85, 247, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.022) 1px, transparent 1px);
+    linear-gradient(rgba(15, 130, 203, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 130, 203, 0.026) 1px, transparent 1px);
   background-size: 72px 72px;
   filter: none;
   opacity: 0.55;
@@ -1952,7 +1953,9 @@ body::before {
 }
 
 body::after {
-  background: radial-gradient(circle at 50% -20%, rgba(168, 85, 247, 0.14), transparent 42rem);
+  background:
+    radial-gradient(circle at 50% -20%, rgba(15, 130, 203, 0.16), transparent 42rem),
+    radial-gradient(circle at 50% 120%, rgba(15, 130, 203, 0.14), transparent 38rem);
   opacity: 0.58;
 }
 
@@ -2274,6 +2277,40 @@ h3 {
   line-height: 1.16;
   letter-spacing: -0.025em;
   text-wrap: balance;
+}
+
+.rotating-prefix {
+  display: inline-block;
+  margin-right: 0.26em;
+}
+
+.rotating-text {
+  display: inline-flex;
+  overflow: hidden;
+  min-width: 5.8em;
+  padding: 0.06em 0.34em 0.1em;
+  border-radius: 12px;
+  background: var(--cyan);
+  color: #06111a;
+  font-weight: 850;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+.rotating-text.is-entering {
+  animation: rotatingTextIn 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes rotatingTextIn {
+  from {
+    opacity: 0;
+    translate: 0 110%;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .hero-text {

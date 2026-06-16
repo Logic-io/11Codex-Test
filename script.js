@@ -899,7 +899,7 @@ function initPlasmaWave() {
   plasmaGl.enableVertexAttribArray(position);
   plasmaGl.vertexAttribPointer(position, 2, plasmaGl.FLOAT, false, 0, 0);
   plasmaGl.uniform1i(plasmaUniforms.colorCount, 1);
-  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.3333, 0.851, 0.9686, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.0588, 0.5098, 0.7961, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
   plasmaGl.uniform1i(plasmaUniforms.transparent, 1);
   plasmaGl.uniform1f(plasmaUniforms.speed, 0.2);
   plasmaGl.uniform1f(plasmaUniforms.scale, 1);
@@ -1021,6 +1021,22 @@ function initTrueFocus() {
   }
 }
 
+function initRotatingText() {
+  const rotatingText = document.querySelector(".rotating-text");
+  if (!rotatingText) return;
+
+  const words = ["marketing", "sales", "ai"];
+  let activeIndex = 0;
+
+  window.setInterval(() => {
+    activeIndex = (activeIndex + 1) % words.length;
+    rotatingText.classList.remove("is-entering");
+    rotatingText.textContent = words[activeIndex];
+    void rotatingText.offsetWidth;
+    rotatingText.classList.add("is-entering");
+  }, 2000);
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1125,6 +1141,7 @@ createMobileMenu();
 initLanguageSwitcher();
 initLikeButton();
 initTrueFocus();
+initRotatingText();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
