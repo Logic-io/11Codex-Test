@@ -1,5 +1,11 @@
 const canvas = document.querySelector("#signalCanvas");
-const ctx = canvas.getContext("2d");
+const plasmaGl = canvas.getContext("webgl", {
+  alpha: true,
+  antialias: false,
+  depth: false,
+  stencil: false,
+  premultipliedAlpha: false
+}) || canvas.getContext("experimental-webgl");
 const navLinks = [...document.querySelectorAll(".nav-links a")];
 const sections = navLinks
   .map((link) => {
@@ -502,8 +508,10 @@ Object.assign(titleTranslations, {
 
 let width = 0;
 let height = 0;
-let particles = [];
-let pointer = { x: 0, y: 0, active: false };
+let plasmaProgram = null;
+let plasmaBuffer = null;
+let plasmaStartTime = 0;
+let plasmaUniforms = {};
 let lastScrollY = window.scrollY;
 let parallaxFrame = null;
 let directionScrollY = window.scrollY;
@@ -758,160 +766,166 @@ function resizeCanvas() {
   canvas.height = height * ratio;
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-  const count = Math.max(34, Math.min(78, Math.floor(width * height / 24000)));
-  particles = Array.from({ length: count }, () => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    originX: Math.random() * width,
-    originY: Math.random() * height,
-    vx: (Math.random() - 0.5) * 0.18,
-    vy: (Math.random() - 0.5) * 0.18,
-    size: Math.random() * 1.9 + 0.8,
-    depth: Math.random() * 0.7 + 0.3,
-    phase: Math.random() * Math.PI * 2
-  }));
+  if (plasmaGl) {
+    plasmaGl.viewport(0, 0, plasmaGl.drawingBufferWidth, plasmaGl.drawingBufferHeight);
+  }
 }
 
-function drawRibbon(time, offset, colorA, colorB, alpha) {
-  const yBase = height * offset;
-  const amplitude = Math.max(72, height * 0.13);
-  const drift = Math.sin(time * 0.00028 + offset * 8) * 70;
-  const gradient = ctx.createLinearGradient(0, yBase - amplitude, width, yBase + amplitude);
-  gradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-  gradient.addColorStop(0.36, colorA);
-  gradient.addColorStop(0.55, colorB);
-  gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.lineWidth = Math.max(34, width * 0.038);
-  ctx.lineCap = "round";
-  ctx.strokeStyle = gradient;
-  ctx.shadowBlur = 42;
-  ctx.shadowColor = colorB;
-  ctx.beginPath();
-  ctx.moveTo(-width * 0.08, yBase + drift);
-  ctx.bezierCurveTo(
-    width * 0.18,
-    yBase - amplitude + drift * 0.35,
-    width * 0.42,
-    yBase + amplitude + Math.cos(time * 0.00034 + offset) * 54,
-    width * 0.66,
-    yBase + Math.sin(time * 0.00022 + offset * 4) * amplitude
-  );
-  ctx.bezierCurveTo(
-    width * 0.86,
-    yBase - amplitude * 0.75,
-    width * 1.02,
-    yBase + amplitude * 0.5,
-    width * 1.12,
-    yBase + drift * 0.4
-  );
-  ctx.stroke();
-  ctx.restore();
+function compilePlasmaShader(type, source) {
+  const shader = plasmaGl.createShader(type);
+  plasmaGl.shaderSource(shader, source);
+  plasmaGl.compileShader(shader);
+  return shader;
 }
 
-function drawCursorField() {
-  if (!pointer.active) return;
+function initPlasmaWave() {
+  if (!plasmaGl || plasmaProgram) return;
 
-  const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 230);
-  glow.addColorStop(0, "rgba(241, 248, 255, 0.16)");
-  glow.addColorStop(0.24, "rgba(169, 221, 255, 0.1)");
-  glow.addColorStop(0.6, "rgba(66, 111, 255, 0.045)");
-  glow.addColorStop(1, "rgba(66, 111, 255, 0)");
+  const vertexSource = `
+    attribute vec2 position;
+    varying vec2 vUv;
+    void main() {
+      vUv = position * 0.5 + 0.5;
+      gl_Position = vec4(position, 0.0, 1.0);
+    }
+  `;
 
-  ctx.save();
-  ctx.globalCompositeOperation = "screen";
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(pointer.x, pointer.y, 230, 0, Math.PI * 2);
-  ctx.fill();
+  const fragmentSource = `
+    #define MAX_COLORS 8
+    precision mediump float;
+    uniform vec2 uCanvas;
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform vec2 uRot;
+    uniform int uColorCount;
+    uniform vec3 uColors[MAX_COLORS];
+    uniform int uTransparent;
+    uniform float uScale;
+    uniform float uFrequency;
+    uniform float uWarpStrength;
+    uniform vec2 uPointer;
+    uniform float uMouseInfluence;
+    uniform float uParallax;
+    uniform float uNoise;
+    uniform int uIterations;
+    uniform float uIntensity;
+    uniform float uBandWidth;
+    varying vec2 vUv;
 
-  ctx.strokeStyle = "rgba(241, 248, 255, 0.14)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.arc(pointer.x, pointer.y, 72 + Math.sin(Date.now() * 0.004) * 4, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
+    void main() {
+      float t = uTime * uSpeed;
+      vec2 p = vUv * 2.0 - 1.0;
+      p += uPointer * uParallax * 0.1;
+      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+      q /= max(uScale, 0.0001);
+      q /= 0.5 + 0.2 * dot(q, q);
+      q += 0.2 * cos(t) - 7.56;
+      q += (uPointer - rp) * uMouseInfluence * 0.2;
+
+      for (int j = 0; j < 5; j++) {
+        if (j >= uIterations - 1) break;
+        vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
+        q += (rr - q) * 0.15;
+      }
+
+      vec3 sumCol = vec3(0.0);
+      float cover = 0.0;
+      vec2 s = q;
+
+      for (int i = 0; i < MAX_COLORS; ++i) {
+        if (i >= uColorCount) break;
+        s -= 0.01;
+        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+        float kMix = pow(kBelow, 0.3);
+        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
+        vec2 disp = (r - s) * kBelow;
+        vec2 warped = s + disp * gain;
+        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+        float m = mix(m0, m1, kMix);
+        float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+        sumCol += uColors[i] * w;
+        cover = max(cover, w);
+      }
+
+      vec3 col = clamp(sumCol, 0.0, 1.0) * uIntensity;
+
+      if (uNoise > 0.0001) {
+        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+        col += (n - 0.5) * uNoise;
+        col = clamp(col, 0.0, 1.0);
+      }
+
+      float a = uTransparent > 0 ? cover : 1.0;
+      gl_FragColor = vec4(uTransparent > 0 ? col * a : col, a);
+    }
+  `;
+
+  const vertexShader = compilePlasmaShader(plasmaGl.VERTEX_SHADER, vertexSource);
+  const fragmentShader = compilePlasmaShader(plasmaGl.FRAGMENT_SHADER, fragmentSource);
+  plasmaProgram = plasmaGl.createProgram();
+  plasmaGl.attachShader(plasmaProgram, vertexShader);
+  plasmaGl.attachShader(plasmaProgram, fragmentShader);
+  plasmaGl.linkProgram(plasmaProgram);
+
+  plasmaBuffer = plasmaGl.createBuffer();
+  plasmaGl.bindBuffer(plasmaGl.ARRAY_BUFFER, plasmaBuffer);
+  plasmaGl.bufferData(plasmaGl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), plasmaGl.STATIC_DRAW);
+
+  const position = plasmaGl.getAttribLocation(plasmaProgram, "position");
+  plasmaUniforms = {
+    canvas: plasmaGl.getUniformLocation(plasmaProgram, "uCanvas"),
+    time: plasmaGl.getUniformLocation(plasmaProgram, "uTime"),
+    speed: plasmaGl.getUniformLocation(plasmaProgram, "uSpeed"),
+    rot: plasmaGl.getUniformLocation(plasmaProgram, "uRot"),
+    colorCount: plasmaGl.getUniformLocation(plasmaProgram, "uColorCount"),
+    colors: plasmaGl.getUniformLocation(plasmaProgram, "uColors"),
+    transparent: plasmaGl.getUniformLocation(plasmaProgram, "uTransparent"),
+    scale: plasmaGl.getUniformLocation(plasmaProgram, "uScale"),
+    frequency: plasmaGl.getUniformLocation(plasmaProgram, "uFrequency"),
+    warpStrength: plasmaGl.getUniformLocation(plasmaProgram, "uWarpStrength"),
+    pointer: plasmaGl.getUniformLocation(plasmaProgram, "uPointer"),
+    mouseInfluence: plasmaGl.getUniformLocation(plasmaProgram, "uMouseInfluence"),
+    parallax: plasmaGl.getUniformLocation(plasmaProgram, "uParallax"),
+    noise: plasmaGl.getUniformLocation(plasmaProgram, "uNoise"),
+    iterations: plasmaGl.getUniformLocation(plasmaProgram, "uIterations"),
+    intensity: plasmaGl.getUniformLocation(plasmaProgram, "uIntensity"),
+    bandWidth: plasmaGl.getUniformLocation(plasmaProgram, "uBandWidth")
+  };
+
+  plasmaGl.useProgram(plasmaProgram);
+  plasmaGl.enableVertexAttribArray(position);
+  plasmaGl.vertexAttribPointer(position, 2, plasmaGl.FLOAT, false, 0, 0);
+  plasmaGl.uniform1i(plasmaUniforms.colorCount, 1);
+  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.6588, 0.3333, 0.9686, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+  plasmaGl.uniform1i(plasmaUniforms.transparent, 1);
+  plasmaGl.uniform1f(plasmaUniforms.speed, 0.2);
+  plasmaGl.uniform1f(plasmaUniforms.scale, 1);
+  plasmaGl.uniform1f(plasmaUniforms.frequency, 1);
+  plasmaGl.uniform1f(plasmaUniforms.warpStrength, 1);
+  plasmaGl.uniform1f(plasmaUniforms.mouseInfluence, 0);
+  plasmaGl.uniform1f(plasmaUniforms.parallax, 0);
+  plasmaGl.uniform1f(plasmaUniforms.noise, 0.15);
+  plasmaGl.uniform1i(plasmaUniforms.iterations, 1);
+  plasmaGl.uniform1f(plasmaUniforms.intensity, 1.5);
+  plasmaGl.uniform1f(plasmaUniforms.bandWidth, 6);
+  plasmaGl.clearColor(0, 0, 0, 0);
+  plasmaStartTime = performance.now();
 }
 
 function drawBackground(timestamp = 0) {
-  ctx.clearRect(0, 0, width, height);
+  if (!plasmaGl || motionQuery.matches) return;
 
-  const backdrop = ctx.createLinearGradient(0, 0, width, height);
-  backdrop.addColorStop(0, "rgba(2, 7, 18, 0.2)");
-  backdrop.addColorStop(0.55, "rgba(4, 20, 42, 0.08)");
-  backdrop.addColorStop(1, "rgba(2, 8, 17, 0.18)");
-  ctx.fillStyle = backdrop;
-  ctx.fillRect(0, 0, width, height);
-
-  drawRibbon(timestamp, 0.22, "rgba(169, 221, 255, 0.075)", "rgba(66, 111, 255, 0.11)", 0.42);
-  drawRibbon(timestamp + 1600, 0.72, "rgba(106, 118, 255, 0.07)", "rgba(188, 221, 255, 0.09)", 0.32);
-  drawCursorField();
-
-  particles.forEach((particle, index) => {
-    const waveX = Math.sin(timestamp * 0.00032 + particle.phase) * 0.34 * particle.depth;
-    const waveY = Math.cos(timestamp * 0.00026 + particle.phase) * 0.28 * particle.depth;
-    particle.x += particle.vx + waveX;
-    particle.y += particle.vy + waveY;
-
-    if (pointer.active) {
-      const dx = pointer.x - particle.x;
-      const dy = pointer.y - particle.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 210) {
-        const pull = (1 - distance / 210) * 0.028;
-        particle.x += dx * pull;
-        particle.y += dy * pull;
-      }
-    }
-
-    if (particle.x < -24) particle.x = width + 24;
-    if (particle.x > width + 24) particle.x = -24;
-    if (particle.y < -24) particle.y = height + 24;
-    if (particle.y > height + 24) particle.y = -24;
-
-    const pulse = 0.55 + Math.sin(timestamp * 0.0014 + particle.phase) * 0.24;
-    const glint = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.size * 9);
-    glint.addColorStop(0, `rgba(241, 248, 255, ${0.24 * pulse})`);
-    glint.addColorStop(0.38, `rgba(169, 221, 255, ${0.12 * pulse})`);
-    glint.addColorStop(1, "rgba(66, 111, 255, 0)");
-
-    ctx.save();
-    ctx.globalCompositeOperation = "screen";
-    ctx.fillStyle = glint;
-    ctx.beginPath();
-    ctx.arc(particle.x, particle.y, particle.size * 9, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = `rgba(241, 248, 255, ${0.4 * pulse})`;
-    ctx.beginPath();
-    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    if (pointer.active && index % 3 === 0) {
-      const dx = particle.x - pointer.x;
-      const dy = particle.y - pointer.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 170) {
-        const alpha = (1 - distance / 170) * 0.18;
-        ctx.strokeStyle = `rgba(188, 221, 255, ${alpha})`;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.moveTo(particle.x, particle.y);
-        ctx.quadraticCurveTo(
-          (particle.x + pointer.x) / 2,
-          (particle.y + pointer.y) / 2 - 18,
-          pointer.x,
-          pointer.y
-        );
-        ctx.stroke();
-      }
-    }
-  });
+  initPlasmaWave();
+  plasmaGl.clear(plasmaGl.COLOR_BUFFER_BIT);
+  plasmaGl.useProgram(plasmaProgram);
+  plasmaGl.uniform2f(plasmaUniforms.canvas, plasmaGl.drawingBufferWidth, plasmaGl.drawingBufferHeight);
+  plasmaGl.uniform1f(plasmaUniforms.time, (timestamp - plasmaStartTime) * 0.001);
+  plasmaGl.uniform2f(plasmaUniforms.rot, 0, 1);
+  plasmaGl.uniform2f(plasmaUniforms.pointer, 0, 0);
+  plasmaGl.drawArrays(plasmaGl.TRIANGLES, 0, 3);
 
   requestAnimationFrame(drawBackground);
 }
@@ -967,6 +981,44 @@ function initLikeButton() {
   });
 
   renderLike();
+}
+
+function initTrueFocus() {
+  const focusContainer = document.querySelector(".true-focus");
+  if (!focusContainer) return;
+
+  const words = [...focusContainer.querySelectorAll(".focus-word")];
+  if (!words.length) return;
+
+  let activeIndex = 0;
+
+  function updateFocusFrame() {
+    const activeWord = words[activeIndex];
+    const parentRect = focusContainer.getBoundingClientRect();
+    const activeRect = activeWord.getBoundingClientRect();
+
+    focusContainer.style.setProperty("--focus-x", `${activeRect.left - parentRect.left}px`);
+    focusContainer.style.setProperty("--focus-y", `${activeRect.top - parentRect.top}px`);
+    focusContainer.style.setProperty("--focus-width", `${activeRect.width}px`);
+    focusContainer.style.setProperty("--focus-height", `${activeRect.height}px`);
+
+    words.forEach((word, index) => {
+      word.classList.toggle("active", index === activeIndex);
+    });
+  }
+
+  updateFocusFrame();
+
+  window.setInterval(() => {
+    activeIndex = (activeIndex + 1) % words.length;
+    updateFocusFrame();
+  }, 1500);
+
+  window.addEventListener("resize", updateFocusFrame);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateFocusFrame);
+  }
 }
 
 function updateMobileHeaderVisibility() {
@@ -1069,16 +1121,10 @@ window.addEventListener("scroll", () => {
   updateMobileHeaderVisibility();
   requestScrollParallaxUpdate();
 }, { passive: true });
-window.addEventListener("pointermove", (event) => {
-  pointer = { x: event.clientX, y: event.clientY, active: true };
-});
-window.addEventListener("pointerleave", () => {
-  pointer.active = false;
-});
-
 createMobileMenu();
 initLanguageSwitcher();
 initLikeButton();
+initTrueFocus();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
