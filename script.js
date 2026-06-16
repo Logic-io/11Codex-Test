@@ -899,7 +899,7 @@ function initPlasmaWave() {
   plasmaGl.enableVertexAttribArray(position);
   plasmaGl.vertexAttribPointer(position, 2, plasmaGl.FLOAT, false, 0, 0);
   plasmaGl.uniform1i(plasmaUniforms.colorCount, 1);
-  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.6588, 0.3333, 0.9686, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.3333, 0.851, 0.9686, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
   plasmaGl.uniform1i(plasmaUniforms.transparent, 1);
   plasmaGl.uniform1f(plasmaUniforms.speed, 0.2);
   plasmaGl.uniform1f(plasmaUniforms.scale, 1);
