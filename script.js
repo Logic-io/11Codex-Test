@@ -22,6 +22,7 @@ const backToTop = document.querySelector(".back-to-top");
 const siteHeader = document.querySelector(".site-header");
 const primaryNav = document.querySelector(".nav-links");
 const likeButton = document.querySelector(".like-button");
+const decryptedTextItems = [...document.querySelectorAll("[data-decrypted-text]")];
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
 const LIKE_COUNT_KEY = "portfolio-like-count";
@@ -560,6 +561,42 @@ function createMobileMenu() {
 
 function normalizeText(text) {
   return text.trim().replace(/\s+/g, " ");
+}
+
+function initDecryptedText() {
+  if (!decryptedTextItems.length) return;
+
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+";
+
+  decryptedTextItems.forEach((element) => {
+    const text = element.dataset.decryptedText || normalizeText(element.textContent);
+    const speed = 50;
+    const maxIterations = 16;
+    let iteration = 0;
+
+    element.setAttribute("aria-label", text);
+
+    if (motionQuery.matches) {
+      element.textContent = text;
+      return;
+    }
+
+    const interval = setInterval(() => {
+      element.textContent = text
+        .split("")
+        .map((char) => {
+          if (char === " ") return " ";
+          return characters[Math.floor(Math.random() * characters.length)];
+        })
+        .join("");
+
+      iteration += 1;
+      if (iteration >= maxIterations) {
+        clearInterval(interval);
+        element.textContent = text;
+      }
+    }, speed);
+  });
 }
 
 function getCurrentLanguage() {
@@ -1144,6 +1181,7 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 createMobileMenu();
 initLanguageSwitcher();
+initDecryptedText();
 initLikeButton();
 initTrueFocus();
 document.body.classList.add("scrolling-down");
