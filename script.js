@@ -24,6 +24,7 @@ const primaryNav = document.querySelector(".nav-links");
 const likeButton = document.querySelector(".like-button");
 const decryptedTextItems = [...document.querySelectorAll("[data-decrypted-text]")];
 const experienceCards = [...document.querySelectorAll(".experience-card")];
+const packageOffer = document.querySelector(".package-offer");
 const packageContactButton = document.querySelector(".package-link");
 const packageContactInfo = document.querySelector("#package-contact-info");
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -637,9 +638,10 @@ function updatePackageContactButton() {
 }
 
 function initPackageContact() {
-  if (!packageContactButton || !packageContactInfo) return;
+  if (!packageOffer || !packageContactButton || !packageContactInfo) return;
 
-  packageContactButton.addEventListener("click", () => {
+  packageOffer.addEventListener("click", (event) => {
+    if (event.target.closest(".package-contact-info")) return;
     packageContactInfo.hidden = !packageContactInfo.hidden;
     updatePackageContactButton();
   });

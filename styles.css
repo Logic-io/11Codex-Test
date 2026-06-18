@@ -2887,6 +2887,8 @@ h3 {
 }
 
 .package-offer {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 24px;
@@ -2896,6 +2898,8 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(244, 246, 239, 0.035);
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .package-offer h2 {
@@ -2910,6 +2914,8 @@ h3 {
 }
 
 .package-link {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
