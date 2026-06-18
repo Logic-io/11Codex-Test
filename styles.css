@@ -2900,6 +2900,7 @@ h3 {
   background: rgba(244, 246, 239, 0.035);
   cursor: pointer;
   pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .package-offer h2 {
@@ -2929,6 +2930,8 @@ h3 {
   font-weight: 750;
   white-space: nowrap;
   cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .package-link:hover,
@@ -2943,6 +2946,10 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   padding-top: 6px;
+}
+
+.package-contact-info[hidden] {
+  display: none;
 }
 
 .package-contact-info a {

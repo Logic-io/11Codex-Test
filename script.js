@@ -640,10 +640,19 @@ function updatePackageContactButton() {
 function initPackageContact() {
   if (!packageOffer || !packageContactButton || !packageContactInfo) return;
 
-  packageOffer.addEventListener("click", (event) => {
-    if (event.target.closest(".package-contact-info")) return;
+  const togglePackageContact = () => {
     packageContactInfo.hidden = !packageContactInfo.hidden;
     updatePackageContactButton();
+  };
+
+  packageContactButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    togglePackageContact();
+  });
+
+  packageOffer.addEventListener("click", (event) => {
+    if (event.target.closest(".package-contact-info")) return;
+    togglePackageContact();
   });
 
   updatePackageContactButton();
