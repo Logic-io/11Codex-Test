@@ -1932,32 +1932,32 @@ li + li {
 
 body {
   background:
-    radial-gradient(circle at 84% 7%, rgba(168, 85, 247, 0.22), transparent 28rem),
-    radial-gradient(circle at 16% 20%, rgba(168, 85, 247, 0.14), transparent 28rem),
-    linear-gradient(180deg, #07040d 0%, #090611 42%, #05040b 100%);
+    radial-gradient(circle at 76% 8%, rgba(47, 75, 162, 0.28), transparent 34rem),
+    radial-gradient(circle at 18% 18%, rgba(233, 71, 245, 0.12), transparent 32rem),
+    linear-gradient(180deg, #04020a 0%, #080511 46%, #030309 100%);
   color: var(--text);
   line-height: 1.65;
 }
 
 body::before {
   background:
-    linear-gradient(rgba(168, 85, 247, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.022) 1px, transparent 1px);
+    linear-gradient(rgba(233, 71, 245, 0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 75, 162, 0.018) 1px, transparent 1px);
   background-size: 72px 72px;
   filter: none;
-  opacity: 0.55;
+  opacity: 0.36;
   animation: none;
   transform: none;
   mask-image: linear-gradient(to bottom, black, transparent 76%);
 }
 
 body::after {
-  background: radial-gradient(circle at 50% -20%, rgba(168, 85, 247, 0.14), transparent 42rem);
-  opacity: 0.58;
+  background: radial-gradient(circle at 50% -20%, rgba(233, 71, 245, 0.1), transparent 42rem);
+  opacity: 0.42;
 }
 
 #signalCanvas {
-  opacity: 0.72;
+  opacity: 0.86;
 }
 
 main,

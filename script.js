@@ -909,75 +909,82 @@ function initPlasmaWave() {
   `;
 
   const fragmentSource = `
-    #define MAX_COLORS 8
     precision mediump float;
     uniform vec2 uCanvas;
     uniform float uTime;
     uniform float uSpeed;
-    uniform vec2 uRot;
-    uniform int uColorCount;
-    uniform vec3 uColors[MAX_COLORS];
-    uniform int uTransparent;
-    uniform float uScale;
-    uniform float uFrequency;
-    uniform float uWarpStrength;
-    uniform vec2 uPointer;
-    uniform float uMouseInfluence;
-    uniform float uParallax;
-    uniform float uNoise;
-    uniform int uIterations;
-    uniform float uIntensity;
-    uniform float uBandWidth;
     varying vec2 vUv;
 
-    void main() {
+    mat2 rotate(float r) {
+      return mat2(cos(r), sin(r), -sin(r), cos(r));
+    }
+
+    vec3 backgroundColor(vec2 uv) {
+      float y = sin(uv.x - 0.2) * 0.3 - 0.1;
+      float m = uv.y - y;
+      vec3 blue = vec3(0.18, 0.26, 0.62);
+      vec3 pink = vec3(0.86, 0.2, 0.94);
+      vec3 col = mix(blue, vec3(0.0), smoothstep(0.0, 1.0, abs(m)));
+      col += mix(pink, vec3(0.0), smoothstep(0.0, 1.0, abs(m - 0.8)));
+      return col * 0.34;
+    }
+
+    vec3 lineColor(float t) {
+      vec3 purple = vec3(0.66, 0.22, 0.98);
+      vec3 cyan = vec3(0.06, 0.82, 0.95);
+      vec3 lime = vec3(0.78, 1.0, 0.38);
+      return mix(mix(purple, cyan, smoothstep(0.0, 0.72, t)), lime, smoothstep(0.64, 1.0, t));
+    }
+
+    float wave(vec2 uv, float offset, float speedOffset, float bend) {
       float t = uTime * uSpeed;
-      vec2 p = vUv * 2.0 - 1.0;
-      p += uPointer * uParallax * 0.1;
-      vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
-      vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
-      q /= max(uScale, 0.0001);
-      q /= 0.5 + 0.2 * dot(q, q);
-      q += 0.2 * cos(t) - 7.56;
-      q += (uPointer - rp) * uMouseInfluence * 0.2;
+      float amp = sin(offset + t * 0.22) * 0.26;
+      float y = sin(uv.x + offset + t * 0.13 + speedOffset) * amp;
+      y += sin(uv.x * 0.58 - t * 0.08 + offset) * 0.12;
+      y += bend * sin(length(uv) * 2.0 + t * 0.16);
+      float m = abs(uv.y - y);
+      return 0.012 / max(m + 0.012, 0.001);
+    }
 
-      for (int j = 0; j < 5; j++) {
-        if (j >= uIterations - 1) break;
-        vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
-        q += (rr - q) * 0.15;
+    void main() {
+      vec2 uv = (2.0 * gl_FragCoord.xy - uCanvas.xy) / uCanvas.y;
+      uv.y *= -1.0;
+
+      vec3 col = backgroundColor(uv);
+      float glow = 0.0;
+
+      for (int i = 0; i < 12; i++) {
+        float fi = float(i);
+        float t = fi / 11.0;
+        vec2 ruv = uv * rotate(-0.38 * log(length(uv) + 1.0));
+        ruv.x *= -1.0;
+        float w = wave(ruv + vec2(0.09 * fi + 8.0, 0.66), 1.0 + 0.24 * fi, 0.0, 0.012);
+        col += lineColor(t) * w * 0.09;
+        glow += w * 0.035;
       }
 
-      vec3 sumCol = vec3(0.0);
-      float cover = 0.0;
-      vec2 s = q;
-
-      for (int i = 0; i < MAX_COLORS; ++i) {
-        if (i >= uColorCount) break;
-        s -= 0.01;
-        vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
-        float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-        float kBelow = clamp(uWarpStrength, 0.0, 1.0);
-        float kMix = pow(kBelow, 0.3);
-        float gain = 1.0 + max(uWarpStrength - 1.0, 0.0);
-        vec2 disp = (r - s) * kBelow;
-        vec2 warped = s + disp * gain;
-        float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-        float m = mix(m0, m1, kMix);
-        float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
-        sumCol += uColors[i] * w;
-        cover = max(cover, w);
+      for (int i = 0; i < 16; i++) {
+        float fi = float(i);
+        float t = fi / 15.0;
+        vec2 ruv = uv * rotate(0.22 * log(length(uv) + 1.0));
+        float w = wave(ruv + vec2(0.07 * fi + 4.2, 0.02), 2.0 + 0.15 * fi, 0.4, 0.018);
+        col += lineColor(t) * w * 0.16;
+        glow += w * 0.055;
       }
 
-      vec3 col = clamp(sumCol, 0.0, 1.0) * uIntensity;
-
-      if (uNoise > 0.0001) {
-        float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
-        col += (n - 0.5) * uNoise;
-        col = clamp(col, 0.0, 1.0);
+      for (int i = 0; i < 18; i++) {
+        float fi = float(i);
+        float t = fi / 17.0;
+        vec2 ruv = uv * rotate(-0.65 * log(length(uv) + 1.0));
+        float w = wave(ruv + vec2(0.055 * fi + 1.8, -0.78), 1.5 + 0.18 * fi, 0.8, 0.02);
+        col += lineColor(t) * w * 0.12;
+        glow += w * 0.045;
       }
 
-      float a = uTransparent > 0 ? cover : 1.0;
-      gl_FragColor = vec4(uTransparent > 0 ? col * a : col, a);
+      float vignette = smoothstep(1.45, 0.12, length(uv * vec2(0.78, 1.0)));
+      col *= 0.74 + vignette * 0.42;
+      float alpha = clamp(0.22 + glow, 0.16, 0.88);
+      gl_FragColor = vec4(clamp(col, 0.0, 1.0), alpha);
     }
   `;
 
