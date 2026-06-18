@@ -24,6 +24,8 @@ const primaryNav = document.querySelector(".nav-links");
 const likeButton = document.querySelector(".like-button");
 const decryptedTextItems = [...document.querySelectorAll("[data-decrypted-text]")];
 const experienceCards = [...document.querySelectorAll(".experience-card")];
+const packageContactButton = document.querySelector(".package-link");
+const packageContactInfo = document.querySelector("#package-contact-info");
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
 const LIKE_COUNT_KEY = "portfolio-like-count";
@@ -36,6 +38,11 @@ const zhTranslations = {
   "Projects": "项目",
   "Contact": "联系",
   "Like this portfolio": "为这个作品集点赞",
+  "Package": "套餐",
+  "Want to build a website like this?": "想获得同款网页制作方法？",
+  "Learn how to create a similar page, use AI techniques, add interactive effects, and deploy it online. Package price: $199 CAD.": "学习如何制作类似网页、使用 AI 技巧、加入动态特效，并完成上线部署。Package 价格：$199 CAD。",
+  "Show contact methods": "展示联系方式",
+  "Hide contact methods": "收起联系方式",
   "Back to Projects": "返回项目",
   "Marketing / Sales / Automation": "市场营销 / 销售 / 自动化",
   "Marketing & Sales Specialist.": "市场营销与销售专员。",
@@ -620,6 +627,26 @@ function initExperienceCards() {
   });
 }
 
+function updatePackageContactButton() {
+  if (!packageContactButton || !packageContactInfo) return;
+
+  const isOpen = !packageContactInfo.hidden;
+  const english = isOpen ? "Hide contact methods" : "Show contact methods";
+  packageContactButton.textContent = getCurrentLanguage() === "zh" ? zhTranslations[english] : english;
+  packageContactButton.setAttribute("aria-expanded", String(isOpen));
+}
+
+function initPackageContact() {
+  if (!packageContactButton || !packageContactInfo) return;
+
+  packageContactButton.addEventListener("click", () => {
+    packageContactInfo.hidden = !packageContactInfo.hidden;
+    updatePackageContactButton();
+  });
+
+  updatePackageContactButton();
+}
+
 function getCurrentLanguage() {
   return document.documentElement.lang === "zh-Hans" ? "zh" : "en";
 }
@@ -688,6 +715,7 @@ function applyLanguage(language) {
       ? zhTranslations[english]
       : english;
   });
+  updatePackageContactButton();
 
   const englishTitle = document.documentElement.dataset.i18nTitle || document.title;
   document.documentElement.dataset.i18nTitle = englishTitle;
@@ -1204,6 +1232,7 @@ createMobileMenu();
 initLanguageSwitcher();
 initDecryptedText();
 initExperienceCards();
+initPackageContact();
 initLikeButton();
 initTrueFocus();
 document.body.classList.add("scrolling-down");

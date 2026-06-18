@@ -2886,6 +2886,75 @@ h3 {
   color: #243ca5;
 }
 
+.package-offer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(244, 246, 239, 0.035);
+}
+
+.package-offer h2 {
+  margin-bottom: 10px;
+  font-size: clamp(1.55rem, 2.8vw, 2.3rem);
+  letter-spacing: -0.035em;
+}
+
+.package-offer p {
+  max-width: 760px;
+  color: #9da49f;
+}
+
+.package-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(200, 255, 98, 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cyan);
+  font: inherit;
+  font-weight: 750;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.package-link:hover,
+.package-link:focus-visible {
+  border-color: var(--cyan);
+  background: rgba(200, 255, 98, 0.1);
+}
+
+.package-contact-info {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.package-contact-info a {
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(244, 246, 239, 0.1);
+  border-radius: 12px;
+  background: rgba(244, 246, 239, 0.035);
+  color: #c4cac5;
+  overflow-wrap: break-word;
+}
+
+.package-contact-info a:hover,
+.package-contact-info a:focus-visible {
+  border-color: rgba(200, 255, 98, 0.28);
+  color: var(--cyan);
+}
+
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -3225,6 +3294,18 @@ h3 {
 
   .contact-section {
     gap: 34px;
+  }
+
+  .package-offer {
+    grid-template-columns: 1fr;
+  }
+
+  .package-link {
+    width: 100%;
+  }
+
+  .package-contact-info {
+    grid-template-columns: 1fr;
   }
 
   .detail-hero {
