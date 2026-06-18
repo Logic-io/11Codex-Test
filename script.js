@@ -23,6 +23,7 @@ const siteHeader = document.querySelector(".site-header");
 const primaryNav = document.querySelector(".nav-links");
 const likeButton = document.querySelector(".like-button");
 const decryptedTextItems = [...document.querySelectorAll("[data-decrypted-text]")];
+const experienceCards = [...document.querySelectorAll(".experience-card")];
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const LANGUAGE_KEY = "portfolio-language";
 const LIKE_COUNT_KEY = "portfolio-like-count";
@@ -596,6 +597,26 @@ function initDecryptedText() {
         element.textContent = text;
       }
     }, speed);
+  });
+}
+
+function initExperienceCards() {
+  experienceCards.forEach((card) => {
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-expanded", "false");
+
+    const toggleCard = () => {
+      const isOpen = card.classList.toggle("is-open");
+      card.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    card.addEventListener("click", toggleCard);
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleCard();
+    });
   });
 }
 
@@ -1182,6 +1203,7 @@ window.addEventListener("scroll", () => {
 createMobileMenu();
 initLanguageSwitcher();
 initDecryptedText();
+initExperienceCards();
 initLikeButton();
 initTrueFocus();
 document.body.classList.add("scrolling-down");

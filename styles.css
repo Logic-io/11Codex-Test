@@ -2634,21 +2634,66 @@ h3 {
 }
 
 .experience-card {
-  grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
-  gap: 48px;
-  padding: 27px 4px;
+  position: relative;
+  grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr) 36px;
+  gap: 48px 24px;
+  align-items: start;
+  min-height: auto;
+  padding: 24px 0;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
   background: transparent;
+  overflow: visible;
 }
 
 .experience-card:hover {
-  padding-right: 22px;
-  padding-left: 22px;
+  padding-right: 0;
+  padding-left: 0;
   border-color: var(--line);
-  background: rgba(244, 246, 239, 0.035);
+  background: rgba(244, 246, 239, 0.025);
   box-shadow: none;
+}
+
+.experience-card {
+  cursor: pointer;
+}
+
+.experience-card > * {
+  min-width: 0;
+}
+
+.experience-card::after {
+  content: "+";
+  position: static;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(244, 246, 239, 0.14);
+  border-radius: 8px;
+  background: rgba(244, 246, 239, 0.035);
+  color: #c4cac5;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.experience-card.is-open::after {
+  content: "-";
+}
+
+.experience-card ul {
+  display: none;
+}
+
+.experience-card.is-open ul {
+  display: block;
 }
 
 .experience-meta span {
@@ -2659,6 +2704,7 @@ h3 {
 .experience-meta strong {
   color: #aab2ac;
   font-size: 0.93rem;
+  overflow-wrap: break-word;
 }
 
 .role {
@@ -2666,6 +2712,7 @@ h3 {
   font-size: 1.35rem;
   font-weight: 620;
   letter-spacing: -0.02em;
+  overflow-wrap: break-word;
 }
 
 .experience-card li {
@@ -3154,8 +3201,22 @@ h3 {
   }
 
   .experience-card {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) 36px;
+    gap: 18px 12px;
+    padding: 22px 0;
+  }
+
+  .experience-card:hover {
+    padding: 22px 0;
+  }
+
+  .experience-card > * {
+    grid-column: 1;
+  }
+
+  .experience-card::after {
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .project-card {
