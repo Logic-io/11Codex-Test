@@ -501,6 +501,33 @@ Object.assign(zhTranslations, {
   "Clearer product presentation, stronger partner understanding, and more accessible training and event communication.": "实现更清晰的产品呈现、更充分的合作伙伴理解，以及更易懂的培训与活动沟通。"
 });
 
+Object.assign(zhTranslations, {
+  "Customer-facing marketing, sales, and AI workflows": "面向客户的市场、销售与 AI 工作流",
+  "I help customers understand products faster, help teams explain value more clearly, and use practical AI tools to reduce repetitive marketing and sales work.": "我帮助客户更快理解产品，帮助团队更清楚地表达价值，并用实用 AI 工具减少重复的市场和销售工作。",
+  "Explain": "解释",
+  "Turn product details into plain customer language.": "把产品细节转成客户听得懂的话。",
+  "Sell": "销售",
+  "Support better recommendations and follow-up.": "支持更准确的推荐与后续跟进。",
+  "Improve": "优化",
+  "Use AI and workflow tools for repeatable work.": "用 AI 和工作流工具处理可重复工作。",
+  "What I do": "我做什么",
+  "Make product value easier to understand.": "让产品价值更容易被理解。",
+  "Who I help": "服务对象",
+  "Customers, retail teams, and product-focused brands.": "客户、零售团队和产品型品牌。",
+  "How I work": "工作方式",
+  "Combine sales conversations, content, design, and AI tools.": "结合销售沟通、内容、设计与 AI 工具。",
+  "Proof": "经验依据",
+  "5+ years across retail, technology, design, and marketing.": "5 年以上零售、科技、设计与市场相关经验。",
+  "A practical bridge between customers, products, and teams.": "连接客户、产品与团队的实用桥梁。",
+  "I connect sales, marketing, and day-to-day operations. My work starts with real customer questions, then turns them into clearer product explanations, useful content, stronger follow-up, and practical workflows.": "我连接销售、市场和日常运营。我的工作从真实客户问题出发，再转化为更清晰的产品解释、有用内容、更好的跟进和实用工作流。",
+  "Simple ways I create value.": "我创造价值的简单方式。",
+  "Work experience that supports the same core skill: clear customer communication.": "所有经历都服务于同一个核心能力：清晰的客户沟通。",
+  "Skills grouped by what they help accomplish.": "按实际用途归类的技能。",
+  "Selected examples of product, design, workflow, and brand communication.": "产品、设计、工作流与品牌沟通的精选案例。",
+  "Need clearer product communication or practical workflow support?": "需要更清晰的产品沟通或实用工作流支持？",
+  "Available for professional conversations around marketing, sales, retail technology, and AI-assisted workflows.": "欢迎围绕市场、销售、零售科技和 AI 辅助工作流进行专业交流。"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
