@@ -503,8 +503,11 @@ Object.assign(zhTranslations, {
 
 Object.assign(zhTranslations, {
   "Customer-facing marketing, sales, and AI workflows": "面向客户的市场、销售与 AI 工作流",
+  "I turn customer insight, retail experience, and market research into clearer content, stronger campaigns, and practical AI-assisted marketing workflows.": "我将客户洞察、零售经验和市场研究转化为更清晰的内容、更有力的活动，以及实用的 AI 辅助营销工作流。",
   "I help customers understand products faster, help teams explain value more clearly, and use practical AI tools to reduce repetitive marketing and sales work.": "我帮助客户更快理解产品，帮助团队更清楚地表达价值，并用实用 AI 工具减少重复的市场和销售工作。",
+  "Market": "营销",
   "Explain": "解释",
+  "Turn customer insight into content, campaigns, and brand communication.": "把客户洞察转化为内容、活动和品牌沟通。",
   "Turn product details into plain customer language.": "把产品细节转成客户听得懂的话。",
   "Sell": "销售",
   "Support better recommendations and follow-up.": "支持更准确的推荐与后续跟进。",
