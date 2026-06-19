@@ -4384,3 +4384,145 @@ body {
     padding: 20px;
   }
 }
+
+/* Text fit and obstruction safeguards */
+html {
+  scroll-padding-top: 126px;
+}
+
+.portfolio-story,
+.home-chapter,
+.chapter,
+.contact-chapter,
+.home-chapter .hero-copy,
+.hero-summary-list,
+.story-index,
+.project-content,
+.contact-links {
+  min-width: 0;
+}
+
+.home-chapter h1 {
+  font-size: 8.2rem;
+}
+
+.home-chapter .hero-title {
+  font-size: 2rem;
+  line-height: 1.18;
+}
+
+.home-chapter .hero-text {
+  font-size: 1.16rem;
+}
+
+.chapter .section-heading h2 {
+  font-size: 2.35rem;
+}
+
+.role {
+  font-size: 1.38rem;
+}
+
+.project-content h3 {
+  font-size: 1.82rem;
+}
+
+.home-chapter .hero-title,
+.home-chapter .hero-text,
+.hero-credibility,
+.hero-summary-list span,
+.story-index p,
+.profile-card p,
+.experience-card li,
+.pill-grid span,
+.project-content h3,
+.project-content p,
+.contact-chapter h2,
+.contact-chapter p,
+.contact-note,
+.package-offer p,
+.package-contact-info a {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.hero-summary-list li,
+.story-index article,
+.glass-card,
+.experience-card,
+.project-card,
+.contact-note,
+.package-contact-info a {
+  min-width: 0;
+}
+
+.contact-chapter::before {
+  z-index: 0;
+}
+
+.contact-chapter > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-header.menu-open {
+  z-index: 45;
+}
+
+@media (max-width: 1040px) {
+  .home-chapter h1 {
+    font-size: 6.4rem;
+  }
+
+  .home-chapter .hero-title {
+    font-size: 1.82rem;
+  }
+
+  .chapter .section-heading h2 {
+    font-size: 2.12rem;
+  }
+}
+
+@media (max-width: 780px) {
+  html {
+    scroll-padding-top: 102px;
+  }
+
+  .home-chapter h1 {
+    font-size: 4.7rem;
+  }
+
+  .home-chapter .hero-title {
+    font-size: 1.42rem;
+  }
+
+  .home-chapter .hero-text {
+    font-size: 1.04rem;
+  }
+
+  .chapter .section-heading h2 {
+    font-size: 1.9rem;
+  }
+
+  .project-content h3 {
+    font-size: 1.48rem;
+  }
+
+  .contact-chapter h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-chapter h1 {
+    font-size: 3.8rem;
+  }
+
+  .home-chapter .hero-title {
+    font-size: 1.28rem;
+  }
+
+  .contact-chapter h2 {
+    font-size: 1.72rem;
+  }
+}
