@@ -166,7 +166,7 @@ const zhTranslations = {
   "I am interested in conversations where customer insight, product communication, and practical digital tools can create measurable business value.": "我期待探讨如何通过客户洞察、产品沟通和实用数字工具创造可衡量的商业价值。",
   "Website: www.yuryli.com": "个人网站：www.yuryli.com",
   "Email: yury.li@outlook.com": "邮箱：yury.li@outlook.com",
-  "Phone: 548-388-5486": "电话：548-388-5486",
+  "Phone: 825-947-0506": "电话：825-947-0506",
   "Design-focused customer consultation built around Canva design, visual presentation, aesthetic judgment, space planning, lifestyle needs, customer trust, practical buying advice, and clear follow-up communication.": "以设计为核心的客户咨询，结合 Canva 设计、视觉呈现、审美判断、空间规划、生活方式需求、客户信任、实用购买建议和清晰跟进沟通。",
   "Design Strengths": "设计优势",
   "Create clean and practical visual materials with Canva for product, campaign, and customer-facing communication.": "使用 Canva 制作干净实用的视觉素材，用于产品、活动和客户沟通。",
