@@ -1,11 +1,5 @@
 const canvas = document.querySelector("#signalCanvas");
-const plasmaGl = canvas.getContext("webgl", {
-  alpha: true,
-  antialias: false,
-  depth: false,
-  stencil: false,
-  premultipliedAlpha: false
-}) || canvas.getContext("experimental-webgl");
+const dotContext = canvas ? canvas.getContext("2d", { alpha: true }) : null;
 const navLinks = [...document.querySelectorAll(".nav-links a")];
 const sections = navLinks
   .map((link) => {
@@ -553,10 +547,21 @@ Object.assign(titleTranslations, {
 
 let width = 0;
 let height = 0;
-let plasmaProgram = null;
-let plasmaBuffer = null;
-let plasmaStartTime = 0;
-let plasmaUniforms = {};
+let dotFieldDots = [];
+let dotFieldFrame = 0;
+let dotFieldEngagement = 0;
+const dotFieldMouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
+const dotFieldConfig = {
+  dotRadius: 2,
+  dotSpacing: 22,
+  cursorRadius: 500,
+  bulgeStrength: 70,
+  waveAmplitude: 2,
+  gradientFrom: "rgba(66, 192, 194, 0.32)",
+  gradientTo: "rgba(156, 94, 215, 0.28)",
+  glowColor: "rgba(18, 15, 23, 0.68)",
+  glowRadius: 190
+};
 let lastScrollY = window.scrollY;
 let parallaxFrame = null;
 let directionScrollY = window.scrollY;
@@ -911,6 +916,8 @@ function requestScrollParallaxUpdate() {
 }
 
 function resizeCanvas() {
+  if (!canvas || !dotContext) return;
+
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
   width = window.innerWidth;
   height = window.innerHeight;
@@ -918,175 +925,112 @@ function resizeCanvas() {
   canvas.height = height * ratio;
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
-  if (plasmaGl) {
-    plasmaGl.viewport(0, 0, plasmaGl.drawingBufferWidth, plasmaGl.drawingBufferHeight);
+  dotContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+  buildDotField();
+}
+
+function buildDotField() {
+  const step = dotFieldConfig.dotRadius + dotFieldConfig.dotSpacing;
+  const cols = Math.max(1, Math.floor(width / step));
+  const rows = Math.max(1, Math.floor(height / step));
+  const padX = (width % step) / 2;
+  const padY = (height % step) / 2;
+  const dots = [];
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      const ax = padX + col * step + step / 2;
+      const ay = padY + row * step + step / 2;
+      dots.push({ ax, ay, sx: ax, sy: ay });
+    }
   }
+
+  dotFieldDots = dots;
 }
 
-function compilePlasmaShader(type, source) {
-  const shader = plasmaGl.createShader(type);
-  plasmaGl.shaderSource(shader, source);
-  plasmaGl.compileShader(shader);
-  return shader;
+function updateDotFieldPointer(event) {
+  dotFieldMouse.x = event.clientX;
+  dotFieldMouse.y = event.clientY;
 }
 
-function initPlasmaWave() {
-  if (!plasmaGl || plasmaProgram) return;
+function drawDotFieldGlow() {
+  if (dotFieldMouse.x < 0 || dotFieldEngagement <= 0.002) return;
 
-  const vertexSource = `
-    attribute vec2 position;
-    varying vec2 vUv;
-    void main() {
-      vUv = position * 0.5 + 0.5;
-      gl_Position = vec4(position, 0.0, 1.0);
-    }
-  `;
-
-  const fragmentSource = `
-    precision mediump float;
-    uniform vec2 uCanvas;
-    uniform float uTime;
-    uniform float uSpeed;
-    varying vec2 vUv;
-
-    mat2 rotate(float r) {
-      return mat2(cos(r), sin(r), -sin(r), cos(r));
-    }
-
-    vec3 backgroundColor(vec2 uv) {
-      float y = sin(uv.x - 0.2) * 0.3 - 0.1;
-      float m = uv.y - y;
-      vec3 blue = vec3(0.18, 0.26, 0.62);
-      vec3 pink = vec3(0.86, 0.2, 0.94);
-      vec3 col = mix(blue, vec3(0.0), smoothstep(0.0, 1.0, abs(m)));
-      col += mix(pink, vec3(0.0), smoothstep(0.0, 1.0, abs(m - 0.8)));
-      return col * 0.34;
-    }
-
-    vec3 lineColor(float t) {
-      vec3 purple = vec3(0.66, 0.22, 0.98);
-      vec3 cyan = vec3(0.06, 0.82, 0.95);
-      vec3 lime = vec3(0.78, 1.0, 0.38);
-      return mix(mix(purple, cyan, smoothstep(0.0, 0.72, t)), lime, smoothstep(0.64, 1.0, t));
-    }
-
-    float wave(vec2 uv, float offset, float speedOffset, float bend) {
-      float t = uTime * uSpeed;
-      float amp = sin(offset + t * 0.22) * 0.26;
-      float y = sin(uv.x + offset + t * 0.13 + speedOffset) * amp;
-      y += sin(uv.x * 0.58 - t * 0.08 + offset) * 0.12;
-      y += bend * sin(length(uv) * 2.0 + t * 0.16);
-      float m = abs(uv.y - y);
-      return 0.012 / max(m + 0.012, 0.001);
-    }
-
-    void main() {
-      vec2 uv = (2.0 * gl_FragCoord.xy - uCanvas.xy) / uCanvas.y;
-      uv.y *= -1.0;
-
-      vec3 col = backgroundColor(uv);
-      float glow = 0.0;
-
-      for (int i = 0; i < 12; i++) {
-        float fi = float(i);
-        float t = fi / 11.0;
-        vec2 ruv = uv * rotate(-0.38 * log(length(uv) + 1.0));
-        ruv.x *= -1.0;
-        float w = wave(ruv + vec2(0.09 * fi + 8.0, 0.66), 1.0 + 0.24 * fi, 0.0, 0.012);
-        col += lineColor(t) * w * 0.09;
-        glow += w * 0.035;
-      }
-
-      for (int i = 0; i < 16; i++) {
-        float fi = float(i);
-        float t = fi / 15.0;
-        vec2 ruv = uv * rotate(0.22 * log(length(uv) + 1.0));
-        float w = wave(ruv + vec2(0.07 * fi + 4.2, 0.02), 2.0 + 0.15 * fi, 0.4, 0.018);
-        col += lineColor(t) * w * 0.16;
-        glow += w * 0.055;
-      }
-
-      for (int i = 0; i < 18; i++) {
-        float fi = float(i);
-        float t = fi / 17.0;
-        vec2 ruv = uv * rotate(-0.65 * log(length(uv) + 1.0));
-        float w = wave(ruv + vec2(0.055 * fi + 1.8, -0.78), 1.5 + 0.18 * fi, 0.8, 0.02);
-        col += lineColor(t) * w * 0.12;
-        glow += w * 0.045;
-      }
-
-      float vignette = smoothstep(1.45, 0.12, length(uv * vec2(0.78, 1.0)));
-      col *= 0.74 + vignette * 0.42;
-      float alpha = clamp(0.22 + glow, 0.16, 0.88);
-      gl_FragColor = vec4(clamp(col, 0.0, 1.0), alpha);
-    }
-  `;
-
-  const vertexShader = compilePlasmaShader(plasmaGl.VERTEX_SHADER, vertexSource);
-  const fragmentShader = compilePlasmaShader(plasmaGl.FRAGMENT_SHADER, fragmentSource);
-  plasmaProgram = plasmaGl.createProgram();
-  plasmaGl.attachShader(plasmaProgram, vertexShader);
-  plasmaGl.attachShader(plasmaProgram, fragmentShader);
-  plasmaGl.linkProgram(plasmaProgram);
-
-  plasmaBuffer = plasmaGl.createBuffer();
-  plasmaGl.bindBuffer(plasmaGl.ARRAY_BUFFER, plasmaBuffer);
-  plasmaGl.bufferData(plasmaGl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), plasmaGl.STATIC_DRAW);
-
-  const position = plasmaGl.getAttribLocation(plasmaProgram, "position");
-  plasmaUniforms = {
-    canvas: plasmaGl.getUniformLocation(plasmaProgram, "uCanvas"),
-    time: plasmaGl.getUniformLocation(plasmaProgram, "uTime"),
-    speed: plasmaGl.getUniformLocation(plasmaProgram, "uSpeed"),
-    rot: plasmaGl.getUniformLocation(plasmaProgram, "uRot"),
-    colorCount: plasmaGl.getUniformLocation(plasmaProgram, "uColorCount"),
-    colors: plasmaGl.getUniformLocation(plasmaProgram, "uColors"),
-    transparent: plasmaGl.getUniformLocation(plasmaProgram, "uTransparent"),
-    scale: plasmaGl.getUniformLocation(plasmaProgram, "uScale"),
-    frequency: plasmaGl.getUniformLocation(plasmaProgram, "uFrequency"),
-    warpStrength: plasmaGl.getUniformLocation(plasmaProgram, "uWarpStrength"),
-    pointer: plasmaGl.getUniformLocation(plasmaProgram, "uPointer"),
-    mouseInfluence: plasmaGl.getUniformLocation(plasmaProgram, "uMouseInfluence"),
-    parallax: plasmaGl.getUniformLocation(plasmaProgram, "uParallax"),
-    noise: plasmaGl.getUniformLocation(plasmaProgram, "uNoise"),
-    iterations: plasmaGl.getUniformLocation(plasmaProgram, "uIterations"),
-    intensity: plasmaGl.getUniformLocation(plasmaProgram, "uIntensity"),
-    bandWidth: plasmaGl.getUniformLocation(plasmaProgram, "uBandWidth")
-  };
-
-  plasmaGl.useProgram(plasmaProgram);
-  plasmaGl.enableVertexAttribArray(position);
-  plasmaGl.vertexAttribPointer(position, 2, plasmaGl.FLOAT, false, 0, 0);
-  plasmaGl.uniform1i(plasmaUniforms.colorCount, 1);
-  plasmaGl.uniform3fv(plasmaUniforms.colors, new Float32Array([0.6588, 0.3333, 0.9686, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
-  plasmaGl.uniform1i(plasmaUniforms.transparent, 1);
-  plasmaGl.uniform1f(plasmaUniforms.speed, 0.2);
-  plasmaGl.uniform1f(plasmaUniforms.scale, 1);
-  plasmaGl.uniform1f(plasmaUniforms.frequency, 1);
-  plasmaGl.uniform1f(plasmaUniforms.warpStrength, 1);
-  plasmaGl.uniform1f(plasmaUniforms.mouseInfluence, 0);
-  plasmaGl.uniform1f(plasmaUniforms.parallax, 0);
-  plasmaGl.uniform1f(plasmaUniforms.noise, 0.15);
-  plasmaGl.uniform1i(plasmaUniforms.iterations, 1);
-  plasmaGl.uniform1f(plasmaUniforms.intensity, 1.5);
-  plasmaGl.uniform1f(plasmaUniforms.bandWidth, 6);
-  plasmaGl.clearColor(0, 0, 0, 0);
-  plasmaStartTime = performance.now();
+  const glow = dotContext.createRadialGradient(
+    dotFieldMouse.x,
+    dotFieldMouse.y,
+    0,
+    dotFieldMouse.x,
+    dotFieldMouse.y,
+    dotFieldConfig.glowRadius
+  );
+  glow.addColorStop(0, dotFieldConfig.glowColor);
+  glow.addColorStop(1, "rgba(18, 15, 23, 0)");
+  dotContext.globalAlpha = Math.min(dotFieldEngagement, 0.72);
+  dotContext.fillStyle = glow;
+  dotContext.fillRect(0, 0, width, height);
+  dotContext.globalAlpha = 1;
 }
 
-function drawBackground(timestamp = 0) {
-  if (!plasmaGl || motionQuery.matches) return;
+function updateDotFieldMouse() {
+  const dx = dotFieldMouse.prevX - dotFieldMouse.x;
+  const dy = dotFieldMouse.prevY - dotFieldMouse.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  dotFieldMouse.speed += (distance - dotFieldMouse.speed) * 0.5;
+  if (dotFieldMouse.speed < 0.001) dotFieldMouse.speed = 0;
+  dotFieldMouse.prevX = dotFieldMouse.x;
+  dotFieldMouse.prevY = dotFieldMouse.y;
+  const targetEngagement = Math.min(dotFieldMouse.speed / 5, 1);
+  dotFieldEngagement += (targetEngagement - dotFieldEngagement) * 0.06;
+  if (dotFieldEngagement < 0.001) dotFieldEngagement = 0;
+}
 
-  initPlasmaWave();
-  plasmaGl.clear(plasmaGl.COLOR_BUFFER_BIT);
-  plasmaGl.useProgram(plasmaProgram);
-  plasmaGl.uniform2f(plasmaUniforms.canvas, plasmaGl.drawingBufferWidth, plasmaGl.drawingBufferHeight);
-  plasmaGl.uniform1f(plasmaUniforms.time, (timestamp - plasmaStartTime) * 0.001);
-  plasmaGl.uniform2f(plasmaUniforms.rot, 0, 1);
-  plasmaGl.uniform2f(plasmaUniforms.pointer, 0, 0);
-  plasmaGl.drawArrays(plasmaGl.TRIANGLES, 0, 3);
+function drawBackground() {
+  if (!dotContext || !width || !height) return;
 
-  requestAnimationFrame(drawBackground);
+  dotFieldFrame += 1;
+  updateDotFieldMouse();
+  dotContext.clearRect(0, 0, width, height);
+  drawDotFieldGlow();
+
+  const gradient = dotContext.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, dotFieldConfig.gradientFrom);
+  gradient.addColorStop(1, dotFieldConfig.gradientTo);
+  dotContext.fillStyle = gradient;
+  dotContext.beginPath();
+
+  const cursorRadiusSq = dotFieldConfig.cursorRadius * dotFieldConfig.cursorRadius;
+  const radius = dotFieldConfig.dotRadius / 2;
+  const time = dotFieldFrame * 0.02;
+
+  dotFieldDots.forEach((dot) => {
+    const dx = dotFieldMouse.x - dot.ax;
+    const dy = dotFieldMouse.y - dot.ay;
+    const distanceSq = dx * dx + dy * dy;
+
+    if (distanceSq < cursorRadiusSq && dotFieldEngagement > 0.01) {
+      const distance = Math.sqrt(distanceSq);
+      const influence = 1 - distance / dotFieldConfig.cursorRadius;
+      const push = influence * influence * dotFieldConfig.bulgeStrength * dotFieldEngagement;
+      const angle = Math.atan2(dy, dx);
+      dot.sx += (dot.ax - Math.cos(angle) * push - dot.sx) * 0.15;
+      dot.sy += (dot.ay - Math.sin(angle) * push - dot.sy) * 0.15;
+    } else {
+      dot.sx += (dot.ax - dot.sx) * 0.1;
+      dot.sy += (dot.ay - dot.sy) * 0.1;
+    }
+
+    const drawX = dot.sx + Math.cos(dot.ay * 0.03 + time * 0.7) * dotFieldConfig.waveAmplitude * 0.5;
+    const drawY = dot.sy + Math.sin(dot.ax * 0.03 + time) * dotFieldConfig.waveAmplitude;
+    dotContext.moveTo(drawX + radius, drawY);
+    dotContext.arc(drawX, drawY, radius, 0, Math.PI * 2);
+  });
+
+  dotContext.fill();
+
+  if (!motionQuery.matches) {
+    requestAnimationFrame(drawBackground);
+  }
 }
 
 function updateActiveNav() {
@@ -1268,6 +1212,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+window.addEventListener("pointermove", updateDotFieldPointer, { passive: true });
 window.addEventListener("resize", () => {
   resizeCanvas();
   updateMobileHeaderVisibility();
