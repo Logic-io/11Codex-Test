@@ -549,18 +549,12 @@ let width = 0;
 let height = 0;
 let dotFieldDots = [];
 let dotFieldFrame = 0;
-let dotFieldEngagement = 0;
-const dotFieldMouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
 const dotFieldConfig = {
   dotRadius: 2,
   dotSpacing: 22,
-  cursorRadius: 500,
-  bulgeStrength: 70,
   waveAmplitude: 2,
   gradientFrom: "rgba(66, 192, 194, 0.32)",
-  gradientTo: "rgba(156, 94, 215, 0.28)",
-  glowColor: "rgba(18, 15, 23, 0.68)",
-  glowRadius: 190
+  gradientTo: "rgba(156, 94, 215, 0.28)"
 };
 let lastScrollY = window.scrollY;
 let parallaxFrame = null;
@@ -948,50 +942,11 @@ function buildDotField() {
   dotFieldDots = dots;
 }
 
-function updateDotFieldPointer(event) {
-  dotFieldMouse.x = event.clientX;
-  dotFieldMouse.y = event.clientY;
-}
-
-function drawDotFieldGlow() {
-  if (dotFieldMouse.x < 0 || dotFieldEngagement <= 0.002) return;
-
-  const glow = dotContext.createRadialGradient(
-    dotFieldMouse.x,
-    dotFieldMouse.y,
-    0,
-    dotFieldMouse.x,
-    dotFieldMouse.y,
-    dotFieldConfig.glowRadius
-  );
-  glow.addColorStop(0, dotFieldConfig.glowColor);
-  glow.addColorStop(1, "rgba(18, 15, 23, 0)");
-  dotContext.globalAlpha = Math.min(dotFieldEngagement, 0.72);
-  dotContext.fillStyle = glow;
-  dotContext.fillRect(0, 0, width, height);
-  dotContext.globalAlpha = 1;
-}
-
-function updateDotFieldMouse() {
-  const dx = dotFieldMouse.prevX - dotFieldMouse.x;
-  const dy = dotFieldMouse.prevY - dotFieldMouse.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
-  dotFieldMouse.speed += (distance - dotFieldMouse.speed) * 0.5;
-  if (dotFieldMouse.speed < 0.001) dotFieldMouse.speed = 0;
-  dotFieldMouse.prevX = dotFieldMouse.x;
-  dotFieldMouse.prevY = dotFieldMouse.y;
-  const targetEngagement = Math.min(dotFieldMouse.speed / 5, 1);
-  dotFieldEngagement += (targetEngagement - dotFieldEngagement) * 0.06;
-  if (dotFieldEngagement < 0.001) dotFieldEngagement = 0;
-}
-
 function drawBackground() {
   if (!dotContext || !width || !height) return;
 
   dotFieldFrame += 1;
-  updateDotFieldMouse();
   dotContext.clearRect(0, 0, width, height);
-  drawDotFieldGlow();
 
   const gradient = dotContext.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, dotFieldConfig.gradientFrom);
@@ -999,26 +954,12 @@ function drawBackground() {
   dotContext.fillStyle = gradient;
   dotContext.beginPath();
 
-  const cursorRadiusSq = dotFieldConfig.cursorRadius * dotFieldConfig.cursorRadius;
   const radius = dotFieldConfig.dotRadius / 2;
   const time = dotFieldFrame * 0.02;
 
   dotFieldDots.forEach((dot) => {
-    const dx = dotFieldMouse.x - dot.ax;
-    const dy = dotFieldMouse.y - dot.ay;
-    const distanceSq = dx * dx + dy * dy;
-
-    if (distanceSq < cursorRadiusSq && dotFieldEngagement > 0.01) {
-      const distance = Math.sqrt(distanceSq);
-      const influence = 1 - distance / dotFieldConfig.cursorRadius;
-      const push = influence * influence * dotFieldConfig.bulgeStrength * dotFieldEngagement;
-      const angle = Math.atan2(dy, dx);
-      dot.sx += (dot.ax - Math.cos(angle) * push - dot.sx) * 0.15;
-      dot.sy += (dot.ay - Math.sin(angle) * push - dot.sy) * 0.15;
-    } else {
-      dot.sx += (dot.ax - dot.sx) * 0.1;
-      dot.sy += (dot.ay - dot.sy) * 0.1;
-    }
+    dot.sx += (dot.ax - dot.sx) * 0.1;
+    dot.sy += (dot.ay - dot.sy) * 0.1;
 
     const drawX = dot.sx + Math.cos(dot.ay * 0.03 + time * 0.7) * dotFieldConfig.waveAmplitude * 0.5;
     const drawY = dot.sy + Math.sin(dot.ax * 0.03 + time) * dotFieldConfig.waveAmplitude;
@@ -1212,7 +1153,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener("pointermove", updateDotFieldPointer, { passive: true });
 window.addEventListener("resize", () => {
   resizeCanvas();
   updateMobileHeaderVisibility();
