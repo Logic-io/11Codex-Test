@@ -92,28 +92,28 @@
         <summary>Explore the Visual DNA model <i aria-hidden="true"></i></summary>
         <div class="mobile-fold-content">
       <div class="visual-dna-layout">
-        <div class="visual-dna-diagram" role="img" aria-label="Four nested visual DNA layers with Product DNA at the center">
-          <div class="visual-dna-layer visual-dna-style"><span>04</span><strong>Style DNA</strong><b>UPGRADE</b></div>
-          <div class="visual-dna-layer visual-dna-scene"><span>03</span><strong>Scene DNA</strong><b>REPLACE</b></div>
-          <div class="visual-dna-layer visual-dna-composition"><span>02</span><strong>Composition DNA</strong><b>RETAIN / ADAPT</b></div>
-          <div class="visual-dna-layer visual-dna-product"><span>01</span><strong>Product DNA</strong><b>LOCK</b></div>
+        <div class="visual-dna-diagram" aria-label="Interactive four-layer Visual DNA model">
+          <button class="visual-dna-layer visual-dna-style" type="button" data-dna-layer="style" aria-pressed="false"><span>04</span><strong>Style DNA</strong><b>UPGRADE</b></button>
+          <button class="visual-dna-layer visual-dna-scene" type="button" data-dna-layer="scene" aria-pressed="false"><span>03</span><strong>Scene DNA</strong><b>REPLACE</b></button>
+          <button class="visual-dna-layer visual-dna-composition" type="button" data-dna-layer="composition" aria-pressed="false"><span>02</span><strong>Composition DNA</strong><b>RETAIN / ADAPT</b></button>
+          <button class="visual-dna-layer visual-dna-product" type="button" data-dna-layer="product" aria-pressed="true"><span>01</span><strong>Product DNA</strong><b>LOCK</b></button>
         </div>
 
         <div class="visual-dna-rule">
           <p class="demo-kicker">Generation Rule</p>
-          <div><span>LOCK</span><strong>Product DNA</strong></div>
-          <div><span>RETAIN OR ADAPT</span><strong>Composition DNA</strong></div>
-          <div><span>REPLACE</span><strong>Scene DNA</strong></div>
-          <div><span>UPGRADE</span><strong>Style DNA</strong></div>
+          <button class="visual-dna-rule-row" type="button" data-dna-layer="product" aria-pressed="true"><span>LOCK</span><strong>Product DNA</strong></button>
+          <button class="visual-dna-rule-row" type="button" data-dna-layer="composition" aria-pressed="false"><span>RETAIN OR ADAPT</span><strong>Composition DNA</strong></button>
+          <button class="visual-dna-rule-row" type="button" data-dna-layer="scene" aria-pressed="false"><span>REPLACE</span><strong>Scene DNA</strong></button>
+          <button class="visual-dna-rule-row" type="button" data-dna-layer="style" aria-pressed="false"><span>UPGRADE</span><strong>Style DNA</strong></button>
           <p>Keep identity, adjust presentation, change environment, and improve finish.</p>
         </div>
       </div>
 
       <div class="visual-dna-cards">
-        <article><span>01 / LOCK</span><h3>Product DNA</h3><p>Structure, proportions, color, material, functional parts, silhouette, and identifying features. Real products must remain fixed.</p></article>
-        <article><span>02 / ADAPT</span><h3>Composition DNA</h3><p>Camera distance, viewpoint, placement, frame coverage, negative space, perspective, visual focus, and presentation method.</p></article>
-        <article><span>03 / REPLACE</span><h3>Scene DNA</h3><p>Environment, floor, background, props, architecture, and atmosphere. This is the easiest layer to replace.</p></article>
-        <article><span>04 / UPGRADE</span><h3>Style DNA</h3><p>Lighting, photography, color mood, material response, depth of field, clarity, and commercial or cinematic finish.</p></article>
+        <article data-dna-layer="product" role="button" tabindex="0" aria-pressed="true"><span>01 / LOCK</span><h3>Product DNA</h3><p>Structure, proportions, color, material, functional parts, silhouette, and identifying features. Real products must remain fixed.</p></article>
+        <article data-dna-layer="composition" role="button" tabindex="0" aria-pressed="false"><span>02 / ADAPT</span><h3>Composition DNA</h3><p>Camera distance, viewpoint, placement, frame coverage, negative space, perspective, visual focus, and presentation method.</p></article>
+        <article data-dna-layer="scene" role="button" tabindex="0" aria-pressed="false"><span>03 / REPLACE</span><h3>Scene DNA</h3><p>Environment, floor, background, props, architecture, and atmosphere. This is the easiest layer to replace.</p></article>
+        <article data-dna-layer="style" role="button" tabindex="0" aria-pressed="false"><span>04 / UPGRADE</span><h3>Style DNA</h3><p>Lighting, photography, color mood, material response, depth of field, clarity, and commercial or cinematic finish.</p></article>
       </div>
 
       <div class="visual-dna-example">

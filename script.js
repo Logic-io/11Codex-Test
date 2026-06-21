@@ -1527,6 +1527,95 @@ function initMobileFolds() {
   mobileQuery.addEventListener("change", syncFolds);
 }
 
+function initVisualDnaInteraction() {
+  const section = document.querySelector(".visual-dna-section");
+  if (!section) return;
+
+  const controls = [...section.querySelectorAll("[data-dna-layer]")];
+  const fold = section.querySelector(".mobile-fold");
+  const layerOrder = ["product", "composition", "scene", "style"];
+  let activeIndex = 0;
+  let cycleTimer = null;
+  let resumeTimer = null;
+  let resumeAt = 0;
+
+  const setActiveLayer = (layer) => {
+    activeIndex = layerOrder.indexOf(layer);
+    controls.forEach((control) => {
+      const isActive = control.dataset.dnaLayer === layer;
+      control.classList.toggle("is-active", isActive);
+      control.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+
+  const stopCycle = () => {
+    window.clearInterval(cycleTimer);
+    cycleTimer = null;
+  };
+
+  const canCycle = () => !motionQuery.matches && (!fold || fold.open);
+
+  const startCycle = () => {
+    stopCycle();
+    window.clearTimeout(resumeTimer);
+    if (!canCycle()) return;
+    const remainingHold = resumeAt - Date.now();
+    if (remainingHold > 0) {
+      resumeTimer = window.setTimeout(startCycle, remainingHold);
+      return;
+    }
+    resumeAt = 0;
+    cycleTimer = window.setInterval(() => {
+      activeIndex = (activeIndex + 1) % layerOrder.length;
+      setActiveLayer(layerOrder[activeIndex]);
+    }, 2200);
+  };
+
+  const holdCycle = () => {
+    stopCycle();
+    window.clearTimeout(resumeTimer);
+    resumeAt = Date.now() + 6000;
+    startCycle();
+  };
+
+  controls.forEach((control) => {
+    const activate = () => setActiveLayer(control.dataset.dnaLayer);
+
+    control.addEventListener("pointerenter", () => {
+      activate();
+      stopCycle();
+    });
+    control.addEventListener("pointerleave", startCycle);
+    control.addEventListener("focus", () => {
+      activate();
+      stopCycle();
+    });
+    control.addEventListener("blur", startCycle);
+    control.addEventListener("click", () => {
+      activate();
+      holdCycle();
+    });
+
+    if (control.tagName !== "BUTTON") {
+      control.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        activate();
+        holdCycle();
+      });
+    }
+  });
+
+  if (fold) {
+    fold.addEventListener("toggle", startCycle);
+  }
+  motionQuery.addEventListener("change", startCycle);
+
+  setActiveLayer(layerOrder[activeIndex]);
+  section.classList.add("is-dna-ready");
+  startCycle();
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1633,6 +1722,7 @@ initLikeButton();
 initTrueFocus();
 initImageLightbox();
 initMobileFolds();
+initVisualDnaInteraction();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();

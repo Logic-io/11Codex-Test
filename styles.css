@@ -7028,6 +7028,10 @@ body::after {
   border: 1px solid currentColor;
   border-radius: 24px;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.16);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .visual-dna-layer span {
@@ -7087,22 +7091,29 @@ body::after {
   background: linear-gradient(155deg, rgba(97, 217, 255, 0.045), rgba(184, 147, 255, 0.03));
 }
 
-.visual-dna-rule > div {
+.visual-dna-rule-row {
   display: grid;
+  width: 100%;
   grid-template-columns: minmax(112px, 0.72fr) minmax(0, 1fr);
   gap: 12px;
   padding: 15px 0;
+  border: 0;
   border-bottom: 1px solid rgba(244, 246, 239, 0.08);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
-.visual-dna-rule > div span {
+.visual-dna-rule-row span {
   color: var(--agent-blue);
   font-family: Consolas, monospace;
   font-size: 0.62rem;
   font-weight: 800;
 }
 
-.visual-dna-rule > div strong {
+.visual-dna-rule-row strong {
   color: #d8ded9;
   font-size: 0.86rem;
 }
@@ -7171,6 +7182,106 @@ body::after {
   color: #cbd2cc;
   font-size: 0.85rem;
   font-weight: 650;
+}
+
+.visual-dna-section [data-dna-layer="product"] {
+  --dna-accent: #ffc857;
+}
+
+.visual-dna-section [data-dna-layer="composition"] {
+  --dna-accent: #b7ff55;
+}
+
+.visual-dna-section [data-dna-layer="scene"] {
+  --dna-accent: #61d9ff;
+}
+
+.visual-dna-section [data-dna-layer="style"] {
+  --dna-accent: #b893ff;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-layer,
+.visual-dna-section.is-dna-ready .visual-dna-rule-row,
+.visual-dna-section.is-dna-ready .visual-dna-cards article {
+  transition: opacity 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-layer:not(.is-active) {
+  opacity: 0.42;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-layer.is-active {
+  opacity: 1;
+  animation: visual-dna-layer-pulse 1.8s ease-in-out infinite;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-rule-row:not(.is-active),
+.visual-dna-section.is-dna-ready .visual-dna-cards article:not(.is-active) {
+  opacity: 0.58;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-rule-row.is-active {
+  padding-right: 12px;
+  padding-left: 12px;
+  border-color: var(--dna-accent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--dna-accent) 9%, transparent);
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-rule-row.is-active span {
+  color: var(--dna-accent);
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-cards article {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.visual-dna-section.is-dna-ready .visual-dna-cards article.is-active {
+  border-color: var(--dna-accent);
+  background: color-mix(in srgb, var(--dna-accent) 8%, rgba(7, 10, 12, 0.72));
+  box-shadow: 0 16px 42px color-mix(in srgb, var(--dna-accent) 13%, transparent);
+  transform: translateY(-3px);
+}
+
+.visual-dna-section [data-dna-layer]:focus-visible {
+  outline: 2px solid var(--dna-accent);
+  outline-offset: 4px;
+}
+
+.visual-dna-diagram::after {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  left: 0;
+  height: 22%;
+  background: linear-gradient(180deg, transparent, rgba(97, 217, 255, 0.08), transparent);
+  pointer-events: none;
+  animation: visual-dna-scan 4.8s ease-in-out infinite;
+}
+
+@keyframes visual-dna-layer-pulse {
+  0%, 100% {
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.16), 0 0 0 color-mix(in srgb, var(--dna-accent) 0%, transparent);
+  }
+  50% {
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.16), 0 0 30px color-mix(in srgb, var(--dna-accent) 26%, transparent);
+  }
+}
+
+@keyframes visual-dna-scan {
+  0%, 12% {
+    top: -24%;
+    opacity: 0;
+  }
+  28%, 72% {
+    opacity: 1;
+  }
+  88%, 100% {
+    top: 102%;
+    opacity: 0;
+  }
 }
 
 @media (max-width: 1040px) {
@@ -7255,7 +7366,7 @@ body::after {
     padding: 20px 18px;
   }
 
-  .visual-dna-rule > div {
+  .visual-dna-rule-row {
     grid-template-columns: 1fr;
     gap: 6px;
   }
@@ -7263,6 +7374,13 @@ body::after {
   .visual-dna-example {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-dna-section.is-dna-ready .visual-dna-layer.is-active,
+  .visual-dna-diagram::after {
+    animation: none;
   }
 }
 
