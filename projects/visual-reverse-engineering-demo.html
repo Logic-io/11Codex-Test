@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Visual Reverse Engineering Demo | Yury Li</title>
+  <meta name="description" content="A structured AI visual reverse-engineering workflow covering image deconstruction, structural extraction, flat-color mapping, prompt parameters, reconstruction, and human validation.">
+  <meta property="og:title" content="AI Visual Reverse Engineering Demo | Yury Li">
+  <meta property="og:description" content="From visual observation to structure, color, material reconstruction, and quality review through a controlled AI-assisted workflow.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="demo-page agent-page visual-method-page">
+  <canvas id="signalCanvas" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="../index.html#home" aria-label="Go to portfolio home">Home</a>
+    <nav class="nav-links" aria-label="Demo navigation">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Projects</a>
+      <details class="nav-demo">
+        <summary>DEMO</summary>
+        <div class="nav-demo-menu">
+          <a href="product-showcase-demo.html">Sectional Sofa — Product Presentation</a>
+          <a href="agent-prompt-demo.html">Agent Prompt System</a>
+          <a class="active" href="visual-reverse-engineering-demo.html">Visual Reverse Engineering</a>
+        </div>
+      </details>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="demo-main agent-main">
+    <a class="detail-back" href="../index.html#projects">Back to Portfolio</a>
+
+    <section class="visual-method-hero">
+      <div class="visual-method-hero-copy">
+        <p class="eyebrow">AI Visual Reverse Engineering</p>
+        <h1>From Image to Reusable Visual System</h1>
+        <p class="agent-lead">A controlled method for reading an image, extracting its visual logic, simplifying structure and color, rebuilding material detail, and validating the result.</p>
+      </div>
+      <div class="visual-method-map" data-no-i18n aria-label="Visual reverse-engineering stage map">
+        <div><i>01</i><span>OBSERVE</span><b>visual evidence</b></div>
+        <div><i>02</i><span>DECONSTRUCT</span><b>structure + language</b></div>
+        <div><i>03</i><span>SIMPLIFY</span><b>line + flat color</b></div>
+        <div><i>04</i><span>REBUILD</span><b>material + light</b></div>
+        <div><i>05</i><span>VALIDATE</span><b>human review</b></div>
+      </div>
+    </section>
+
+    <section class="agent-method-visual">
+      <div class="agent-section-heading">
+        <div><p class="demo-kicker">My Method & Philosophy</p><h2>Deconstruct first. Rebuild with control.</h2></div>
+        <p>The method separates a complex image into visual language, structure, color, and material before recombining them. Each stage solves one problem, making the final output easier to direct and evaluate.</p>
+      </div>
+      <figure class="agent-method-figure">
+        <img src="../assets/ai-visual-reverse-engineering.png" alt="Four-stage AI visual reverse-engineering process from source observation to line structure, flat color map, and final material rendering">
+        <figcaption>
+          <span><b data-no-i18n>01</b><strong>Observe</strong></span>
+          <span><b data-no-i18n>02</b><strong>Structure</strong></span>
+          <span><b data-no-i18n>03</b><strong>Color</strong></span>
+          <span><b data-no-i18n>04</b><strong>Reconstruct</strong></span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="agent-philosophy" aria-label="Method principles">
+      <article><span>PRINCIPLE 01</span><h3>Structure before decoration</h3><p>Composition, silhouette, proportion, and spatial relationships are defined before texture and visual polish.</p></article>
+      <article><span>PRINCIPLE 02</span><h3>Evidence before invention</h3><p>Visible facts are separated from assumptions so prompts remain grounded in the source image.</p></article>
+      <article><span>PRINCIPLE 03</span><h3>Constraints improve consistency</h3><p>Clear requirements for form, color, material, camera, and exclusions reduce random variation.</p></article>
+      <article><span>PRINCIPLE 04</span><h3>AI assists; human judgment decides</h3><p>AI accelerates analysis and iteration, while final accuracy, usability, and ethics remain human decisions.</p></article>
+    </section>
+
+    <section class="agent-visual-workflow">
+      <div class="agent-section-heading">
+        <div><p class="demo-kicker">How To Use It</p><h2>A six-stage visual reverse-engineering method</h2></div>
+        <p>The stages can be used independently, but the full sequence provides stronger control when an image must be studied, simplified, and rebuilt.</p>
+      </div>
+      <div class="agent-method-steps">
+        <article><span>01</span><div><h3>Upload and diagnose</h3><p>Confirm the subject, intended output, image quality, important details, and elements that must remain unchanged.</p></div></article>
+        <article><span>02</span><div><h3>Reverse visual deconstruction</h3><p>Extract the core theme, composition, style, material, atmosphere, camera, and viewing angle as structured language.</p></div></article>
+        <article><span>03</span><div><h3>Extract the structural skeleton</h3><p>Remove color and lighting distractions to study contours, internal divisions, proportion, and spatial logic.</p></div></article>
+        <article><span>04</span><div><h3>Build the flat-color map</h3><p>Assign clean local colors to independent regions, strengthening hue and value separation without texture noise.</p></div></article>
+        <article><span>05</span><div><h3>Reconstruct with precise language</h3><p>Combine the approved structure and palette with specific craft, material, lighting, lens, and quality terms.</p></div></article>
+        <article><span>06</span><div><h3>Validate and refine</h3><p>Compare structure, color, material, edge quality, and practical usability; revise only the failed dimension.</p></div></article>
+      </div>
+    </section>
+
+    <section class="agent-visual-parameters">
+      <div class="agent-section-heading">
+        <div><p class="demo-kicker">Visual Prompt Parameters</p><h2>Every parameter has a specific job</h2></div>
+        <p>Professional prompts work through controlled information, not decorative vocabulary. Each parameter should influence a visible part of the result.</p>
+      </div>
+      <div class="agent-visual-parameter-grid">
+        <article><span>01 / SUBJECT</span><h3>Core subject</h3><p>Defines what must appear and which object carries the visual priority.</p><code>Chinese opera armor shoulder</code></article>
+        <article><span>02 / STRUCTURE</span><h3>Composition and form</h3><p>Controls framing, silhouette, proportion, position, and relationships between elements.</p><code>macro close-up · centered form</code></article>
+        <article><span>03 / STYLE</span><h3>Visual language</h3><p>Sets the overall medium and finish without replacing structural instructions.</p><code>museum artifact photography</code></article>
+        <article><span>04 / MATERIAL</span><h3>Craft and texture</h3><p>Uses precise material vocabulary to guide learned visual associations.</p><code>oxidized silver · silk · filigree</code></article>
+        <article><span>05 / LIGHT</span><h3>Lighting and atmosphere</h3><p>Determines readability, depth, highlights, shadow softness, and emotional tone.</p><code>soft studio light · white backdrop</code></article>
+        <article><span>06 / CAMERA</span><h3>Lens and viewpoint</h3><p>Controls perspective, detail scale, depth of field, and photographic credibility.</p><code>macro lens · shallow depth of field</code></article>
+        <article><span>07 / CONSTRAINT</span><h3>Consistency rules</h3><p>States what must remain unchanged and which common generation errors to avoid.</p><code>preserve silhouette · no extra objects</code></article>
+        <article><span>08 / OUTPUT</span><h3>Delivery requirement</h3><p>Defines the practical finish, background, clarity, and intended downstream use.</p><code>clean edges · high detail · reusable</code></article>
+      </div>
+    </section>
+
+    <section class="agent-reality-check">
+      <div class="agent-section-heading">
+        <div><p class="demo-kicker">Practical Boundaries</p><h2>Strong prompts improve probability, not certainty</h2></div>
+        <p>The workflow is a direction and iteration system. It does not recover an image's original hidden prompt or guarantee a perfect result in one generation.</p>
+      </div>
+      <div class="agent-reality-grid">
+        <article><strong>Reverse prompts are approximations</strong><p>Vision-language analysis describes likely visual features; it cannot reveal the exact original generation process.</p></article>
+        <article><strong>Flat-color output is still a bitmap</strong><p>It may look segmented, but it is not automatically a layered Photoshop file or editable vector artwork.</p></article>
+        <article><strong>Line art is not engineering geometry</strong><p>Generated contours may contain gaps or distortions and require manual vector cleanup for fabrication.</p></article>
+        <article><strong>Specific terms guide, not guarantee</strong><p>Craft and material vocabulary improves direction, but results still require comparison and targeted iteration.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <span class="back-to-top-icon" aria-hidden="true"></span>
+    <span>Top</span>
+  </button>
+  <script src="../script.js"></script>
+</body>
+</html>

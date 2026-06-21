@@ -684,6 +684,10 @@ Object.assign(zhTranslations, {
 });
 
 Object.assign(zhTranslations, {
+  "Visual Reverse Engineering": "视觉逆向工程",
+  "AI Visual Reverse Engineering": "AI 视觉逆向工程",
+  "From Image to Reusable Visual System": "从图像到可复用视觉系统",
+  "A controlled method for reading an image, extracting its visual logic, simplifying structure and color, rebuilding material detail, and validating the result.": "一套受控方法，用于读取图像、提取视觉逻辑、简化结构与色彩、重建材质细节并验证结果。",
   "My Method & Philosophy": "我的方法与理念",
   "Deconstruct first. Rebuild with control.": "先解构，再有控制地重构",
   "The method separates a complex image into visual language, structure, color, and material before recombining them. Each stage solves one problem, making the final output easier to direct and evaluate.": "这套方法先把复杂图像拆分为视觉语言、结构、色彩与材质，再重新组合。每个阶段只解决一个问题，使最终结果更容易控制和评估。",
@@ -773,7 +777,8 @@ Object.assign(titleTranslations, {
   "Brand Communication & Event Execution | Yury Li": "品牌沟通与活动执行 | Yury Li",
   "AI Tools & Workflow Architecture | Yury Li": "AI 工具与工作流架构 | Yury Li",
   "AI Product Presentation Demo | Yury Li": "AI 产品展示 Demo | Yury Li",
-  "Agent Prompt System Demo | Yury Li": "Agent 提示词系统 Demo | Yury Li"
+  "Agent Prompt System Demo | Yury Li": "Agent 提示词系统 Demo | Yury Li",
+  "AI Visual Reverse Engineering Demo | Yury Li": "AI 视觉逆向工程 Demo | Yury Li"
 });
 
 let width = 0;

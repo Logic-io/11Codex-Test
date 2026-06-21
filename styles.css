@@ -5979,3 +5979,108 @@ body::after {
     padding: 21px 18px;
   }
 }
+
+/* Standalone visual reverse-engineering demo */
+.visual-method-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.66fr);
+  gap: clamp(38px, 6vw, 82px);
+  align-items: center;
+  min-height: 650px;
+  padding: 58px 0 78px;
+}
+
+.visual-method-hero-copy h1 {
+  max-width: 820px;
+  margin: 22px 0 26px;
+  font-size: clamp(4.4rem, 8vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+}
+
+.visual-method-map {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(244, 246, 239, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(150deg, rgba(97, 217, 255, 0.06), rgba(184, 147, 255, 0.04));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+}
+
+.visual-method-map div {
+  display: grid;
+  grid-template-columns: 34px minmax(100px, 0.7fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(244, 246, 239, 0.08);
+  border-radius: 12px;
+  background: rgba(7, 10, 12, 0.4);
+}
+
+.visual-method-map i,
+.visual-method-map span,
+.visual-method-map b {
+  font-family: Consolas, monospace;
+  font-style: normal;
+}
+
+.visual-method-map i {
+  color: #59645d;
+  font-size: 0.65rem;
+}
+
+.visual-method-map span {
+  color: var(--agent-blue);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.visual-method-map b {
+  min-width: 0;
+  color: #aab3ac;
+  font-size: 0.68rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1040px) {
+  .visual-method-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.72fr);
+  }
+
+  .visual-method-hero-copy h1 {
+    font-size: clamp(4rem, 7vw, 6.2rem);
+  }
+}
+
+@media (max-width: 780px) {
+  .visual-method-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 44px 0 70px;
+  }
+
+  .visual-method-hero-copy h1 {
+    font-size: clamp(3.7rem, 16vw, 6.2rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .visual-method-map {
+    padding: 11px;
+  }
+
+  .visual-method-map div {
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px 10px;
+  }
+
+  .visual-method-map b {
+    grid-column: 2;
+  }
+}
