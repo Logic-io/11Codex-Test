@@ -900,6 +900,7 @@ function closeMobileMenu() {
   if (!siteHeader || !menuButton) return;
 
   siteHeader.classList.remove("menu-open");
+  siteHeader.querySelectorAll(".nav-demo[open]").forEach((dropdown) => dropdown.removeAttribute("open"));
   menuButton.setAttribute("aria-expanded", "false");
 }
 
@@ -925,6 +926,9 @@ function createMobileMenu() {
     const isOpen = siteHeader.classList.toggle("menu-open");
     siteHeader.classList.remove("is-hidden");
     menuButton.setAttribute("aria-expanded", String(isOpen));
+    if (!isOpen) {
+      siteHeader.querySelectorAll(".nav-demo[open]").forEach((dropdown) => dropdown.removeAttribute("open"));
+    }
   });
 
   navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
