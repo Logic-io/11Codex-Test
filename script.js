@@ -810,6 +810,34 @@ Object.assign(zhTranslations, {
   "Prevents added controls, altered geometry, or inconsistent scale.": "防止增加控制键、改变几何结构或出现比例不一致。"
 });
 
+Object.assign(zhTranslations, {
+  "Independent Stage Images": "独立阶段分图",
+  "Compare each transformation separately": "分别对比每个转换阶段",
+  "The composite explains the workflow at a glance. These individual images make structure, color, and environment changes easier to compare against the original.": "组合图用于快速说明整体流程，独立分图则便于把结构、色彩和环境变化分别与原图对比。",
+  "01 / ORIGINAL": "01 / 原图",
+  "Reference image": "参考原图",
+  "The evidence source used to lock product shape, component placement, proportions, palette, and viewing angle.": "作为视觉证据来源，用于锁定产品形态、部件位置、比例、配色与观察角度。",
+  "02 / STRUCTURE": "02 / 结构",
+  "Material and color are removed so silhouette, body divisions, lens rings, controls, base geometry, and perspective can be inspected.": "移除材质与色彩，以便检查轮廓、机身分区、镜头环、控制键、底座几何和透视。",
+  "03 / COLOR": "03 / 色彩",
+  "Uniform local colors separate the off-white shell, charcoal base, black lens, violet viewfinder, and small accent controls.": "使用统一固有色，清晰区分米白机壳、炭黑底座、黑色镜头、紫色取景窗与小面积强调控制键。",
+  "04 / NEW ENVIRONMENT": "04 / 新环境",
+  "Space campaign scene": "太空主题商业场景",
+  "The product identity remains stable while the environment changes to a lunar observation station with controlled orbital lighting.": "产品身份保持稳定，同时把环境改变为采用受控轨道光线的月面观景站。",
+  "IDENTITY": "产品身份",
+  "The product remains recognizable": "产品保持可识别",
+  "The off-white shell, black base, lens diameter, flash, violet viewfinder, colored controls, and stepped side housing stay consistent.": "米白机壳、黑色底座、镜头直径、闪光灯、紫色取景窗、彩色控制键和阶梯式侧壳保持一致。",
+  "CONTEXT": "环境语境",
+  "Only the environment changes": "只改变展示环境",
+  "The neutral studio becomes a lunar observation station with Earth, a moon horizon, window framing, and a brushed-metal platform.": "中性影棚被替换为月面观景站，并加入地球、月面地平线、舷窗结构与拉丝金属展台。",
+  "LIGHT": "光线",
+  "Space informs the material response": "太空环境决定材质光线响应",
+  "Cool orbital light and a restrained warm rim light reveal the matte polymer, lens glass, translucent plastic, and metal surface.": "冷色轨道光与克制的暖色轮廓光共同呈现哑光聚合物、镜片玻璃、半透明塑料与金属表面。",
+  "PURPOSE": "展示目的",
+  "The setting creates a new product story": "环境建立新的产品故事",
+  "The space environment shifts the camera from a catalog object to an aspirational technology campaign without redesigning the product.": "太空环境在不重设计产品的前提下，把相机从目录产品转变为具有想象力的科技主题广告。"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
