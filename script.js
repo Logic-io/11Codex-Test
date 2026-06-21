@@ -838,6 +838,23 @@ Object.assign(zhTranslations, {
   "The space environment shifts the camera from a catalog object to an aspirational technology campaign without redesigning the product.": "太空环境在不重设计产品的前提下，把相机从目录产品转变为具有想象力的科技主题广告。"
 });
 
+Object.assign(zhTranslations, {
+  "Why Reverse Engineering?": "为什么使用视觉逆向工程？",
+  "VISUAL SYSTEM / NOT HARDWARE": "视觉系统 / 非硬件拆解",
+  "Turn one finished image into reusable rules.": "把一张成品图转化为可复用规则",
+  "This is visual and prompt reverse engineering—not camera hardware teardown. It extracts structure, materials, lighting, angles, and prompt constraints.": "这是视觉与提示词逆向工程，不是拆解相机硬件。它提取结构、材质、灯光、角度和提示词约束。",
+  "Make the style repeatable": "让风格可以复制",
+  "Convert a good-looking image into a clear formula for composition, material, light, and hierarchy.": "把好看的图片转化为清晰的构图、材质、光线和信息层级公式。",
+  "Generate at scale": "支持批量生成",
+  "Reuse the same visual system across furniture, technology, e-commerce, ads, and landing pages.": "把同一视觉系统复用于家具、科技产品、电商、广告和落地页。",
+  "Protect the product": "保护产品本体",
+  "Lock shape, proportions, and controls while allowing background, lighting, and presentation to change.": "锁定形态、比例和控制部件，同时允许背景、光线和展示方式改变。",
+  "Create design assets": "沉淀设计资产",
+  "Turn one image into analysis, line art, color rules, material notes, prompts, and reusable templates.": "把一张图片转化为分析、线稿、色彩规则、材质说明、提示词和可复用模板。",
+  "CORE RESULT": "核心结果",
+  "Replace “make it premium” with rules AI and design systems can execute.": "把“做得高级一点”转化为 AI 和设计系统可以执行的规则。"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
