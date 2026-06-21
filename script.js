@@ -1512,6 +1512,21 @@ function initImageLightbox() {
   });
 }
 
+function initMobileFolds() {
+  const folds = [...document.querySelectorAll(".visual-method-page .mobile-fold")];
+  if (!folds.length) return;
+
+  const mobileQuery = window.matchMedia("(max-width: 780px)");
+  const syncFolds = () => {
+    folds.forEach((fold) => {
+      fold.open = !mobileQuery.matches;
+    });
+  };
+
+  syncFolds();
+  mobileQuery.addEventListener("change", syncFolds);
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1617,6 +1632,7 @@ initPackageContact();
 initLikeButton();
 initTrueFocus();
 initImageLightbox();
+initMobileFolds();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();

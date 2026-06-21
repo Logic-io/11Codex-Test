@@ -6002,6 +6002,14 @@ body::after {
 }
 
 /* Standalone visual reverse-engineering demo */
+.mobile-fold > summary {
+  display: none;
+}
+
+.mobile-fold-content {
+  display: contents;
+}
+
 .visual-method-hero {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.66fr);
@@ -6079,14 +6087,167 @@ body::after {
 }
 
 @media (max-width: 780px) {
+  .visual-method-page .agent-section-heading {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .visual-method-page .agent-section-heading h2 {
+    font-size: clamp(2.15rem, 10vw, 3.5rem);
+    line-height: 0.98;
+  }
+
+  .mobile-fold-section > .agent-section-heading > p {
+    display: none;
+  }
+
+  .mobile-fold > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 54px;
+    padding: 14px 16px;
+    border: 1px solid rgba(97, 217, 255, 0.2);
+    border-radius: 14px;
+    background: rgba(97, 217, 255, 0.045);
+    color: #dce2dd;
+    font-size: 0.86rem;
+    font-weight: 750;
+    list-style: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .mobile-fold > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-fold > summary i {
+    position: relative;
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(244, 246, 239, 0.16);
+    border-radius: 50%;
+  }
+
+  .mobile-fold > summary i::before,
+  .mobile-fold > summary i::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 1px;
+    background: #bcefff;
+    transform: translate(-50%, -50%);
+  }
+
+  .mobile-fold > summary i::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .mobile-fold[open] > summary {
+    margin-bottom: 16px;
+  }
+
+  .mobile-fold[open] > summary i::after {
+    transform: translate(-50%, -50%);
+  }
+
+  .mobile-fold-content {
+    display: block;
+  }
+
   .visual-method-hero {
     grid-template-columns: 1fr;
+    gap: 28px;
     min-height: auto;
-    padding: 44px 0 70px;
+    padding: 34px 0 50px;
   }
 
   .visual-method-hero-copy h1 {
-    font-size: clamp(3.7rem, 16vw, 6.2rem);
+    margin: 18px 0 20px;
+    font-size: clamp(3rem, 14vw, 4.9rem);
+    line-height: 0.9;
+  }
+
+  .visual-method-map {
+    grid-auto-columns: minmax(190px, 70vw);
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+  }
+
+  .visual-method-map::-webkit-scrollbar {
+    display: none;
+  }
+
+  .visual-method-map div {
+    grid-template-columns: 26px minmax(0, 1fr);
+    scroll-snap-align: start;
+  }
+
+  .visual-method-map b {
+    grid-column: 2;
+  }
+
+  .reverse-purpose-main h2 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .agent-method-visual,
+  .agent-visual-workflow,
+  .agent-visual-parameters,
+  .agent-reality-check,
+  .visual-dna-section {
+    margin-top: 52px;
+  }
+
+  .agent-philosophy {
+    grid-auto-columns: minmax(250px, 78vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+  }
+
+  .agent-philosophy::-webkit-scrollbar {
+    display: none;
+  }
+
+  .agent-philosophy article {
+    scroll-snap-align: start;
+  }
+
+  .visual-case {
+    margin-top: 56px;
+    padding-top: 48px;
+  }
+
+  .visual-case-comparison {
+    grid-auto-columns: minmax(280px, 84vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+  }
+
+  .visual-case-comparison::-webkit-scrollbar {
+    display: none;
+  }
+
+  .visual-case-comparison figure {
+    scroll-snap-align: start;
+  }
+
+  .visual-case-fold {
+    margin-top: 16px;
   }
 }
 
@@ -7102,5 +7263,49 @@ body::after {
   .visual-dna-example {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+}
+
+/* Mobile length reduction for the visual reverse-engineering demo */
+@media (max-width: 780px) {
+  .visual-method-page .agent-method-visual,
+  .visual-method-page .agent-visual-workflow,
+  .visual-method-page .agent-visual-parameters,
+  .visual-method-page .agent-reality-check,
+  .visual-method-page .visual-dna-section {
+    margin-top: 52px;
+  }
+
+  .visual-method-page .reverse-purpose-main h2 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .visual-method-page .agent-philosophy {
+    grid-auto-columns: minmax(250px, 78vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+  }
+
+  .visual-method-page .visual-case {
+    margin-top: 56px;
+    padding-top: 48px;
+  }
+
+  .visual-method-page .visual-case-comparison {
+    grid-auto-columns: minmax(280px, 84vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .visual-method-page .agent-philosophy {
+    grid-template-columns: none;
+  }
+
+  .visual-method-page .agent-method-figure figcaption {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
