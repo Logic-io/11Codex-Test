@@ -6084,3 +6084,213 @@ body::after {
     grid-column: 2;
   }
 }
+
+/* Visual reverse-engineering Case 02 */
+.visual-case {
+  margin-top: 110px;
+  padding-top: 82px;
+  border-top: 1px solid rgba(244, 246, 239, 0.11);
+}
+
+.visual-case-comparison {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 14px;
+}
+
+.visual-case-comparison figure {
+  overflow: hidden;
+  min-width: 0;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid rgba(244, 246, 239, 0.11);
+  border-radius: 24px;
+  background: rgba(244, 246, 239, 0.03);
+}
+
+.visual-case-comparison figure > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 8px 14px;
+}
+
+.visual-case-comparison figure span {
+  color: var(--agent-blue);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.visual-case-comparison figure b {
+  color: #99a29b;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.visual-case-comparison img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.visual-case-source img {
+  object-position: center;
+}
+
+.visual-case-stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.visual-case-stages article,
+.visual-case-analysis article,
+.visual-case-parameters > div {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid rgba(244, 246, 239, 0.09);
+  border-radius: 18px;
+  background: rgba(244, 246, 239, 0.025);
+}
+
+.visual-case-stages article > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(97, 217, 255, 0.24);
+  border-radius: 9px;
+  color: var(--agent-blue);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.visual-case-stages h3,
+.visual-case-analysis h3 {
+  margin: 18px 0 9px;
+  font-size: 1.03rem;
+  line-height: 1.2;
+}
+
+.visual-case-stages p,
+.visual-case-analysis > article > p:last-child,
+.visual-case-parameters p {
+  color: #98a199;
+  font-size: 0.86rem;
+  line-height: 1.62;
+}
+
+.visual-case-analysis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 60px;
+}
+
+.visual-case-analysis article {
+  padding: 26px;
+  background: linear-gradient(150deg, rgba(97, 217, 255, 0.04), rgba(184, 147, 255, 0.025));
+}
+
+.visual-case-analysis h3 {
+  margin-top: 9px;
+  font-size: 1.3rem;
+}
+
+.visual-case-parameters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.visual-case-parameters span,
+.visual-case-parameters strong {
+  display: block;
+}
+
+.visual-case-parameters span {
+  color: var(--agent-violet);
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.visual-case-parameters strong {
+  margin: 10px 0 7px;
+  color: #dde3de;
+  font-size: 0.94rem;
+}
+
+@media (max-width: 1040px) {
+  .visual-case-comparison {
+    grid-template-columns: minmax(250px, 0.62fr) minmax(0, 1fr);
+  }
+
+  .visual-case-stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .visual-case {
+    margin-top: 78px;
+    padding-top: 62px;
+  }
+
+  .visual-case-comparison,
+  .visual-case-analysis {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-case-comparison img {
+    height: auto;
+    max-height: none;
+  }
+
+  .visual-case-parameters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .visual-case-stages h3,
+  .visual-case-analysis h3 {
+    font-size: 1.05rem;
+  }
+
+  .visual-case-stages p,
+  .visual-case-analysis > article > p:last-child,
+  .visual-case-parameters p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 520px) {
+  .visual-case-stages,
+  .visual-case-parameters {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-case-comparison figure {
+    padding: 7px;
+    border-radius: 18px;
+  }
+
+  .visual-case-comparison figure > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .visual-case-stages article,
+  .visual-case-analysis article,
+  .visual-case-parameters > div {
+    padding: 20px 18px;
+  }
+}
