@@ -1397,6 +1397,90 @@ function initTrueFocus() {
   }
 }
 
+function initImageLightbox() {
+  const page = document.querySelector(".visual-method-page");
+  if (!page) return;
+
+  const sourceImages = [...page.querySelectorAll("main img[data-full-src]")];
+  if (!sourceImages.length) return;
+
+  const dialog = document.createElement("dialog");
+  dialog.className = "image-lightbox";
+  dialog.setAttribute("aria-label", "4K image viewer");
+  dialog.innerHTML = `
+    <div class="image-lightbox-toolbar">
+      <button type="button" data-lightbox-action="minus" aria-label="Zoom out">−</button>
+      <span data-lightbox-scale>100%</span>
+      <button type="button" data-lightbox-action="plus" aria-label="Zoom in">+</button>
+      <button type="button" data-lightbox-action="fit" aria-label="Fit image">↔</button>
+      <button type="button" data-lightbox-action="close" aria-label="Close image viewer">×</button>
+    </div>
+    <div class="image-lightbox-viewport">
+      <img alt="">
+    </div>
+  `;
+  document.body.append(dialog);
+
+  const fullImage = dialog.querySelector("img");
+  const viewport = dialog.querySelector(".image-lightbox-viewport");
+  const scaleLabel = dialog.querySelector("[data-lightbox-scale]");
+  let scale = 1;
+
+  const applyScale = () => {
+    fullImage.style.width = `min(${92 * scale}vw, ${1800 * scale}px)`;
+    scaleLabel.textContent = `${Math.round(scale * 100)}%`;
+  };
+
+  const closeViewer = () => {
+    if (typeof dialog.close === "function") dialog.close();
+    else dialog.removeAttribute("open");
+    fullImage.removeAttribute("src");
+  };
+
+  const openViewer = (sourceImage) => {
+    scale = 1;
+    fullImage.src = sourceImage.dataset.fullSrc;
+    fullImage.alt = sourceImage.alt;
+    applyScale();
+    viewport.scrollTo(0, 0);
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+  };
+
+  sourceImages.forEach((sourceImage) => {
+    sourceImage.classList.add("zoomable-image");
+    sourceImage.tabIndex = 0;
+    sourceImage.setAttribute("role", "button");
+    sourceImage.setAttribute("aria-label", `${sourceImage.alt}. Open 4K image viewer.`);
+    sourceImage.addEventListener("click", () => openViewer(sourceImage));
+    sourceImage.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openViewer(sourceImage);
+    });
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) closeViewer();
+  });
+  dialog.addEventListener("close", () => fullImage.removeAttribute("src"));
+
+  dialog.querySelector("[data-lightbox-action='close']").addEventListener("click", closeViewer);
+  dialog.querySelector("[data-lightbox-action='minus']").addEventListener("click", () => {
+    scale = Math.max(0.6, scale - 0.2);
+    applyScale();
+  });
+  dialog.querySelector("[data-lightbox-action='plus']").addEventListener("click", () => {
+    scale = Math.min(2, scale + 0.2);
+    applyScale();
+  });
+  dialog.querySelector("[data-lightbox-action='fit']").addEventListener("click", () => {
+    scale = 1;
+    applyScale();
+    viewport.scrollTo(0, 0);
+  });
+}
+
 function updateMobileHeaderVisibility() {
   if (!siteHeader) return;
 
@@ -1501,6 +1585,7 @@ initExperienceCards();
 initPackageContact();
 initLikeButton();
 initTrueFocus();
+initImageLightbox();
 document.body.classList.add("scrolling-down");
 setupScrollAnimations();
 resizeCanvas();
