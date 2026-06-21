@@ -220,6 +220,7 @@ Object.assign(zhTranslations, {
   "Marketing, Sales & AI Workflow Specialist": "市场、销售与 AI 工作流专员",
   "I help retail and product-focused brands turn customer conversations into clearer sales communication, stronger product presentation, and practical marketing workflows.": "我帮助零售和产品型品牌，把真实客户沟通转化为更清晰的销售话术、更有说服力的产品呈现，以及更实用的营销工作流。",
   "Based in Alberta, Canada | English / Mandarin | Retail Technology | Product Communication | Workflow Tools": "加拿大阿尔伯塔 | 英语 / 普通话 | 零售科技 | 产品沟通 | 工作流工具",
+  "Download Resume": "下载简历",
   "View My Work": "查看作品",
   "AI Workflows": "AI 工作流",
   "5+ years": "5 年以上",
