@@ -855,6 +855,33 @@ Object.assign(zhTranslations, {
   "Replace “make it premium” with rules AI and design systems can execute.": "把“做得高级一点”转化为 AI 和设计系统可以执行的规则。"
 });
 
+Object.assign(zhTranslations, {
+  "Demo-N Visual DNA Model": "Demo-N 视觉 DNA 模型",
+  "Break the reference into four layers before prompting.": "生成提示词前，先把参考图拆成四层",
+  "Do not describe the whole image at once. Separate what defines the product from what can be transferred, replaced, or upgraded.": "不要一次描述整张图。先区分哪些内容定义产品，哪些内容可以迁移、替换或升级。",
+  "Style DNA": "风格 DNA",
+  "Scene DNA": "场景 DNA",
+  "Composition DNA": "构图 DNA",
+  "Product DNA": "产品 DNA",
+  "UPGRADE": "升级",
+  "REPLACE": "替换",
+  "RETAIN / ADAPT": "保留 / 微调",
+  "LOCK": "锁定",
+  "Generation Rule": "生成规则",
+  "RETAIN OR ADAPT": "保留或微调",
+  "Keep identity, adjust presentation, change environment, and improve finish.": "保持产品身份，调整展示方式，替换环境，并升级最终质感。",
+  "01 / LOCK": "01 / 锁定",
+  "02 / ADAPT": "02 / 微调",
+  "03 / REPLACE": "03 / 替换",
+  "04 / UPGRADE": "04 / 升级",
+  "Structure, proportions, color, material, functional parts, silhouette, and identifying features. Real products must remain fixed.": "产品的结构、比例、颜色、材质、功能部件、轮廓和识别特征。真实商品必须保持固定。",
+  "Camera distance, viewpoint, placement, frame coverage, negative space, perspective, visual focus, and presentation method.": "镜头距离、视角、主体位置、画面占比、留白、透视、视觉重心和产品展示方式。",
+  "Environment, floor, background, props, architecture, and atmosphere. This is the easiest layer to replace.": "产品所处的环境、地面、背景、道具、建筑元素和氛围。这是最容易替换的一层。",
+  "Lighting, photography, color mood, material response, depth of field, clarity, and commercial or cinematic finish.": "光影系统、摄影质感、色彩情绪、材质表现、景深、清晰度以及商业广告感或电影感。",
+  "CASE 02 / INSTANT CAMERA": "案例 02 / 即时成像相机",
+  "Product locked · composition retained · studio replaced by lunar station · lighting upgraded for a technology campaign": "产品锁定 · 构图保留 · 摄影棚替换为月面观景站 · 光线升级为科技广告效果"
+});
+
 const titleTranslations = {
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
