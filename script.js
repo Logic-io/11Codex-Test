@@ -531,7 +531,7 @@ Object.assign(zhTranslations, {
 });
 
 Object.assign(zhTranslations, {
-  "Product Presentation": "产品介绍",
+  "Sectional Sofa — Product Presentation": "组合沙发 — 产品介绍",
   "Back to Portfolio": "返回作品集",
   "AI Product Presentation Demo": "AI 产品展示 Demo",
   "From One Image to a Complete Product Story": "从一张图片到完整产品故事",
