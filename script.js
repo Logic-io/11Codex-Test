@@ -687,7 +687,6 @@ Object.assign(zhTranslations, {
   "Visual Reverse Engineering": "视觉逆向工程",
   "AI Visual Reverse Engineering": "AI 视觉逆向工程",
   "From Image to Reusable Visual System": "从图像到可复用视觉系统",
-  "A controlled method for reading an image, extracting its visual logic, simplifying structure and color, rebuilding material detail, and validating the result.": "一套受控方法，用于读取图像、提取视觉逻辑、简化结构与色彩、重建材质细节并验证结果。",
   "My Method & Philosophy": "我的方法与理念",
   "Deconstruct first. Rebuild with control.": "先解构，再有控制地重构",
   "The method separates a complex image into visual language, structure, color, and material before recombining them. Each stage solves one problem, making the final output easier to direct and evaluate.": "这套方法先把复杂图像拆分为视觉语言、结构、色彩与材质，再重新组合。每个阶段只解决一个问题，使最终结果更容易控制和评估。",
@@ -722,44 +721,6 @@ Object.assign(zhTranslations, {
   "Combine the approved structure and palette with specific craft, material, lighting, lens, and quality terms.": "把确认后的结构和配色与具体工艺、材质、光线、镜头和质量词汇结合。",
   "Validate and refine": "验证并优化",
   "Compare structure, color, material, edge quality, and practical usability; revise only the failed dimension.": "比较结构、色彩、材质、边缘质量与实际可用性，只修改未通过的维度。",
-  "Visual Prompt Parameters": "视觉提示词参数",
-  "Every parameter has a specific job": "每个参数都有明确作用",
-  "Professional prompts work through controlled information, not decorative vocabulary. Each parameter should influence a visible part of the result.": "专业提示词依靠受控信息，而不是华丽词汇。每个参数都应影响结果中可见的部分。",
-  "01 / SUBJECT": "01 / 主体",
-  "02 / STRUCTURE": "02 / 结构",
-  "03 / STYLE": "03 / 风格",
-  "04 / MATERIAL": "04 / 材质",
-  "05 / LIGHT": "05 / 光线",
-  "06 / CAMERA": "06 / 镜头",
-  "07 / CONSTRAINT": "07 / 约束",
-  "08 / OUTPUT": "08 / 输出",
-  "Core subject": "核心主体",
-  "Defines what must appear and which object carries the visual priority.": "定义必须出现的内容以及承担视觉重点的对象。",
-  "Composition and form": "构图与形态",
-  "Controls framing, silhouette, proportion, position, and relationships between elements.": "控制取景、轮廓、比例、位置以及元素之间的关系。",
-  "Visual language": "视觉语言",
-  "Sets the overall medium and finish without replacing structural instructions.": "设定整体媒介和完成效果，但不能替代结构指令。",
-  "Craft and texture": "工艺与质感",
-  "Uses precise material vocabulary to guide learned visual associations.": "使用精准材质词汇，引导模型匹配已学习的视觉关联。",
-  "Lighting and atmosphere": "光线与氛围",
-  "Determines readability, depth, highlights, shadow softness, and emotional tone.": "决定清晰度、空间深度、高光、阴影柔和度与情绪。",
-  "Lens and viewpoint": "镜头与视角",
-  "Controls perspective, detail scale, depth of field, and photographic credibility.": "控制透视、细节尺度、景深与摄影可信度。",
-  "Consistency rules": "一致性规则",
-  "States what must remain unchanged and which common generation errors to avoid.": "说明哪些内容必须保持不变，以及需要避免哪些常见生成错误。",
-  "Delivery requirement": "交付要求",
-  "Defines the practical finish, background, clarity, and intended downstream use.": "定义完成质量、背景、清晰度和后续实际用途。",
-  "Practical Boundaries": "务实边界",
-  "Strong prompts improve probability, not certainty": "强提示词提高成功率，而非提供确定性",
-  "The workflow is a direction and iteration system. It does not recover an image's original hidden prompt or guarantee a perfect result in one generation.": "这套流程是一套方向控制与迭代系统。它无法恢复图像原始隐藏提示词，也不能保证一次生成就得到完美结果。",
-  "Reverse prompts are approximations": "逆向提示词只是近似分析",
-  "Vision-language analysis describes likely visual features; it cannot reveal the exact original generation process.": "视觉语言分析只能描述可能的视觉特征，无法揭示原始生成过程。",
-  "Flat-color output is still a bitmap": "标准色稿仍然是位图",
-  "It may look segmented, but it is not automatically a layered Photoshop file or editable vector artwork.": "它可能看起来像完成分区，但不会自动成为 Photoshop 分层文件或可编辑矢量图。",
-  "Line art is not engineering geometry": "线稿不等于工程几何图",
-  "Generated contours may contain gaps or distortions and require manual vector cleanup for fabrication.": "生成轮廓可能存在断点或变形，用于制作前仍需人工矢量清理。",
-  "Specific terms guide, not guarantee": "专业词汇用于引导，而非保证",
-  "Craft and material vocabulary improves direction, but results still require comparison and targeted iteration.": "工艺和材质词汇可以改善生成方向，但结果仍需比较与定向迭代。"
 });
 
 Object.assign(zhTranslations, {
@@ -824,6 +785,14 @@ Object.assign(zhTranslations, {
   "04 / NEW ENVIRONMENT": "04 / 新环境",
   "Space campaign scene": "太空主题商业场景",
   "The product identity remains stable while the environment changes to a lunar observation station with controlled orbital lighting.": "产品身份保持稳定，同时把环境改变为采用受控轨道光线的月面观景站。",
+  "05 / HOME OFFICE": "05 / 家居办公",
+  "Modern home office": "现代家居办公",
+  "06 / RETAIL": "06 / 零售展示",
+  "Premium retail display": "精品零售展示",
+  "07 / TRAVEL": "07 / 旅行场景",
+  "Urban travel lifestyle": "城市旅行生活方式",
+  "08 / HUMAN USE": "08 / 真人使用",
+  "Real-world interaction": "真实使用场景",
   "IDENTITY": "产品身份",
   "The product remains recognizable": "产品保持可识别",
   "The off-white shell, black base, lens diameter, flash, violet viewfinder, colored controls, and stepped side housing stay consistent.": "米白机壳、黑色底座、镜头直径、闪光灯、紫色取景窗、彩色控制键和阶梯式侧壳保持一致。",
@@ -1432,12 +1401,12 @@ function initImageLightbox() {
   const page = document.querySelector(".visual-method-page");
   if (!page) return;
 
-  const sourceImages = [...page.querySelectorAll("main img[data-full-src]")];
+  const sourceImages = [...page.querySelectorAll("main img")];
   if (!sourceImages.length) return;
 
   const dialog = document.createElement("dialog");
   dialog.className = "image-lightbox";
-  dialog.setAttribute("aria-label", "4K image viewer");
+  dialog.setAttribute("aria-label", "Image viewer");
   dialog.innerHTML = `
     <div class="image-lightbox-toolbar">
       <button type="button" data-lightbox-action="minus" aria-label="Zoom out">−</button>
@@ -1470,7 +1439,7 @@ function initImageLightbox() {
 
   const openViewer = (sourceImage) => {
     scale = 1;
-    fullImage.src = sourceImage.dataset.fullSrc;
+    fullImage.src = sourceImage.dataset.fullSrc || sourceImage.currentSrc || sourceImage.src;
     fullImage.alt = sourceImage.alt;
     applyScale();
     viewport.scrollTo(0, 0);
@@ -1482,7 +1451,7 @@ function initImageLightbox() {
     sourceImage.classList.add("zoomable-image");
     sourceImage.tabIndex = 0;
     sourceImage.setAttribute("role", "button");
-    sourceImage.setAttribute("aria-label", `${sourceImage.alt}. Open 4K image viewer.`);
+    sourceImage.setAttribute("aria-label", `${sourceImage.alt}. Open image viewer.`);
     sourceImage.addEventListener("click", () => openViewer(sourceImage));
     sourceImage.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
