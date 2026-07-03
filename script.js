@@ -32,6 +32,12 @@ const zhTranslations = {
   "Skills": "技能",
   "Projects": "项目",
   "Contact": "联系",
+  "Local Growth Model": "本地增长打法",
+  "Partnership channels and 90-day targets": "合作渠道与 90 天目标",
+  "AI Operating System": "AI 使用系统",
+  "Practical tools, outputs, and controls": "实用工具、产出与风控",
+  "30 / 60 / 90 Roadmap": "30 / 60 / 90 天路线图",
+  "Execution phases, deliverables, and KPIs": "执行阶段、交付物与关键指标",
   "Like this portfolio": "为这个作品集点赞",
   "Package": "套餐",
   "Want to build a website like this?": "想获得同款网页制作方法？",
@@ -852,6 +858,7 @@ Object.assign(zhTranslations, {
 });
 
 const titleTranslations = {
+  "Growth Operating System | Yury Li": "增长执行系统 | Yury Li",
   "Yury Li / Yu Li | Marketing & Sales Specialist": "Yury Li / Yu Li | 市场营销与销售专员",
   "Customer Product Consultation | Yury Li": "客户产品咨询 | Yury Li",
   "Design & Visual Communication | Yury Li": "设计与视觉沟通 | Yury Li",

@@ -7942,6 +7942,205 @@ body::after {
   .roadmap-kpi { grid-column: auto; padding: 15px 0 0; border-top: 1px solid rgba(244, 246, 239, 0.1); border-left: 0; }
 }
 
+/* Growth OS: concise bilingual disclosure */
+.lang-zh {
+  display: none;
+}
+
+html[lang="zh-Hans"] .lang-en {
+  display: none;
+}
+
+html[lang="zh-Hans"] .lang-zh {
+  display: inline;
+}
+
+.growth-index a > span:first-child {
+  grid-row: 1 / 3;
+  color: var(--cyan);
+  font-size: 0.65rem;
+}
+
+.growth-index a > .lang-en,
+.growth-index a > .lang-zh {
+  grid-row: auto;
+  color: #eef2ea;
+  font-size: 0.88rem;
+}
+
+.growth-accordion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.growth-accordion {
+  min-width: 0;
+  border: 1px solid rgba(244, 246, 239, 0.1);
+  border-radius: 20px;
+  background: rgba(244, 246, 239, 0.03);
+  overflow: hidden;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.growth-accordion[open] {
+  border-color: rgba(200, 255, 98, 0.28);
+  background: rgba(200, 255, 98, 0.045);
+}
+
+.growth-accordion summary {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 12px;
+  gap: 14px;
+  align-items: center;
+  min-height: 82px;
+  padding: 16px 18px;
+  color: #eef2ea;
+  cursor: pointer;
+  list-style: none;
+  touch-action: manipulation;
+}
+
+.growth-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.growth-accordion summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid #8f9891;
+  border-bottom: 1px solid #8f9891;
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.growth-accordion[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.growth-accordion summary > span:nth-child(2) {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.growth-accordion summary strong {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.growth-accordion summary small {
+  color: #7f8881;
+  font-size: 0.69rem;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+.growth-accordion .use-icon {
+  width: 44px;
+  height: 44px;
+  font-size: 0.68rem;
+}
+
+.growth-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 18px 18px;
+}
+
+.growth-detail-grid p {
+  margin: 0;
+  padding: 13px;
+  border-radius: 13px;
+  background: rgba(0, 0, 0, 0.16);
+  color: #a5ada7;
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
+
+.growth-detail-grid b {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--cyan);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.roadmap-accordion-grid {
+  grid-template-columns: 1fr;
+}
+
+.roadmap-accordion-grid .growth-detail-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 780px) {
+  .growth-hero {
+    gap: 24px;
+  }
+
+  .growth-hero-visual {
+    min-height: 280px;
+  }
+
+  .growth-accordion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .growth-accordion summary {
+    grid-template-columns: 44px minmax(0, 1fr) 12px;
+    min-height: 76px;
+    padding: 14px;
+  }
+
+  .growth-detail-grid,
+  .roadmap-accordion-grid .growth-detail-grid {
+    grid-template-columns: 1fr;
+    padding: 0 14px 14px;
+  }
+
+  .growth-detail-grid p {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .growth-main {
+    width: min(100% - 20px, 680px);
+  }
+
+  .growth-hero-copy h1 {
+    font-size: clamp(3.2rem, 17vw, 4.5rem);
+  }
+
+  .growth-hero-visual {
+    min-height: 250px;
+  }
+
+  .growth-orbit-two {
+    width: 250px;
+    height: 250px;
+  }
+
+  .growth-orbit-one {
+    width: 190px;
+    height: 190px;
+  }
+
+  .growth-core {
+    width: 108px;
+    height: 108px;
+    font-size: 2.4rem;
+  }
+
+  .growth-core small {
+    bottom: 23px;
+  }
+}
+
 @media (max-width: 520px) {
   .visual-method-page .visual-story-image {
     padding: 5px;
