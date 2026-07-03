@@ -937,6 +937,28 @@ function createMobileMenu() {
   navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
 }
 
+function initNavDropdowns() {
+  const dropdowns = [...document.querySelectorAll(".nav-demo")];
+  if (!dropdowns.length) return;
+
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener("toggle", () => {
+      if (!dropdown.open) return;
+
+      dropdowns.forEach((otherDropdown) => {
+        if (otherDropdown !== dropdown) otherDropdown.removeAttribute("open");
+      });
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target instanceof Element && target.closest(".nav-demo")) return;
+
+    dropdowns.forEach((dropdown) => dropdown.removeAttribute("open"));
+  });
+}
+
 function initGrowthAccordions() {
   const systems = [...document.querySelectorAll(".growth-system")];
   const accordions = [...document.querySelectorAll(".growth-accordion")];
@@ -1725,6 +1747,7 @@ window.addEventListener("scroll", () => {
   requestScrollParallaxUpdate();
 }, { passive: true });
 createMobileMenu();
+initNavDropdowns();
 initGrowthAccordions();
 initLanguageSwitcher();
 initDecryptedText();
