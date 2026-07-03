@@ -7971,7 +7971,81 @@ html[lang="zh-Hans"] .lang-zh {
 .growth-accordion-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 10px;
+}
+
+.growth-system {
+  margin-bottom: 14px;
+  padding: 0;
+  border: 1px solid rgba(244, 246, 239, 0.1);
+  border-radius: 24px;
+  background: rgba(244, 246, 239, 0.025);
+  overflow: hidden;
+}
+
+.growth-system[open] {
+  border-color: rgba(200, 255, 98, 0.28);
+  background: rgba(200, 255, 98, 0.035);
+}
+
+.growth-system-summary {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) 14px;
+  gap: 18px;
+  align-items: center;
+  min-height: 150px;
+  padding: 28px 30px;
+  color: #eef2ea;
+  cursor: pointer;
+  list-style: none;
+  touch-action: manipulation;
+}
+
+.growth-system-summary::-webkit-details-marker {
+  display: none;
+}
+
+.growth-system-summary::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid #929b94;
+  border-bottom: 1px solid #929b94;
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.growth-system[open] > .growth-system-summary::after {
+  transform: rotate(225deg);
+}
+
+.growth-system-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.growth-system-copy .eyebrow {
+  margin: 0;
+}
+
+.growth-system-title {
+  color: #f4f6ef;
+  font-size: clamp(1.7rem, 3.5vw, 3rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.growth-system-description {
+  max-width: 700px;
+  color: #929b94;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.growth-system > .growth-accordion-grid {
+  padding: 0 20px 20px;
 }
 
 .growth-accordion {
@@ -8088,6 +8162,30 @@ html[lang="zh-Hans"] .lang-zh {
 
   .growth-accordion-grid {
     grid-template-columns: 1fr;
+  }
+
+  .growth-system {
+    margin-bottom: 10px;
+    border-radius: 19px;
+  }
+
+  .growth-system-summary {
+    grid-template-columns: 36px minmax(0, 1fr) 12px;
+    gap: 12px;
+    min-height: 118px;
+    padding: 20px 16px;
+  }
+
+  .growth-system-title {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .growth-system-description {
+    font-size: 0.76rem;
+  }
+
+  .growth-system > .growth-accordion-grid {
+    padding: 0 10px 10px;
   }
 
   .growth-accordion summary {

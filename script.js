@@ -937,6 +937,41 @@ function createMobileMenu() {
   navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
 }
 
+function initGrowthAccordions() {
+  const systems = [...document.querySelectorAll(".growth-system")];
+  const accordions = [...document.querySelectorAll(".growth-accordion")];
+
+  systems.forEach((system) => system.removeAttribute("open"));
+  accordions.forEach((accordion) => accordion.removeAttribute("open"));
+
+  systems.forEach((system) => {
+    system.addEventListener("toggle", () => {
+      if (system.open) {
+        systems.forEach((otherSystem) => {
+          if (otherSystem !== system) otherSystem.removeAttribute("open");
+        });
+      } else {
+        system.querySelectorAll(".growth-accordion[open]").forEach((accordion) => {
+          accordion.removeAttribute("open");
+        });
+      }
+    });
+  });
+
+  accordions.forEach((accordion) => {
+    accordion.addEventListener("toggle", () => {
+      if (!accordion.open) return;
+
+      const group = accordion.closest(".growth-accordion-grid");
+      if (!group) return;
+
+      group.querySelectorAll(".growth-accordion[open]").forEach((otherAccordion) => {
+        if (otherAccordion !== accordion) otherAccordion.removeAttribute("open");
+      });
+    });
+  });
+}
+
 function normalizeText(text) {
   return text.trim().replace(/\s+/g, " ");
 }
@@ -1690,6 +1725,7 @@ window.addEventListener("scroll", () => {
   requestScrollParallaxUpdate();
 }, { passive: true });
 createMobileMenu();
+initGrowthAccordions();
 initLanguageSwitcher();
 initDecryptedText();
 initExperienceCards();
