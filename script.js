@@ -951,12 +951,18 @@ function initNavDropdowns() {
     });
   });
 
-  document.addEventListener("click", (event) => {
+  document.addEventListener("pointerdown", (event) => {
     const target = event.target;
-    if (target instanceof Element && target.closest(".nav-demo")) return;
+    if (!(target instanceof Element)) return;
 
-    dropdowns.forEach((dropdown) => dropdown.removeAttribute("open"));
-  });
+    if (!target.closest(".nav-demo")) {
+      dropdowns.forEach((dropdown) => dropdown.removeAttribute("open"));
+    }
+
+    if (isMobileHeader() && !target.closest(".site-header")) {
+      closeMobileMenu();
+    }
+  }, { capture: true });
 }
 
 function initGrowthAccordions() {
